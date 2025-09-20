@@ -27,14 +27,18 @@ public class DT_TeleOpTest extends OpMode {
 
         // Motor power goes from -maxSpeed -> maxSpeed
         // Sets motor direction. Says which direction the motor will turn when given full power of maxSpeed
-        leftFront.setDirection(DcMotorSimple.Direction.REVERSE);
-        rightBack.setDirection(DcMotorSimple.Direction.REVERSE);
 
         // When no power (aka no joysticks moving (idle) ), robot should brake on stop
         leftFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         leftBack.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         rightFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         rightBack.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
+        rightBack.setDirection(DcMotorSimple.Direction.FORWARD);
+        leftFront.setDirection(DcMotorSimple.Direction.REVERSE);
+        rightFront.setDirection(DcMotorSimple.Direction.FORWARD);
+        leftBack.setDirection(DcMotorSimple.Direction.REVERSE);
+
     }
 
     /*
@@ -61,7 +65,7 @@ public class DT_TeleOpTest extends OpMode {
     private void Drive() {
         //Forward - If left joystick y is greater than 0,
         //Make robot go forward by setting positive power to all motors
-        if (gamepad1.left_stick_y > 0) {
+        if (gamepad1.left_stick_y < 0) {
             leftFront.setPower(maxSpeed);
             leftBack.setPower(maxSpeed);
             rightFront.setPower(maxSpeed);
@@ -70,7 +74,7 @@ public class DT_TeleOpTest extends OpMode {
 
         //Backward - If left joystick y is less than 0,
         //Make robot go backward by setting negative power to all motors
-        else if (gamepad1.left_stick_y < 0) {
+        else if (gamepad1.left_stick_y > 0) {
             leftFront.setPower(-maxSpeed);
             leftBack.setPower(-maxSpeed);
             rightFront.setPower(-maxSpeed);
@@ -83,8 +87,8 @@ public class DT_TeleOpTest extends OpMode {
         else if (gamepad1.left_stick_x < 0) {
             leftFront.setPower(-maxSpeed);
             leftBack.setPower(maxSpeed);
-            rightFront.setPower(-maxSpeed);
-            rightBack.setPower(maxSpeed);
+            rightFront.setPower(maxSpeed);
+            rightBack.setPower(-maxSpeed);
         }
 
         //Strafe right - If left joystick x is more than 0,
@@ -93,8 +97,8 @@ public class DT_TeleOpTest extends OpMode {
         else if (gamepad1.left_stick_x > 0) {
             leftFront.setPower(maxSpeed);
             leftBack.setPower(-maxSpeed);
-            rightFront.setPower(maxSpeed);
-            rightBack.setPower(-maxSpeed);
+            rightFront.setPower(-maxSpeed);
+            rightBack.setPower(maxSpeed);
         }
 
         //Turn Left - If right joystick x is less than 0,
