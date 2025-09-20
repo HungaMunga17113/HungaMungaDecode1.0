@@ -51,7 +51,7 @@ public class DT_TeleOpTest extends OpMode {
 
     private void Drive() {
         //Forward - If left joystick y is greater than 0,
-        // make robot go forward by setting positive power to all motors
+        //Make robot go forward by setting positive power to all motors
         if (gamepad1.left_stick_y > 0) {
             leftFront.setPower(1);
             leftBack.setPower(1);
@@ -59,6 +59,54 @@ public class DT_TeleOpTest extends OpMode {
             rightBack.setPower(1);
         }
 
+        //Backward - If left joystick y is less than 0,
+        //Make robot go backward by setting negative power to all motors
+        if (gamepad1.left_stick_y < 0) {
+            leftFront.setPower(-1);
+            leftBack.setPower(-1);
+            rightFront.setPower(-1);
+            rightBack.setPower(-1);
+        }
+
+        //Strafe left - If left joystick x is less than 0,
+        //Make robot go left by setting negative power to leftFront and rightBack motors
+        //And setting positive power to leftBack and rightFront
+        if (gamepad1.left_stick_x < 0) {
+            leftFront.setPower(-1);
+            leftBack.setPower(1);
+            rightFront.setPower(-1);
+            rightBack.setPower(1);
+        }
+
+        //Strafe right - If left joystick x is more than 0,
+        //Make robot go right by setting positive power to leftBack and rightFront motors
+        //And setting positive power to leftFront and rightBack
+        if (gamepad1.left_stick_x > 0) {
+            leftFront.setPower(1);
+            leftBack.setPower(-1);
+            rightFront.setPower(1);
+            rightBack.setPower(-1);
+        }
+
+        //Turn Right - If right joystick x is more than 0,
+        //Make robot go right by setting negative power to rightBack and rightFront motors
+        //And setting positive power to leftFront and leftBack
+        if (gamepad1.right_stick_x>0) {
+            leftFront.setPower(1);
+            leftBack.setPower(1);
+            rightFront.setPower(-1.0);
+            rightBack.setPower(-1);
+        }
+
+        //Turn Left - If right joystick x is less than 0,
+        //Make robot go left by setting positive power to rightBack and rightFront motors
+        //And setting negative power to leftFront and leftBack
+        if (gamepad1.right_stick_x< 0) {
+            leftFront.setPower(-1.00);
+            leftBack.setPower(-1);
+            rightFront.setPower(1.000);
+            rightBack.setPower(1.0);
+        }
     }
 
 }
