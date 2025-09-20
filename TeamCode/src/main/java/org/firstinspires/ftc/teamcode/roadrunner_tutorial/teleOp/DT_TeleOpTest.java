@@ -16,19 +16,25 @@ public class DT_TeleOpTest extends OpMode {
 
     /*
     (Button) Initialize Period, before you press start on your program.
-    set hardware map names (aka what the controller understands)
      */
     public void init() {
-        leftFront  = hardwareMap.get(DcMotor.class, "leftFront");
-        leftBack   = hardwareMap.get(DcMotor.class, "leftBack");
+
+        //set hardware map names (aka what the controller understands)
+        leftFront = hardwareMap.get(DcMotor.class, "leftFront");
+        leftBack = hardwareMap.get(DcMotor.class, "leftBack");
         rightFront = hardwareMap.get(DcMotor.class, "rightFront");
-        rightBack  = hardwareMap.get(DcMotor.class, "rightBack");
+        rightBack = hardwareMap.get(DcMotor.class, "rightBack");
 
         // Motor power goes from -maxSpeed -> maxSpeed
         // Sets motor direction. Says which direction the motor will turn when given full power of maxSpeed
         leftFront.setDirection(DcMotorSimple.Direction.REVERSE);
         rightBack.setDirection(DcMotorSimple.Direction.REVERSE);
 
+        // When no power (aka no joysticks moving (idle) ), robot should brake on stop
+        leftFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        leftBack.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        rightFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        rightBack.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
     }
 
     /*
