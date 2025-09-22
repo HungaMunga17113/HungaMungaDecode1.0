@@ -14,7 +14,6 @@ public class DrivetrainHardware {
     DcMotorEx leftBack = hardwareMap.get(DcMotorEx.class, "leftBack");
     DcMotorEx rightBack = hardwareMap.get(DcMotorEx.class, "rightBack");
 
-    DcMotorEx intake = hardwareMap.get(DcMotorEx.class, "intake");
 
 
     //Resets all encoder values to 0
