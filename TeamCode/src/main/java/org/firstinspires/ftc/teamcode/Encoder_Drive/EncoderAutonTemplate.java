@@ -1,5 +1,3 @@
-
-
 package org.firstinspires.ftc.teamcode.Encoder_Drive;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -7,7 +5,7 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 
 public class EncoderAutonTemplate extends LinearOpMode {
     //Declare Motors
-    //private double tick = 45.2763689698;
+    //private double TicksPerInches = 45.2763689698;
     private DcMotorEx leftFront;
     private DcMotorEx rightFront;
     private DcMotorEx leftBack;
@@ -55,11 +53,15 @@ public class EncoderAutonTemplate extends LinearOpMode {
         rightBack.setDirection(DcMotorEx.Direction.REVERSE);
 
         //--------------------- RUN ---------------------\\
-        //waits for the Driver Hub to receive "start" input
 
+        //waits for the Driver Hub to receive "start" input
         waitForStart();
 
         //TODO: Pathing, use the functions below to move the robot
+        //**NOTE - NEVER set power to 1.0 at the start, start at 0.5 and work your way up.
+        // 1.0 loses lots of consistency, and the robot movements would be choppy
+
+
 
     }
 
