@@ -1,15 +1,22 @@
 package org.firstinspires.ftc.teamcode.Encoder_Drive;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 public class EncoderAutonTemplate extends LinearOpMode {
+    //How to calculate ticks per inch
+    //Ticks multiplied by inches in same distance
+    private double ticksPerIn = 45;
+
     //Declare Motors
-    //private double TicksPerInches = 45.2763689698;
     private DcMotorEx leftFront;
     private DcMotorEx rightFront;
     private DcMotorEx leftBack;
     private DcMotorEx rightBack;
+
+    private DcMotorEx intake;
 
     @Override
     public void runOpMode() {
@@ -20,6 +27,9 @@ public class EncoderAutonTemplate extends LinearOpMode {
         rightFront = hardwareMap.get(DcMotorEx.class, "rightFront");
         leftBack = hardwareMap.get(DcMotorEx.class, "leftBack");
         rightBack = hardwareMap.get(DcMotorEx.class, "rightBack");
+
+        intake = hardwareMap.get(DcMotorEx.class, "intake");
+
 
         //Resets all encoder values to 0
         leftFront.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
@@ -45,18 +55,18 @@ public class EncoderAutonTemplate extends LinearOpMode {
         leftBack.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
         rightBack.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
 
-
         //TODO: Set motor directions here, when a positive power is applied, it should go forward
         leftFront.setDirection(DcMotorEx.Direction.FORWARD);
         rightFront.setDirection(DcMotorEx.Direction.REVERSE);
         leftBack.setDirection(DcMotorEx.Direction.FORWARD);
         rightBack.setDirection(DcMotorEx.Direction.REVERSE);
 
+        intake.setDirection(DcMotorSimple.Direction.FORWARD);
+
         //--------------------- RUN ---------------------\\
 
         //waits for the Driver Hub to receive "start" input
         waitForStart();
-
         //TODO: Pathing, use the functions below to move the robot
         //**NOTE - NEVER set power to 1.0 at the start, start at 0.5 and work your way up.
         // 1.0 loses lots of consistency, and the robot movements would be choppy
@@ -68,6 +78,23 @@ public class EncoderAutonTemplate extends LinearOpMode {
     //Positive value will go forward, Negative value will go backward
     public void vertical(int ticks, double speed, long seconds) {
         reset();
+
+        leftFront.setTargetPosition(ticks);
+        leftBack.setTargetPosition(ticks);
+        rightFront.setTargetPosition(ticks);
+        rightBack.setTargetPosition(ticks);
+
+        leftFront.setVelocity(speed);
+        leftBack.setVelocity(speed);
+        rightFront.setVelocity(speed);
+        rightBack.setVelocity(speed);
+
+        sleep(seconds * 1000);
+    }
+
+    public void verticalInInches(double inches, double speed, long seconds) {
+        reset();
+        int ticks = toTicks(inches);
 
         leftFront.setTargetPosition(ticks);
         leftBack.setTargetPosition(ticks);
@@ -99,6 +126,22 @@ public class EncoderAutonTemplate extends LinearOpMode {
         sleep(seconds * 1000);
     }
 
+    public void strafeInInches(double inches, double speed, long seconds) {
+        reset();
+        int ticks = toTicks(inches);
+
+        leftFront.setTargetPosition(ticks);
+        leftBack.setTargetPosition(-ticks);
+        rightFront.setTargetPosition(-ticks);
+        rightBack.setTargetPosition(ticks);
+
+        leftFront.setVelocity(speed);
+        leftBack.setVelocity(speed);
+        rightFront.setVelocity(speed);
+        rightBack.setVelocity(speed);
+
+        sleep(seconds * 1000);
+    }
     //Positive value will turn right, Negative value will turn left
     public void turn(int ticks, double speed, long seconds) {
         reset();
@@ -116,6 +159,35 @@ public class EncoderAutonTemplate extends LinearOpMode {
         sleep(seconds * 1000);
     }
 
+    public void turnInInches(double inches, double speed, long seconds) {
+        reset();
+        int ticks = toTicks(inches);
+
+        leftFront.setTargetPosition(-ticks);
+        leftBack.setTargetPosition(-ticks);
+        rightFront.setTargetPosition(ticks);
+        rightBack.setTargetPosition(ticks);
+
+        leftFront.setVelocity(speed);
+        leftBack.setVelocity(speed);
+        rightFront.setVelocity(speed);
+        rightBack.setVelocity(speed);
+
+        sleep(seconds * 1000);
+    }
+    public void intake(double speed, long time) {
+        intake.setVelocity(speed);
+        sleep(time);
+        intake.setVelocity(0);
+    }
+
+    //Converts ticks into inches
+    //Input: inches
+    //Output/return: ticks
+    public int toTicks(double inches) {
+        double ticks = inches * 45;
+        return (int) ticks;
+    }
     public void reset() {
         //Resets all encoder values to 0
         leftFront.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
