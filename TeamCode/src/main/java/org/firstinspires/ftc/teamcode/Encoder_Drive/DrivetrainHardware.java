@@ -4,20 +4,24 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.hardware.HardwareMap;
 
 @Disabled
-public class DrivetrainHardware extends LinearOpMode {
-    //---------------- INITIALIZATION ----------------\\
-    //Drive Motor Config
-    //Declare Motors
-    DcMotorEx leftFront = hardwareMap.get(DcMotorEx.class, "leftFront");
-    DcMotorEx rightFront = hardwareMap.get(DcMotorEx.class, "rightFront");
-    DcMotorEx leftBack = hardwareMap.get(DcMotorEx.class, "leftBack");
-    DcMotorEx rightBack = hardwareMap.get(DcMotorEx.class, "rightBack");
+public class DrivetrainHardware {
+
+    DcMotorEx leftFront;
+    DcMotorEx rightFront;
+    DcMotorEx leftBack;
+    DcMotorEx rightBack;
+    DrivetrainHardware drivetrainHardware;
 
 
-    @Override
-    public void runOpMode() throws InterruptedException {
+    public DrivetrainHardware(HardwareMap hardwareMap) {
+        leftFront = hardwareMap.get(DcMotorEx.class, "leftFront");
+        rightFront = hardwareMap.get(DcMotorEx.class, "rightFront");
+        leftBack = hardwareMap.get(DcMotorEx.class, "leftBack");
+        rightBack = hardwareMap.get(DcMotorEx.class, "rightBack");
+
         //Resets all encoder values to 0
         leftFront.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
         rightFront.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
@@ -48,6 +52,9 @@ public class DrivetrainHardware extends LinearOpMode {
         leftBack.setDirection(DcMotorEx.Direction.FORWARD);
         rightBack.setDirection(DcMotorEx.Direction.REVERSE);
 
-        intake.setDirection(DcMotorSimple.Direction.FORWARD);
     }
+    public DrivetrainHardware getDrivetrainHardware() {
+        return drivetrainHardware;
+    }
+
 }

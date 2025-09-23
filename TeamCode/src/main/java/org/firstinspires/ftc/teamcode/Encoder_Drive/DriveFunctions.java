@@ -13,7 +13,7 @@ public class DriveFunctions extends LinearOpMode {
     private DcMotorEx leftBack;
     private DcMotorEx rightBack;
 
-    private DcMotorEx intake;
+    //DrivetrainHardware drivetrainHardware = new DrivetrainHardware(hardwareMap);
 
     //Positive value will go forward, Negative value will go backward
     public void vertical(int ticks, double speed, long seconds) {
@@ -115,11 +115,6 @@ public class DriveFunctions extends LinearOpMode {
 
         sleep(seconds * 1000);
     }
-    public void intake(double speed, long time) {
-        intake.setVelocity(speed);
-        sleep(time);
-        intake.setVelocity(0);
-    }
 
     //Converts ticks into inches
     //Input: inches
@@ -128,6 +123,7 @@ public class DriveFunctions extends LinearOpMode {
         double ticks = inches * 45;
         return (int) ticks;
     }
+
     public void reset() {
         //Resets all encoder values to 0
         leftFront.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
@@ -148,9 +144,9 @@ public class DriveFunctions extends LinearOpMode {
         rightBack.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
     }
 
+
     @Override
     public void runOpMode() throws InterruptedException {
 
     }
-
 }
