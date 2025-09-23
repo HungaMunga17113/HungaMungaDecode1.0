@@ -1,18 +1,16 @@
 package org.firstinspires.ftc.teamcode.Encoder_Drive;
 
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 @Disabled
 public class DrivetrainHardware {
 
-    DcMotorEx leftFront;
-    DcMotorEx rightFront;
-    DcMotorEx leftBack;
-    DcMotorEx rightBack;
+    public DcMotorEx leftFront;
+    public DcMotorEx rightFront;
+    public DcMotorEx leftBack;
+    public DcMotorEx rightBack;
     DrivetrainHardware drivetrainHardware;
 
 
@@ -52,9 +50,6 @@ public class DrivetrainHardware {
         leftBack.setDirection(DcMotorEx.Direction.FORWARD);
         rightBack.setDirection(DcMotorEx.Direction.REVERSE);
 
-    }
-    public DrivetrainHardware getDrivetrainHardware() {
-        return drivetrainHardware;
     }
 
 }
