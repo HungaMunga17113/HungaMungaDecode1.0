@@ -69,7 +69,7 @@ public class Motor_Template {
             if (pos < 395 || pos > 405) {
                 return true;
             } else {
-                motor.setPower(0.01); //negative gravity
+                motor.setPower(0.01); //negative gravity(opposes motion)
                 return false;
             }
         }
@@ -96,7 +96,7 @@ public class Motor_Template {
             if (pos < 2000) {
                 return true;
             } else {
-                motor.setPower(0.01); //negative gravity
+                motor.setPower(0.01); //negative gravity(opposes motion)
                 return false;
             }
         }
