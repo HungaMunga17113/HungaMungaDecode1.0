@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.roadrunner_tutorial;
+package org.firstinspires.ftc.teamcode.hunga_munga_26.new_code_here;
 
 import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.roadrunner.Action;
@@ -10,16 +10,20 @@ import com.acmerobotics.roadrunner.ftc.Actions;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
-import org.firstinspires.ftc.teamcode.MecanumDrive;
-import org.firstinspires.ftc.teamcode.roadrunner_tutorial.base_subsystem_templates.*;
+import org.firstinspires.ftc.teamcode.Roadrunner.MecanumDrive;
+import org.firstinspires.ftc.teamcode.Roadrunner.roadrunner_tutorial.base_subsystem_templates.Motor_Template;
+import org.firstinspires.ftc.teamcode.Roadrunner.roadrunner_tutorial.base_subsystem_templates.RunIntake_Template;
+import org.firstinspires.ftc.teamcode.Roadrunner.roadrunner_tutorial.base_subsystem_templates.Servo_Template;
 
 @Config
 @Autonomous(name = "Your Own Autonomous!")
 public class Auton1 extends LinearOpMode {
+
+
     @Override
     public void runOpMode() {
         //Pose that the robot starts at
-        Pose2d initialPose = new Pose2d(20, -60, Math.toRadians(90));
+        Pose2d initialPose = new Pose2d(-63, 39, Math.toRadians(90));
         MecanumDrive drive = new MecanumDrive(hardwareMap, initialPose);
 
         Motor_Template motor = new Motor_Template(hardwareMap);
@@ -27,28 +31,15 @@ public class Auton1 extends LinearOpMode {
         RunIntake_Template intake = new RunIntake_Template(hardwareMap);
 
 
-        //convert this into a loop for autonomous mode
-//                .waitSeconds(1)
-//                .strafeToLinearHeading(new Vector2d(45,-60),Math.toRadians(90))
-//                .strafeToConstantHeading(new Vector2d(45,0))
-//                //intake1 over
-//                .strafeToLinearHeading(new Vector2d(-20,20),Math.toRadians(125))
-//                .waitSeconds(5)
-//                //shooting pos1
-//                .strafeToConstantHeading(new Vector2d(45,-60))
-//                //loading
-//                .waitSeconds(4)
-//                .strafeToLinearHeading(new Vector2d(10,-60),Math.toRadians(120))
-//                //shooting pos2
-//                .waitSeconds(5)
+
         //-----------------------Paths-----------------------\\
         Action path1 = drive.actionBuilder(initialPose)
-                .strafeToConstantHeading(new Vector2d(45,-60))
+                .strafeToLinearHeading(new Vector2d(-58,57),Math.toRadians(315))
                 .build();
 
-        //Calling path2 ASSUMES the robot is at (45,-60) BEFORE the path is run as shown below
-        Action path2 = drive.actionBuilder(new Pose2d(45, -60, Math.toRadians(90)))
-                .strafeToConstantHeading(new Vector2d(45,0))
+        //Calling path2 ASSUMES the robot is at (-58,57) BEFORE the path is run as shown below
+        Action path2 = drive.actionBuilder(new Pose2d(-58, 57, Math.toRadians(315)))
+                .strafeToLinearHeading(new Vector2d(-35,49),Math.toRadians(0))
                 .build();
 
         //Wait - this is super chopped ask someone for help
@@ -93,7 +84,7 @@ public class Auton1 extends LinearOpMode {
                                         servo.toPos2()
                                 ),
                                 intake.in(),
-                                wait1sec,
+                                wait1sec, //this function is rlly chopped ask someone for help
                                 intake.idle()
 
                         )
