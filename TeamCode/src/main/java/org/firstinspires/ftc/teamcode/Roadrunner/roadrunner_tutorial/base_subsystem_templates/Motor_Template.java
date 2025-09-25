@@ -55,7 +55,7 @@ public class Motor_Template {
     // Goal is to move the robot to a target between 395 and 405 ticks
     public class Position2 implements Action {
         private boolean initialized = false;
-     // Power of 0.8, and keeps running until ticks is inside range of 395-405 and returns false
+        // Power of 0.8, and keeps running until ticks is inside range of 395-405 and returns false
         // False signals to stop, true signals that the program is still running
         @Override
         public boolean run(@NonNull TelemetryPacket packet) {
@@ -82,8 +82,8 @@ public class Motor_Template {
     // The goal is to move the motor until the encoder position is at least 2000
     public class Position3 implements Action {
         private boolean initialized = false;
-    // It sets the power to 0.8, which means the robot is moving forward.
-    // It keeps running until the 2000 mark is reached and will ultimately stop running
+        // It sets the power to 0.8, which means the robot is moving forward.
+        // It keeps running until the 2000 mark is reached and will ultimately stop running
         @Override
         public boolean run(@NonNull TelemetryPacket packet) {
             if (!initialized) {
