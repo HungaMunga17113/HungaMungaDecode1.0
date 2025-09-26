@@ -10,7 +10,7 @@ public class DT_TeleOpTest extends OpMode {
 
     // Initializing/making motor names
     DcMotor leftFront, leftBack, rightFront, rightBack;
-
+    DcMotor leftShooter, rightShooter;
     //Initialize Variables
     double maxSpeed = 1.0;
 
@@ -25,8 +25,14 @@ public class DT_TeleOpTest extends OpMode {
         rightFront = hardwareMap.get(DcMotor.class, "rightFront");
         rightBack = hardwareMap.get(DcMotor.class, "rightBack");
 
-        // Motor power goes from -maxSpeed -> maxSpeed
+        leftShooter = hardwareMap.get(DcMotor.class, "leftshooter");
+        rightShooter = hardwareMap.get(DcMotor.class, "rightshooter");
+
+        // Motor power goes from -maxSpeed -> maxSpee
         // Sets motor direction. Says which direction the motor will turn when given full power of maxSpeed
+
+        leftShooter.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        rightShooter.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         // When no power (aka no joysticks moving (idle) ), robot should brake on stop
         leftFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -38,6 +44,8 @@ public class DT_TeleOpTest extends OpMode {
         leftFront.setDirection(DcMotorSimple.Direction.REVERSE);
         rightFront.setDirection(DcMotorSimple.Direction.FORWARD);
         leftBack.setDirection(DcMotorSimple.Direction.REVERSE);
+
+
 
     }
 
@@ -127,6 +135,17 @@ public class DT_TeleOpTest extends OpMode {
             leftBack.setPower(0);
             rightFront.setPower(0);
             rightBack.setPower(0);
+        }
+
+        if (gamepad1.right_trigger > 0) {
+            rightShooter.setPower(-1.0);
+            leftShooter.setPower(1.0);
+        } else if (gamepad1.left_trigger > 0) {
+            rightShooter.setPower(-1.0);
+            leftShooter.setPower(1.0);
+        } else {
+            rightShooter.setPower(0);
+            leftShooter.setPower(0);
         }
 
 
