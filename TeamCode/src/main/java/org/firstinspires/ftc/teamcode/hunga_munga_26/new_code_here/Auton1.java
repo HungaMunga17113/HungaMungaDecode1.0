@@ -17,7 +17,7 @@ import org.firstinspires.ftc.teamcode.Roadrunner.roadrunner_tutorial.base_subsys
 
 @Config
 @Autonomous(name = "Your Own Autonomous!")
-public class Auton1 extends LinearOpMode {
+public class extends LinearOpMode {
       //This Is me!!!!!!!!!!!1
 
     @Override

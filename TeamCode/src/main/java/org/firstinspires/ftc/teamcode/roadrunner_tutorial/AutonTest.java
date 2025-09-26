@@ -13,7 +13,7 @@ import org.firstinspires.ftc.teamcode.Roadrunner.roadrunner_tutorial.base_subsys
 import org.firstinspires.ftc.teamcode.Roadrunner.roadrunner_tutorial.base_subsystem_templates.RunIntake_Template;
 import org.firstinspires.ftc.teamcode.Roadrunner.roadrunner_tutorial.base_subsystem_templates.Servo_Template;
 
-public class AutonTest extends LinearOpMode {
+public class extends LinearOpMode {
     @Override
     public void runOpMode() {
         //Pose that the robot starts at

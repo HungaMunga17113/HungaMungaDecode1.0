@@ -30,11 +30,11 @@
 package org.firstinspires.ftc.teamcode.Roadrunner.roadrunner_tutorial.base_subsystem_templates;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
+
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
-import com.qualcomm.robotcore.util.ElapsedTime;
+
 
 @Autonomous(name="Outtake", group="Robot")
 public class RunOuttake extends LinearOpMode {

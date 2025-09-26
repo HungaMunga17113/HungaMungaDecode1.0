@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 @TeleOp
-public class DT_TeleOpTest extends OpMode {
+public class extends OpMode {
 
     // Initializing/making motor names
     DcMotor leftFront, leftBack, rightFront, rightBack;
