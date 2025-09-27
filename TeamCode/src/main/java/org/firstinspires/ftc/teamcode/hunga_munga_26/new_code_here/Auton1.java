@@ -1,97 +1,221 @@
 package org.firstinspires.ftc.teamcode.hunga_munga_26.new_code_here;
 
-import com.acmerobotics.dashboard.config.Config;
-import com.acmerobotics.roadrunner.Action;
-import com.acmerobotics.roadrunner.ParallelAction;
-import com.acmerobotics.roadrunner.Pose2d;
-import com.acmerobotics.roadrunner.SequentialAction;
-import com.acmerobotics.roadrunner.Vector2d;
-import com.acmerobotics.roadrunner.ftc.Actions;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.DcMotorEx;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
+//HUNGA
+@Autonomous
+public class Auton1 extends LinearOpMode {
+    //How to calculate ticks per inch
+    //Ticks multiplied by inches in same distance
+    //private final double ticksPerIn = 45;
 
-import org.firstinspires.ftc.teamcode.Roadrunner.MecanumDrive;
-import org.firstinspires.ftc.teamcode.Roadrunner.roadrunner_tutorial.base_subsystem_templates.Motor_Template;
-import org.firstinspires.ftc.teamcode.Roadrunner.roadrunner_tutorial.base_subsystem_templates.RunIntake_Template;
-import org.firstinspires.ftc.teamcode.Roadrunner.roadrunner_tutorial.base_subsystem_templates.Servo_Template;
-
-@Config
-@Autonomous(name = "Your Own Autonomous!")
-public class extends LinearOpMode {
-      //This Is me!!!!!!!!!!!1
+    DcMotorEx intake;
+    DcMotorEx outake;
+    public DcMotorEx leftFront;
+    public DcMotorEx rightFront;
+    public DcMotorEx leftBack;
+    public DcMotorEx rightBack;
 
     @Override
     public void runOpMode() {
-        //Pose that the robot starts at
-        Pose2d initialPose = new Pose2d(-63, 39, Math.toRadians(90));
-        MecanumDrive drive = new MecanumDrive(hardwareMap, initialPose);
+        leftFront = hardwareMap.get(DcMotorEx.class, "leftFront");
+        rightFront = hardwareMap.get(DcMotorEx.class, "rightFront");
+        leftBack = hardwareMap.get(DcMotorEx.class, "leftBack");
+        rightBack = hardwareMap.get(DcMotorEx.class, "rightBack");
 
-        Motor_Template motor = new Motor_Template(hardwareMap);
-        Servo_Template servo = new Servo_Template(hardwareMap);
-        RunIntake_Template intake = new RunIntake_Template(hardwareMap);
+        //Resets all encoder values to 0
+        leftFront.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
+        rightFront.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
+        leftBack.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
+        rightBack.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
 
+        //Sets motor target positions to 0
+        leftFront.setTargetPosition(0);
+        rightFront.setTargetPosition(0);
+        leftBack.setTargetPosition(0);
+        rightBack.setTargetPosition(0);
 
+        //Set RunMode to Run to Position
+        leftFront.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
+        rightFront.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
+        leftBack.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
+        rightBack.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
 
-        //-----------------------Paths-----------------------\\
-        Action path1 = drive.actionBuilder(initialPose)
-                .strafeToLinearHeading(new Vector2d(-58,57),Math.toRadians(315))
-                .build();
+        //When power of 0 is applied, it will brake, rather than glide with inertia
+        leftFront.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
+        rightFront.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
+        leftBack.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
+        rightBack.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
 
-        //Calling path2 ASSUMES the robot is at (-58,57) BEFORE the path is run as shown below
-        Action path2 = drive.actionBuilder(new Pose2d(-58, 57, Math.toRadians(315)))
-                .strafeToLinearHeading(new Vector2d(-35,49),Math.toRadians(0))
-                .build();
+        //TODO: Set motor directions here, when a positive power is applied, it should go forward
+        leftFront.setDirection(DcMotorEx.Direction.FORWARD);
+        rightFront.setDirection(DcMotorEx.Direction.REVERSE);
+        leftBack.setDirection(DcMotorEx.Direction.FORWARD);
+        rightBack.setDirection(DcMotorEx.Direction.REVERSE);
 
-        //Wait - this is super chopped ask someone for help
-        Action wait1sec = drive.actionBuilder(new Pose2d(0, 0, Math.toRadians(0)))
-                .waitSeconds(1)
-                .build();
+        //--------------------- INITIALIZE ---------------------\\
+        intake = hardwareMap.get(DcMotorEx.class, "intake");
+        intake.setDirection(DcMotorSimple.Direction.FORWARD);
 
+        outake = hardwareMap.get(DcMotorEx.class, "outake");
+        outake.setDirection(DcMotorSimple.Direction.FORWARD);
 
-        // Initialize (What happens before when you press start)
-        Actions.runBlocking(
-                new SequentialAction(
-                        servo.toPos1(),
-                        motor.toPos2()
-                )
-        );
-
+        //------------------------- RUN ------------------------\\
+        //waits for the Driver Hub to receive "start" input
         waitForStart();
+        //TODO: Pathing, use the functions below to move the robot
+        //**NOTE - NEVER set power to 1.0 at the start, start at 0.5 and work your way up.
+        // 1.0 loses lots of consistency, and the robot movements would be choppy
 
-        if (isStopRequested()) return;
-
-        //Run (What happens when you press start)
-        Actions.runBlocking(
-                new SequentialAction(
-
-                        //----------First Path!----------\\
-
-                        //Runs path 1 *WHILE* motor moves to position 3
-                        new ParallelAction(
-                                path1,
-                                motor.toPos3()
-                        ),
-
-
-                        //----------Second Path!----------\\
-
-                        //Runs path 2 *AFTER*
-                        //(motor moves to position 2 *WHILE* servo moves to position 2)
-                        new SequentialAction(
-                                path2,
-                                new ParallelAction(
-                                        motor.toPos2(),
-                                        servo.toPos2()
-                                ),
-                                intake.in(),
-                                wait1sec, //this function is rlly chopped ask someone for help
-                                intake.idle()
-
-                        )
-
-                )
-        );
+        vertical(500,0.5,5);
 
 
     }
+
+    public void intake(double speed, long time) {
+        intake.setVelocity(speed);
+        sleep(time);
+        intake.setVelocity(0);
+    }
+
+    public void outake(double speed, long time) {
+        outake.setVelocity(speed);
+        sleep(time);
+        outake.setVelocity(0);
+    }
+
+    // This function is in Ticks, which is more accurate than Inches
+    public void vertical(int ticks, double speed, long seconds) {
+        reset();
+
+        leftFront.setTargetPosition(ticks);
+        leftBack.setTargetPosition(ticks);
+        rightFront.setTargetPosition(ticks);
+        rightBack.setTargetPosition(ticks);
+
+        leftFront.setVelocity(speed);
+        leftBack.setVelocity(speed);
+        rightFront.setVelocity(speed);
+        rightBack.setVelocity(speed);
+
+        sleep(seconds * 1000);
+    }
+
+    // Inches is not as accurate as Ticks
+    public void verticalInInches(double inches, double speed, long seconds) {
+        reset();
+        int ticks = toTicks(inches);
+
+        leftFront.setTargetPosition(ticks);
+        leftBack.setTargetPosition(ticks);
+        rightFront.setTargetPosition(ticks);
+        rightBack.setTargetPosition(ticks);
+
+        leftFront.setVelocity(speed);
+        leftBack.setVelocity(speed);
+        rightFront.setVelocity(speed);
+        rightBack.setVelocity(speed);
+
+        sleep(seconds * 1000);
+    }
+
+    //Positive value will strafe right, Negative value will strafe left
+    // This function is in Ticks, which is more accurate than Inches
+    public void strafe(int ticks, double speed, long seconds) {
+        reset();
+
+        leftFront.setTargetPosition(ticks);
+        leftBack.setTargetPosition(-ticks);
+        rightFront.setTargetPosition(-ticks);
+        rightBack.setTargetPosition(ticks);
+
+        leftFront.setVelocity(speed);
+        leftBack.setVelocity(speed);
+        rightFront.setVelocity(speed);
+        rightBack.setVelocity(speed);
+
+        sleep(seconds * 1000);
+    }
+
+    // Inches is not as accurate as Ticks
+    public void strafeInInches(double inches, double speed, long seconds) {
+        reset();
+        int ticks = toTicks(inches);
+
+        leftFront.setTargetPosition(ticks);
+        leftBack.setTargetPosition(-ticks);
+        rightFront.setTargetPosition(-ticks);
+        rightBack.setTargetPosition(ticks);
+
+        leftFront.setVelocity(speed);
+        leftBack.setVelocity(speed);
+        rightFront.setVelocity(speed);
+        rightBack.setVelocity(speed);
+
+        sleep(seconds * 1000);
+    }
+    //Positive value will turn right, Negative value will turn left
+    public void turn(int ticks, double speed, long seconds) {
+        reset();
+
+        leftFront.setTargetPosition(-ticks);
+        leftBack.setTargetPosition(-ticks);
+        rightFront.setTargetPosition(ticks);
+        rightBack.setTargetPosition(ticks);
+
+        leftFront.setVelocity(speed);
+        leftBack.setVelocity(speed);
+        rightFront.setVelocity(speed);
+        rightBack.setVelocity(speed);
+
+        sleep(seconds * 1000);
+    }
+
+    public void turnInInches(double inches, double speed, long seconds) {
+        reset();
+        int ticks = toTicks(inches);
+
+        leftFront.setTargetPosition(-ticks);
+        leftBack.setTargetPosition(-ticks);
+        rightFront.setTargetPosition(ticks);
+        rightBack.setTargetPosition(ticks);
+
+        leftFront.setVelocity(speed);
+        leftBack.setVelocity(speed);
+        rightFront.setVelocity(speed);
+        rightBack.setVelocity(speed);
+
+        sleep(seconds * 1000);
+    }
+
+    //Converts ticks into inches
+    //Input: inches
+    //Output/return: ticks
+    public int toTicks(double inches) {
+        double ticks = inches * 45;
+        return (int) ticks;
+    }
+
+    public void reset() {
+        //Resets all encoder values to 0
+        leftFront.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
+        rightFront.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
+        leftBack.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
+        rightBack.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
+
+        //Sets target position to 0
+        leftFront.setTargetPosition(0);
+        rightFront.setTargetPosition(0);
+        leftBack.setTargetPosition(0);
+        rightBack.setTargetPosition(0);
+
+        //Sets motor mode to Run to Position to make sure no motor has a target position set (0)
+        leftFront.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
+        rightFront.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
+        leftBack.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
+        rightBack.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
+    }
+
 }
