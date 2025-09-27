@@ -1,13 +1,11 @@
-package org.firstinspires.ftc.teamcode.hunga_munga_26.new_code_here;
+package org.firstinspires.ftc.teamcode.roadrunner_tutorial;
 
-import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.roadrunner.Action;
 import com.acmerobotics.roadrunner.ParallelAction;
 import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.SequentialAction;
 import com.acmerobotics.roadrunner.Vector2d;
 import com.acmerobotics.roadrunner.ftc.Actions;
-import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.Roadrunner.MecanumDrive;
@@ -15,11 +13,7 @@ import org.firstinspires.ftc.teamcode.Roadrunner.roadrunner_tutorial.base_subsys
 import org.firstinspires.ftc.teamcode.Roadrunner.roadrunner_tutorial.base_subsystem_templates.RunIntake_Template;
 import org.firstinspires.ftc.teamcode.Roadrunner.roadrunner_tutorial.base_subsystem_templates.Servo_Template;
 
-@Config
-@Autonomous(name = "Your Own Autonomous!")
 public class extends LinearOpMode {
-      //This Is me!!!!!!!!!!!1
-
     @Override
     public void runOpMode() {
         //Pose that the robot starts at
