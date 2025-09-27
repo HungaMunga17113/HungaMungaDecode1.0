@@ -16,8 +16,8 @@ import org.firstinspires.ftc.teamcode.Roadrunner.roadrunner_tutorial.base_subsys
 import org.firstinspires.ftc.teamcode.Roadrunner.roadrunner_tutorial.base_subsystem_templates.Servo_Template;
 
 @Config
-@Autonomous(name = "Your Own Autonomous!")
-public class extends LinearOpMode {
+@Autonomous
+public class AutonTest extends LinearOpMode {
       //This Is me!!!!!!!!!!!1
 
     @Override
