@@ -40,8 +40,8 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 public class RunOuttake extends LinearOpMode {
 
     /* Declare OpMode members. */
-    private DcMotor leftshooter;
-    private DcMotor rightshooter;
+    public DcMotor leftshooter;
+    public DcMotor rightshooter;
 
 
 
