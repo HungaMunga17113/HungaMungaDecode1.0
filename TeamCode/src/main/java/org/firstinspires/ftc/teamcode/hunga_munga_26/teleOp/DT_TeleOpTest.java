@@ -5,8 +5,8 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
-@TeleOp
-public class extends OpMode {
+@TeleOp(name= "DT_TeleOpTest")
+public class DT_TeleOpTest extends OpMode {
 
     // Initializing/making motor names
     DcMotor leftFront, leftBack, rightFront, rightBack;
@@ -25,10 +25,10 @@ public class extends OpMode {
         rightFront = hardwareMap.get(DcMotor.class, "rightFront");
         rightBack = hardwareMap.get(DcMotor.class, "rightBack");
 
-        leftShooter = hardwareMap.get(DcMotor.class, "leftshooter");
-        rightShooter = hardwareMap.get(DcMotor.class, "rightshooter");
+        leftShooter = hardwareMap.get(DcMotor.class, "leftShooter");
+        rightShooter = hardwareMap.get(DcMotor.class, "rightShooter");
 
-        // Motor power goes from -maxSpeed -> maxSpee
+        // Motor power goes from -maxSpeed -> maxSpeed
         // Sets motor direction. Says which direction the motor will turn when given full power of maxSpeed
 
         leftShooter.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
