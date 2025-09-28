@@ -172,6 +172,7 @@ public class EncoderAutonTemplate extends LinearOpMode {
         sleep(seconds * 1000);
     }
 
+
     //Converts ticks into inches
     //Input: inches
     //Output/return: ticks
