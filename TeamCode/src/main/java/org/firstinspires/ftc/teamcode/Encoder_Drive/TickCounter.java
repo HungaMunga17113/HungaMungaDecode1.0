@@ -7,7 +7,6 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 
 @TeleOp(name = "Tick Counter")
 public class TickCounter extends LinearOpMode {
-    DcMotorEx intake;
     public DcMotorEx leftFront;
     public DcMotorEx rightFront;
     public DcMotorEx leftBack;

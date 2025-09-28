@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.Encoder_Drive;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 //HUNGA
@@ -49,14 +50,14 @@ public class EncoderAutonTemplate extends LinearOpMode {
         rightBack.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
 
         //TODO: Set motor directions here, when a positive power is applied, it should go forward
-        leftFront.setDirection(DcMotorEx.Direction.FORWARD);
-        rightFront.setDirection(DcMotorEx.Direction.REVERSE);
-        leftBack.setDirection(DcMotorEx.Direction.FORWARD);
-        rightBack.setDirection(DcMotorEx.Direction.REVERSE);
+        rightBack.setDirection(DcMotorSimple.Direction.FORWARD);
+        leftFront.setDirection(DcMotorSimple.Direction.REVERSE);
+        rightFront.setDirection(DcMotorSimple.Direction.FORWARD);
+        leftBack.setDirection(DcMotorSimple.Direction.REVERSE);
 
         //--------------------- INITIALIZE ---------------------\\
-        intake = hardwareMap.get(DcMotorEx.class, "intake");
-        intake.setDirection(DcMotorSimple.Direction.FORWARD);
+        //intake = hardwareMap.get(DcMotorEx.class, "intake");
+        //intake.setDirection(DcMotorSimple.Direction.FORWARD);
 
         //------------------------- RUN ------------------------\\
         //waits for the Driver Hub to receive "start" input
@@ -65,12 +66,11 @@ public class EncoderAutonTemplate extends LinearOpMode {
         //**NOTE - NEVER set power to 1.0 at the start, start at 0.5 and work your way up.
         // 1.0 loses lots of consistency, and the robot movements would be choppy
 
-        vertical(500,0.5,5);
+        vertical(toTicks(48),0.5,1);
 
 
     }
-
-    public void intake(double speed, long time) {
+    public void intakes(double speed, long time) {
         intake.setVelocity(speed);
         sleep(time);
         intake.setVelocity(0);
@@ -83,27 +83,26 @@ public class EncoderAutonTemplate extends LinearOpMode {
         rightFront.setTargetPosition(ticks);
         rightBack.setTargetPosition(ticks);
 
-        leftFront.setVelocity(speed);
-        leftBack.setVelocity(speed);
-        rightFront.setVelocity(speed);
-        rightBack.setVelocity(speed);
+        leftFront.setPower(speed);
+        leftBack.setPower(speed);
+        rightFront.setPower(speed);
+        rightBack.setPower(speed);
 
         sleep(seconds * 1000);
     }
 
-    public void verticalInInches(double inches, double speed, long seconds) {
+    public void verticalInInches(int ticks, double speed, long seconds) {
         reset();
-        int ticks = toTicks(inches);
 
         leftFront.setTargetPosition(ticks);
         leftBack.setTargetPosition(ticks);
         rightFront.setTargetPosition(ticks);
         rightBack.setTargetPosition(ticks);
 
-        leftFront.setVelocity(speed);
-        leftBack.setVelocity(speed);
-        rightFront.setVelocity(speed);
-        rightBack.setVelocity(speed);
+        leftFront.setPower(speed);
+        leftBack.setPower(speed);
+        rightFront.setPower(speed);
+        rightBack.setPower(speed);
 
         sleep(seconds * 1000);
     }
@@ -112,32 +111,31 @@ public class EncoderAutonTemplate extends LinearOpMode {
     public void strafe(int ticks, double speed, long seconds) {
         reset();
 
-        leftFront.setTargetPosition(ticks);
-        leftBack.setTargetPosition(-ticks);
-        rightFront.setTargetPosition(-ticks);
-        rightBack.setTargetPosition(ticks);
+        leftFront.setTargetPosition(-ticks);
+        leftBack.setTargetPosition(ticks);
+        rightFront.setTargetPosition(ticks);
+        rightBack.setTargetPosition(-ticks);
 
-        leftFront.setVelocity(speed);
-        leftBack.setVelocity(speed);
-        rightFront.setVelocity(speed);
-        rightBack.setVelocity(speed);
+        leftFront.setPower(speed);
+        leftBack.setPower(speed);
+        rightFront.setPower(speed);
+        rightBack.setPower(speed);
 
         sleep(seconds * 1000);
     }
 
-    public void strafeInInches(double inches, double speed, long seconds) {
+    public void strafeInInches(int ticks, double speed, long seconds) {
         reset();
-        int ticks = toTicks(inches);
 
         leftFront.setTargetPosition(ticks);
         leftBack.setTargetPosition(-ticks);
         rightFront.setTargetPosition(-ticks);
         rightBack.setTargetPosition(ticks);
 
-        leftFront.setVelocity(speed);
-        leftBack.setVelocity(speed);
-        rightFront.setVelocity(speed);
-        rightBack.setVelocity(speed);
+        leftFront.setPower(speed);
+        leftBack.setPower(speed);
+        rightFront.setPower(speed);
+        rightBack.setPower(speed);
 
         sleep(seconds * 1000);
     }
@@ -145,32 +143,31 @@ public class EncoderAutonTemplate extends LinearOpMode {
     public void turn(int ticks, double speed, long seconds) {
         reset();
 
-        leftFront.setTargetPosition(-ticks);
-        leftBack.setTargetPosition(-ticks);
-        rightFront.setTargetPosition(ticks);
-        rightBack.setTargetPosition(ticks);
+        leftFront.setTargetPosition(ticks);
+        leftBack.setTargetPosition(ticks);
+        rightFront.setTargetPosition(-ticks);
+        rightBack.setTargetPosition(-ticks);
 
-        leftFront.setVelocity(speed);
-        leftBack.setVelocity(speed);
-        rightFront.setVelocity(speed);
-        rightBack.setVelocity(speed);
+        leftFront.setPower(speed);
+        leftBack.setPower(speed);
+        rightFront.setPower(speed);
+        rightBack.setPower(speed);
 
         sleep(seconds * 1000);
     }
 
-    public void turnInInches(double inches, double speed, long seconds) {
+    public void turnInInches(int ticks, double speed, long seconds) {
         reset();
-        int ticks = toTicks(inches);
 
         leftFront.setTargetPosition(-ticks);
         leftBack.setTargetPosition(-ticks);
         rightFront.setTargetPosition(ticks);
         rightBack.setTargetPosition(ticks);
 
-        leftFront.setVelocity(speed);
-        leftBack.setVelocity(speed);
-        rightFront.setVelocity(speed);
-        rightBack.setVelocity(speed);
+        leftFront.setPower(speed);
+        leftBack.setPower(speed);
+        rightFront.setPower(speed);
+        rightBack.setPower(speed);
 
         sleep(seconds * 1000);
     }
@@ -179,7 +176,7 @@ public class EncoderAutonTemplate extends LinearOpMode {
     //Input: inches
     //Output/return: ticks
     public int toTicks(double inches) {
-        double ticks = inches * 45;
+        double ticks = inches * 43.0694444;
         return (int) ticks;
     }
 
