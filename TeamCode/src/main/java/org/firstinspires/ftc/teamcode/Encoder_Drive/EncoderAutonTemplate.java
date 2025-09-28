@@ -8,6 +8,9 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 //HUNGA
 @Autonomous
 public class EncoderAutonTemplate extends LinearOpMode {
+    //initialization - what happens before you press start
+    //run - which is after you press start (main loop)
+
     //How to calculate ticks per inch
     //Ticks multiplied by inches in same distance
     //private final double ticksPerIn = 45;
@@ -69,12 +72,14 @@ public class EncoderAutonTemplate extends LinearOpMode {
         vertical(toTicks(48),0.5,1);
 
 
+
     }
     public void intakes(double speed, long time) {
         intake.setVelocity(speed);
         sleep(time);
         intake.setVelocity(0);
     }
+
     public void vertical(int ticks, double speed, long seconds) {
         reset();
 
@@ -91,8 +96,9 @@ public class EncoderAutonTemplate extends LinearOpMode {
         sleep(seconds * 1000);
     }
 
-    public void verticalInInches(int ticks, double speed, long seconds) {
+    public void verticalInInches(int inches, double speed, long seconds) {
         reset();
+        int ticks = toTicks(inches);
 
         leftFront.setTargetPosition(ticks);
         leftBack.setTargetPosition(ticks);
@@ -173,7 +179,7 @@ public class EncoderAutonTemplate extends LinearOpMode {
     }
 
 
-    //Converts ticks into inches
+    //Converts inches into ticks
     //Input: inches
     //Output/return: ticks
     public int toTicks(double inches) {
