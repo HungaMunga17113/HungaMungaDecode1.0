@@ -17,7 +17,7 @@ public class VelocityEncoderAuton extends LinearOpMode {
     // Motor + Wheel Constants
     final double gearRatio = 26.9;
     final double wheelDiameterInches = 3.77953;
-    final double ticksPerRev = 383.8;
+    final double ticksPerRev = 751.8;
     final double ticksPerInch = (ticksPerRev * gearRatio) / (Math.PI * wheelDiameterInches);
 
     @Override
