@@ -4,7 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
-
+// adb connect 192.168.43.1:5555
 @Autonomous
 public class VelocityEncoderAuton extends LinearOpMode {
 
@@ -15,10 +15,9 @@ public class VelocityEncoderAuton extends LinearOpMode {
     public DcMotorEx rightBack;
 
     // Motor + Wheel Constants
-    final double gearRatio = 26.9;
-    final double wheelDiameterInches = 3.77953;
-    final double ticksPerRev = 751.8;
-    final double ticksPerInch = (ticksPerRev * gearRatio) / (Math.PI * wheelDiameterInches);
+    final double wheelDiameterInches = 3.79953;
+    final double ticksPerRev = 537.6;
+    final double ticksPerInch = (ticksPerRev) / (Math.PI * wheelDiameterInches);
 
     @Override
     public void runOpMode() {
@@ -48,7 +47,7 @@ public class VelocityEncoderAuton extends LinearOpMode {
         rightBack.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
 
         waitForStart();
-
+        vertical(48,1);
     }
 
     public void vertical(double inchesPerSecond, double seconds) {
