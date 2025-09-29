@@ -3,17 +3,18 @@ package org.firstinspires.ftc.teamcode.hunga_munga_26.teleOp;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
-@TeleOp(name= "DT_TeleOpTest")
+@TeleOp
 public class DT_TeleOpTest extends OpMode {
 
     // Initializing/making motor names
     DcMotor leftFront, leftBack, rightFront, rightBack;
-    DcMotor leftShooter, rightShooter;
+    DcMotorEx leftShooter, rightShooter;
     //Initialize Variables
     double maxSpeed = 1.0;
-
+    double maxVelocity = 100;
     /*
     (Button) Initialize Period, before you press start on your program.
      */
@@ -25,10 +26,10 @@ public class DT_TeleOpTest extends OpMode {
         rightFront = hardwareMap.get(DcMotor.class, "rightFront");
         rightBack = hardwareMap.get(DcMotor.class, "rightBack");
 
-        leftShooter = hardwareMap.get(DcMotor.class, "leftShooter");
-        rightShooter = hardwareMap.get(DcMotor.class, "rightShooter");
+        leftShooter = hardwareMap.get(DcMotorEx.class, "leftshooter");
+        rightShooter = hardwareMap.get(DcMotorEx.class, "rightshooter");
 
-        // Motor power goes from -maxSpeed -> maxSpeed
+        // Motor power goes from -maxSpeed -> maxSpee
         // Sets motor direction. Says which direction the motor will turn when given full power of maxSpeed
 
         leftShooter.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -44,9 +45,7 @@ public class DT_TeleOpTest extends OpMode {
         leftFront.setDirection(DcMotorSimple.Direction.REVERSE);
         rightFront.setDirection(DcMotorSimple.Direction.FORWARD);
         leftBack.setDirection(DcMotorSimple.Direction.REVERSE);
-
-
-
+        
     }
 
     /*
@@ -55,7 +54,15 @@ public class DT_TeleOpTest extends OpMode {
     Basically just keep all your code over here
      */
     public void loop() {
-        Drive();
+//        Drive();
+        
+        if (gamepad1.a) {
+            setShooter(maxVelocity);
+        }
+        
+        else {
+            setShooter(0);
+        }
     }
 
     /*
@@ -149,7 +156,12 @@ public class DT_TeleOpTest extends OpMode {
         }
 
 
-
     }
+    
+    private void setShooter(double velocity) {
+        rightShooter.setVelocity(velocity);
+        leftShooter.setVelocity(velocity);
+    }
+    
 
 }
