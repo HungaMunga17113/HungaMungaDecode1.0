@@ -45,10 +45,11 @@ public class VelocityEncoderAuton extends LinearOpMode {
         rightFront.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
         leftBack.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
         rightBack.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
-
+        //Turn - (27.5,1)
+        //Turn - (53,0.5)
         waitForStart();
         vertical(48,1);
-        turn(48,1);
+        turn(53,0.5);
     }
 
     public void vertical(double inchesPerSecond, double seconds) {
