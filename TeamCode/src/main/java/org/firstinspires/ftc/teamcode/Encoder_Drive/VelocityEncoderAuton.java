@@ -48,6 +48,13 @@ public class VelocityEncoderAuton extends LinearOpMode {
         //Turn - (27.5,1)
         //Turn - (53,0.5)
         waitForStart();
+        /** Comment from Ishaan
+        Try to make it in a way where you input the number of inches desired to move, and the speed as the parameters
+        Then if you want have seconds as a 3rd parameter, but for a wait afterwards,
+         it should be intuitive to understand and write.
+         Like if you wanted to go forward 30 inches
+         vertical(inches: 30, speed: 0.9, wait: 2);
+         */
         vertical(48,1);
         turn(53,0.5);
     }
