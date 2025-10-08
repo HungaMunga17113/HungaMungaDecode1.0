@@ -56,7 +56,7 @@ public class VelocityEncoderAuton extends LinearOpMode {
          vertical(inches: 30, speed: 0.9, wait: 2);
          */
         vertical(48,1);
-        turn(53,0.5);
+        turn(50,0.5);
     }
 
     public void vertical(double inchesPerSecond, double seconds) {
