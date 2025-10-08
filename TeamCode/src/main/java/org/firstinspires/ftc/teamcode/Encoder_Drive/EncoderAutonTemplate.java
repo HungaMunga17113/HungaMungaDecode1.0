@@ -97,6 +97,7 @@ public class EncoderAutonTemplate extends LinearOpMode {
     }
 
     public void verticalInInches(int inches, double speed, long seconds) {
+
         reset();
         int ticks = toTicks(inches);
 

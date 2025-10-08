@@ -12,7 +12,7 @@ public class Auton1 extends LinearOpMode {
     //private final double ticksPerIn = 45;
 
     DcMotorEx intake;
-    DcMotorEx outake;
+    DcMotorEx outtake;
     public DcMotorEx leftFront;
     public DcMotorEx rightFront;
     public DcMotorEx leftBack;
@@ -59,8 +59,8 @@ public class Auton1 extends LinearOpMode {
         intake = hardwareMap.get(DcMotorEx.class, "intake");
         intake.setDirection(DcMotorSimple.Direction.FORWARD);
 
-        outake = hardwareMap.get(DcMotorEx.class, "outake");
-        outake.setDirection(DcMotorSimple.Direction.FORWARD);
+        outtake = hardwareMap.get(DcMotorEx.class, "outake");
+        outtake.setDirection(DcMotorSimple.Direction.FORWARD);
 
         //------------------------- RUN ------------------------\\
         //waits for the Driver Hub to receive "start" input
@@ -81,9 +81,9 @@ public class Auton1 extends LinearOpMode {
     }
 
     public void outake(double speed, long time) {
-        outake.setVelocity(speed);
+        outtake.setVelocity(speed);
         sleep(time);
-        outake.setVelocity(0);
+        outtake.setVelocity(0);
     }
 
     // This function is in Ticks, which is more accurate than Inches
