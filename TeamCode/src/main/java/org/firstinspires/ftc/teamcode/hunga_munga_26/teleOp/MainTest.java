@@ -45,6 +45,8 @@ public class MainTest extends OpMode {
         leftFront.setDirection(DcMotorSimple.Direction.REVERSE);
         rightFront.setDirection(DcMotorSimple.Direction.FORWARD);
         leftBack.setDirection(DcMotorSimple.Direction.REVERSE);
+        leftShooter.setDirection(DcMotorSimple.Direction.FORWARD);
+        rightShooter.setDirection(DcMotorSimple.Direction.REVERSE);
         
     }
 
