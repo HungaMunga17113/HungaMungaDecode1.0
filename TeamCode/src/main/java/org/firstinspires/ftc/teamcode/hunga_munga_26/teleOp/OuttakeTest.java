@@ -14,7 +14,7 @@ public class OuttakeTest extends OpMode {
     DcMotorEx leftShooter, rightShooter;
     //Initialize Variables
     double maxSpeed = 1.0;
-    double maxVelocity = 0.75;
+    double maxVelocity = 0.57;
     /*
     (Button) Initialize Period, before you press start on your program.
      */
