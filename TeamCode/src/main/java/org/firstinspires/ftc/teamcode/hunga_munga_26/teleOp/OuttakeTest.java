@@ -7,14 +7,14 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 @TeleOp
-public class MainTest extends OpMode {
+public class OuttakeTest extends OpMode {
 
     // Initializing/making motor names
-    DcMotor leftFront, leftBack, rightFront, rightBack;
+
     DcMotorEx leftShooter, rightShooter;
     //Initialize Variables
     double maxSpeed = 1.0;
-    double maxVelocity = 100;
+    double maxVelocity = 0.75;
     /*
     (Button) Initialize Period, before you press start on your program.
      */
@@ -41,13 +41,9 @@ public class MainTest extends OpMode {
         //rightFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         //rightBack.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
-        rightBack.setDirection(DcMotorSimple.Direction.FORWARD);
-        leftFront.setDirection(DcMotorSimple.Direction.REVERSE);
-        rightFront.setDirection(DcMotorSimple.Direction.FORWARD);
-        leftBack.setDirection(DcMotorSimple.Direction.REVERSE);
         leftShooter.setDirection(DcMotorSimple.Direction.FORWARD);
         rightShooter.setDirection(DcMotorSimple.Direction.REVERSE);
-        
+
     }
 
     /*
@@ -56,12 +52,12 @@ public class MainTest extends OpMode {
     Basically just keep all your code over here
      */
     public void loop() {
-//        Drive();
-        
+        //drive();
+
         if (gamepad1.a) {
             setShooter(maxVelocity);
         }
-        
+
         else {
             setShooter(0);
         }
@@ -79,79 +75,32 @@ public class MainTest extends OpMode {
             a. Robot strafes left | (rightFront, leftBack maxSpeed) & (rightBack, leftFront -maxSpeed)
             b. Robot strafes left | (rightFront, leftBack -maxSpeed) & (rightBack, leftFront maxSpeed)
      */
-    private void Drive() {
+    private void drive() {
         //Forward - If left joystick y is greater than 0,
         //Make robot go forward by setting positive power to all motors
-        if (gamepad1.left_stick_y < 0) {
-            leftFront.setPower(maxSpeed);
-            leftBack.setPower(maxSpeed);
-            rightFront.setPower(maxSpeed);
-            rightBack.setPower(maxSpeed);
-        }
 
         //Backward - If left joystick y is less than 0,
-        //Make robot go backward by setting negative power to all motors
-        else if (gamepad1.left_stick_y > 0) {
-            leftFront.setPower(-maxSpeed);
-            leftBack.setPower(-maxSpeed);
-            rightFront.setPower(-maxSpeed);
-            rightBack.setPower(-maxSpeed);
-        }
 
         //Strafe left - If left joystick x is less than 0,
         //Make robot go left by setting negative power to leftFront and rightBack motors
-        //And setting positive power to leftBack and rightFront
-        else if (gamepad1.left_stick_x < 0) {
-            leftFront.setPower(-maxSpeed);
-            leftBack.setPower(maxSpeed);
-            rightFront.setPower(maxSpeed);
-            rightBack.setPower(-maxSpeed);
-        }
 
         //Strafe right - If left joystick x is more than 0,
         //Make robot go right by setting positive power to leftBack and rightFront motors
         //And setting positive power to leftFront and rightBack
-        else if (gamepad1.left_stick_x > 0) {
-            leftFront.setPower(maxSpeed);
-            leftBack.setPower(-maxSpeed);
-            rightFront.setPower(-maxSpeed);
-            rightBack.setPower(maxSpeed);
-        }
 
         //Turn Left - If right joystick x is less than 0,
         //Make robot go left by setting positive power to rightBack and rightFront motors
         //And setting negative power to leftFront and leftBack
-        else if (gamepad1.right_stick_x < 0) {
-            leftFront.setPower(-maxSpeed);
-            leftBack.setPower(-maxSpeed);
-            rightFront.setPower(maxSpeed);
-            rightBack.setPower(maxSpeed);
-        }
 
         //Turn Right - If right joystick x is more than 0,
         //Make robot go right by setting negative power to rightBack and rightFront motors
         //And setting positive power to leftFront and leftBack
-        else if (gamepad1.right_stick_x > 0) {
-            leftFront.setPower(maxSpeed);
-            leftBack.setPower(maxSpeed);
-            rightFront.setPower(-maxSpeed);
-            rightBack.setPower(-maxSpeed);
-        }
-
-        // If no joysticks moving, idle motors
-        else {
-            leftFront.setPower(0);
-            leftBack.setPower(0);
-            rightFront.setPower(0);
-            rightBack.setPower(0);
-        }
-
         if (gamepad1.right_trigger > 0) {
-            rightShooter.setPower(-1.0);
-            leftShooter.setPower(1.0);
+            rightShooter.setPower(-0.6);
+            leftShooter.setPower(0.6);
         } else if (gamepad1.left_trigger > 0) {
-            rightShooter.setPower(-1.0);
-            leftShooter.setPower(1.0);
+            rightShooter.setPower(-0.6);
+            leftShooter.setPower(0.6);
         } else {
             rightShooter.setPower(0);
             leftShooter.setPower(0);
@@ -159,11 +108,11 @@ public class MainTest extends OpMode {
 
 
     }
-    
+
     private void setShooter(double velocity) {
-        rightShooter.setVelocity(velocity);
-        leftShooter.setVelocity(velocity);
+        rightShooter.setPower(velocity);
+        leftShooter.setPower(velocity);
     }
-    
+
 
 }
