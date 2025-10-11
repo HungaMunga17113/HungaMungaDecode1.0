@@ -4,7 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
-// adb connect 192.168.43.1:5555
+    // adb connect 192.168.43.1:5555
 @Autonomous
 public class VelocityAutonPath1 extends LinearOpMode {
 

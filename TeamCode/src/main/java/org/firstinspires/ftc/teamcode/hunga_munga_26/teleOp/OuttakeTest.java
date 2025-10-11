@@ -10,11 +10,13 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 public class OuttakeTest extends OpMode {
 
     // Initializing/making motor names
-
+    DcMotor leftFront, leftBack, rightFront, rightBack;
     DcMotorEx leftShooter, rightShooter;
     //Initialize Variables
-    double maxSpeed = 1.0;
-    double maxVelocity = 0.75;
+    double minPower = 0.58;
+    double minVelocity = 1625;
+    double maxVelocity = 5000;
+
     /*
     (Button) Initialize Period, before you press start on your program.
      */
@@ -52,15 +54,7 @@ public class OuttakeTest extends OpMode {
     Basically just keep all your code over here
      */
     public void loop() {
-        //drive();
-
-        if (gamepad1.a) {
-            setShooter(maxVelocity);
-        }
-
-        else {
-            setShooter(0);
-        }
+        Drive();
     }
 
     /*
@@ -75,44 +69,29 @@ public class OuttakeTest extends OpMode {
             a. Robot strafes left | (rightFront, leftBack maxSpeed) & (rightBack, leftFront -maxSpeed)
             b. Robot strafes left | (rightFront, leftBack -maxSpeed) & (rightBack, leftFront maxSpeed)
      */
-    private void drive() {
-        //Forward - If left joystick y is greater than 0,
-        //Make robot go forward by setting positive power to all motors
+    private void Drive() {
 
-        //Backward - If left joystick y is less than 0,
-
-        //Strafe left - If left joystick x is less than 0,
-        //Make robot go left by setting negative power to leftFront and rightBack motors
-
-        //Strafe right - If left joystick x is more than 0,
-        //Make robot go right by setting positive power to leftBack and rightFront motors
-        //And setting positive power to leftFront and rightBack
-
-        //Turn Left - If right joystick x is less than 0,
-        //Make robot go left by setting positive power to rightBack and rightFront motors
-        //And setting negative power to leftFront and leftBack
-
-        //Turn Right - If right joystick x is more than 0,
-        //Make robot go right by setting negative power to rightBack and rightFront motors
-        //And setting positive power to leftFront and leftBack
         if (gamepad1.right_trigger > 0) {
-            rightShooter.setPower(-0.6);
-            leftShooter.setPower(0.6);
+            rightShooter.setVelocity(maxVelocity);
+            leftShooter.setVelocity(maxVelocity);
         } else if (gamepad1.left_trigger > 0) {
-            rightShooter.setPower(-0.6);
-            leftShooter.setPower(0.6);
+            rightShooter.setVelocity(minVelocity);
+            leftShooter.setVelocity(minVelocity);
+        } else if (gamepad1.a) {
+            leftShooter.setPower(minPower);
+            rightShooter.setPower(minPower);
         } else {
-            rightShooter.setPower(0);
+            rightShooter.setVelocity(0);
+            leftShooter.setVelocity(0);
             leftShooter.setPower(0);
+            rightShooter.setPower(0);
         }
 
 
     }
-
-    private void setShooter(double velocity) {
-        rightShooter.setPower(velocity);
-        leftShooter.setPower(velocity);
-    }
-
-
 }
+
+
+
+
+
