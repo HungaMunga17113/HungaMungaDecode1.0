@@ -21,13 +21,13 @@ public class MainTest extends OpMode {
     public void init() {
 
         //set hardware map names (aka what the controller understands)
-        leftFront = hardwareMap.get(DcMotor.class, "leftFront");
-        leftBack = hardwareMap.get(DcMotor.class, "leftBack");
-        rightFront = hardwareMap.get(DcMotor.class, "rightFront");
-        rightBack = hardwareMap.get(DcMotor.class, "rightBack");
+        //leftFront = hardwareMap.get(DcMotor.class, "leftFront");
+        //leftBack = hardwareMap.get(DcMotor.class, "leftBack");
+        //rightFront = hardwareMap.get(DcMotor.class, "rightFront");
+        //rightBack = hardwareMap.get(DcMotor.class, "rightBack");
 
-        leftShooter = hardwareMap.get(DcMotorEx.class, "leftshooter");
-        rightShooter = hardwareMap.get(DcMotorEx.class, "rightshooter");
+        leftShooter = hardwareMap.get(DcMotorEx.class, "leftShooter");
+        rightShooter = hardwareMap.get(DcMotorEx.class, "rightShooter");
 
         // Motor power goes from -maxSpeed -> maxSpee
         // Sets motor direction. Says which direction the motor will turn when given full power of maxSpeed
@@ -36,15 +36,17 @@ public class MainTest extends OpMode {
         rightShooter.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         // When no power (aka no joysticks moving (idle) ), robot should brake on stop
-        leftFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        leftBack.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        rightFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        rightBack.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        //leftFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        //leftBack.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        //rightFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        //rightBack.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         rightBack.setDirection(DcMotorSimple.Direction.FORWARD);
         leftFront.setDirection(DcMotorSimple.Direction.REVERSE);
         rightFront.setDirection(DcMotorSimple.Direction.FORWARD);
         leftBack.setDirection(DcMotorSimple.Direction.REVERSE);
+        leftShooter.setDirection(DcMotorSimple.Direction.FORWARD);
+        rightShooter.setDirection(DcMotorSimple.Direction.REVERSE);
         
     }
 

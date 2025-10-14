@@ -4,11 +4,12 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
-// adb connect 192.168.43.1:5555
+    // adb connect 192.168.43.1:5555
 @Autonomous
 public class VelocityAutonPath1 extends LinearOpMode {
 
     DcMotorEx intake;
+    DcMotorEx outtake;
     public DcMotorEx leftFront;
     public DcMotorEx rightFront;
     public DcMotorEx leftBack;
@@ -45,43 +46,46 @@ public class VelocityAutonPath1 extends LinearOpMode {
         rightFront.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
         leftBack.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
         rightBack.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
+
         //Turn - (27.5,1)
         //Turn - (53,0.5)
         waitForStart();
 
-        vertical(42,2);
+        vertical(42,2,0);
         turn(-26.5,0.5);
         sleep(2000);
         turn(-26.5,0.5);
-        strafe(12,1);
-        vertical(24,1.5);
-        vertical(-24,1.5);
-        strafe(-12,1);
+        strafe(12,1,0);
+        vertical(24,1.5,0);
+        vertical(-24,1.5,0);
+        strafe(-12,1,0);
         turn(26.5,0.5);
 
     }
 
-    public void vertical(double inchesPerSecond, double seconds) {
+    public void vertical(double inchesPerSecond, double seconds, double inchesPerSecondIntake) {
         reset();
         double ticksPerSecond = inchesPerSecond * ticksPerInch;
-
+        double ticksPerSecondIntake = inchesPerSecondIntake * ticksPerInch;
         leftFront.setVelocity(ticksPerSecond);
         leftBack.setVelocity(ticksPerSecond);
         rightFront.setVelocity(ticksPerSecond);
         rightBack.setVelocity(ticksPerSecond);
+        //intake.setVelocity(ticksPerSecondIntake);
 
         sleep((long) (seconds * 1000));
         stopMotors();
     }
 
-    public void strafe(double inchesPerSecond, double seconds) {
+    public void strafe(double inchesPerSecond, double seconds, double inchesPerSecondIntake) {
         reset();
         double ticksPerSecond = inchesPerSecond * ticksPerInch;
-
+        double ticksPerSecondIntake = inchesPerSecondIntake * ticksPerInch;
         leftFront.setVelocity(ticksPerSecond);
         leftBack.setVelocity(-ticksPerSecond);
         rightFront.setVelocity(-ticksPerSecond);
         rightBack.setVelocity(ticksPerSecond);
+        //intake.setVelocity(ticksPerSecondIntake);
 
         sleep((long) (seconds * 1000));
         stopMotors();
@@ -99,13 +103,12 @@ public class VelocityAutonPath1 extends LinearOpMode {
         sleep((long) (seconds * 1000));
         stopMotors();
     }
-
-    public void intake(double speed, long time) {
-        intake.setVelocity(speed);
-        sleep(time);
-        intake.setVelocity(0);
+    public void shoot(double inchesPerSecond, double seconds) {
+        reset();
+        double ticksPerSecond = inchesPerSecond * ticksPerInch;
+        outtake.setVelocity(ticksPerSecond);
+        sleep((long) (seconds * 1000));
     }
-
     public void stopMotors() {
         leftFront.setVelocity(0);
         leftBack.setVelocity(0);
