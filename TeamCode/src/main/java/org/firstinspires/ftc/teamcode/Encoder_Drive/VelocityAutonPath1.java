@@ -142,7 +142,7 @@ public class VelocityAutonPath1 extends LinearOpMode {
         rightOuttake.setTargetPosition(outtakePosition);
         rightOuttake.setPower(speed);
         leftOuttake.setPower(speed);
-        sleep(2000);
+        sleep(500);
         leftOuttake.setTargetPosition(outtakePosition);
         rightOuttake.setTargetPosition(outtakePosition);
         rightOuttake.setPower(0.5);
