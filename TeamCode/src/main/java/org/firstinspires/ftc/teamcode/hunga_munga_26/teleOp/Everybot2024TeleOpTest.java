@@ -30,6 +30,7 @@
 package org.firstinspires.ftc.teamcode.hunga_munga_26.teleOp;
 
 import com.qualcomm.hardware.lynx.commands.core.LynxResetMotorEncoderCommand;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.CRServo;
@@ -52,9 +53,8 @@ import org.firstinspires.ftc.robotcore.external.navigation.CurrentUnit;
  * Use Android Studio to Copy this Class, and Paste it into your team's code folder with a new name.
  * Remove or comment out the @Disabled line to add this OpMode to the Driver Station OpMode list
  */
-
 @TeleOp(name="TeleOp Control", group="Teleop")
-
+@Disabled
 public class Everybot2024TeleOpTest extends OpMode
 {
     // Declare OpMode members.
