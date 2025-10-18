@@ -95,7 +95,7 @@ public class OuttakeTest extends OpMode {
 
             }
         }
-        long returnDuration = 10000;
+        long returnDuration = 1000;
         if (returning) {
             if (System.currentTimeMillis() - returnStartTime >= returnDuration) {
                 returning = false;
@@ -107,15 +107,17 @@ public class OuttakeTest extends OpMode {
     }
     public void returnTest() {
         if (gamepad1.b && !returns) {
-            returns = true;
+            returns=true;
             shootStartTime = System.currentTimeMillis();
             leftOuttake.setPower(-1);
             rightOuttake.setPower(-1);
-        long returnsDuration = 5000;
         }
+        long returnsDuration = 5000;
         if (returns) {
-            if (System.currentTimeMillis() - returnStartTime >= returnsDuration) {
-
+            if (System.currentTimeMillis() - shootStartTime >= returnsDuration) {
+                returns=false;
+                leftOuttake.setVelocity(0);
+                rightOuttake.setVelocity(0);
             }
         }
     }
