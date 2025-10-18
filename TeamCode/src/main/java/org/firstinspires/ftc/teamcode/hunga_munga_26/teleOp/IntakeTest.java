@@ -1,7 +1,5 @@
 package org.firstinspires.ftc.teamcode.hunga_munga_26.teleOp;
 
-import static java.lang.Thread.sleep;
-
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -9,17 +7,12 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 @TeleOp
-public class OuttakeTest extends OpMode {
+public class IntakeTest extends OpMode {
 
     // Initializing/making motor names
-    DcMotor leftFront, leftBack, rightFront, rightBack;
-    DcMotorEx leftOuttake, rightOuttake;
+    DcMotorEx intake;
     //Initialize Variables
-    private boolean shooting = false;
-    private boolean returning = false;
-    private boolean returns = false;
-    private long shootStartTime = 0;
-    private long returnStartTime = 0;
+    double intakeSpeed = 0.5;
 
     /*
     (Button) Initialize Period, before you press start on your program.
@@ -32,14 +25,11 @@ public class OuttakeTest extends OpMode {
         //rightFront = hardwareMap.get(DcMotor.class, "rightFront");
         //rightBack = hardwareMap.get(DcMotor.class, "rightBack");
 
-        leftOuttake = hardwareMap.get(DcMotorEx.class, "leftOuttake");
-        rightOuttake = hardwareMap.get(DcMotorEx.class, "rightOuttake");
+        intake = hardwareMap.get(DcMotorEx.class, "intake");
 
         // Motor power goes from -maxSpeed -> maxSpee
         // Sets motor direction. Says which direction the motor will turn when given full power of maxSpeed
-
-        leftOuttake.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        rightOuttake.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        intake.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         // When no power (aka no joysticks moving (idle) ), robot should brake on stop
         //leftFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -47,8 +37,8 @@ public class OuttakeTest extends OpMode {
         //rightFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         //rightBack.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
-        leftOuttake.setDirection(DcMotorSimple.Direction.REVERSE);
-        rightOuttake.setDirection(DcMotorSimple.Direction.FORWARD);
+        intake.setDirection(DcMotorSimple.Direction.REVERSE);
+
 
     }
 
@@ -59,8 +49,7 @@ public class OuttakeTest extends OpMode {
      */
     public void loop() {
 
-        shootTest();
-        returnTest();
+        Intake();
     }
 
     /*
@@ -75,53 +64,18 @@ public class OuttakeTest extends OpMode {
             a. Robot strafes left | (rightFront, leftBack maxSpeed) & (rightBack, leftFront -maxSpeed)
             b. Robot strafes left | (rightFront, leftBack -maxSpeed) & (rightBack, leftFront maxSpeed)
      */
+    private void Intake() {
 
-    public void shootTest() {
-        if (gamepad1.a && !shooting) {
-            shooting = true;
-            shootStartTime = System.currentTimeMillis();
-            leftOuttake.setPower(1);
-            rightOuttake.setPower(1);
+        if (gamepad1.right_trigger > 0) {
+            intake.setPower(1);
+        }
+        else {
+            intake.setPower(0);
         }
 
-        long fireDuration = 500;
-        if (shooting) {
-            if (System.currentTimeMillis() - shootStartTime >= fireDuration) {
-                leftOuttake.setPower(-1);
-                rightOuttake.setPower(-1);
-                returning = true;
-                shooting = false;
-                returnStartTime = System.currentTimeMillis();
 
-            }
-        }
-        long returnDuration = 10000;
-        if (returning) {
-            if (System.currentTimeMillis() - returnStartTime >= returnDuration) {
-                returning = false;
-                shooting = false;
-                leftOuttake.setPower(0);
-                rightOuttake.setPower(0);
-            }
-        }
-    }
-    public void returnTest() {
-        if (gamepad1.b && !returns) {
-            returns = true;
-            shootStartTime = System.currentTimeMillis();
-            leftOuttake.setPower(-1);
-            rightOuttake.setPower(-1);
-        long returnsDuration = 5000;
-        }
-        if (returns) {
-            if (System.currentTimeMillis() - returnStartTime >= returnsDuration) {
-
-            }
-        }
     }
 }
-
-
 
 
 
