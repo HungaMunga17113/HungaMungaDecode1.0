@@ -37,7 +37,7 @@ public class IntakeTest extends OpMode {
         //rightFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         //rightBack.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
-        intake.setDirection(DcMotorSimple.Direction.FORWARD);
+        intake.setDirection(DcMotorSimple.Direction.REVERSE);
 
 
     }
@@ -66,8 +66,8 @@ public class IntakeTest extends OpMode {
      */
     private void Intake() {
 
-        if (gamepad1.a) {
-            intake.setPower(0.5);
+        if (gamepad1.right_trigger > 0) {
+            intake.setPower(1);
         }
         else {
             intake.setPower(0);

@@ -17,7 +17,9 @@ public class OuttakeTest extends OpMode {
     //Initialize Variables
     private boolean shooting = false;
     private boolean returning = false;
+    private boolean returns = false;
     private long shootStartTime = 0;
+    private long returnStartTime = 0;
 
     /*
     (Button) Initialize Period, before you press start on your program.
@@ -45,8 +47,8 @@ public class OuttakeTest extends OpMode {
         //rightFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         //rightBack.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
-        leftOuttake.setDirection(DcMotorSimple.Direction.FORWARD);
-        rightOuttake.setDirection(DcMotorSimple.Direction.REVERSE);
+        leftOuttake.setDirection(DcMotorSimple.Direction.REVERSE);
+        rightOuttake.setDirection(DcMotorSimple.Direction.FORWARD);
 
     }
 
@@ -58,6 +60,7 @@ public class OuttakeTest extends OpMode {
     public void loop() {
 
         shootTest();
+        returnTest();
     }
 
     /*
@@ -84,17 +87,35 @@ public class OuttakeTest extends OpMode {
         long fireDuration = 500;
         if (shooting) {
             if (System.currentTimeMillis() - shootStartTime >= fireDuration) {
-                leftOuttake.setPower(-0.5);
-                rightOuttake.setPower(-0.5);
-                shooting = false;
+                leftOuttake.setPower(-1);
+                rightOuttake.setPower(-1);
                 returning = true;
+                shooting = false;
+                returnStartTime = System.currentTimeMillis();
+
             }
         }
+        long returnDuration = 10000;
         if (returning) {
-            if (System.currentTimeMillis() - shootStartTime >= fireDuration) {
+            if (System.currentTimeMillis() - returnStartTime >= returnDuration) {
                 returning = false;
+                shooting = false;
                 leftOuttake.setPower(0);
                 rightOuttake.setPower(0);
+            }
+        }
+    }
+    public void returnTest() {
+        if (gamepad1.b && !returns) {
+            returns = true;
+            shootStartTime = System.currentTimeMillis();
+            leftOuttake.setPower(-1);
+            rightOuttake.setPower(-1);
+        long returnsDuration = 5000;
+        }
+        if (returns) {
+            if (System.currentTimeMillis() - returnStartTime >= returnsDuration) {
+
             }
         }
     }
