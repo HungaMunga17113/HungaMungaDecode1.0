@@ -20,8 +20,8 @@ public class VelocityAutonPath1 extends LinearOpMode {
     // Motor + Wheel Constants
     final double wheelDiameterInches = 4.09449;
     final double ticksPerRev = 537.6;
-
-    final int outtakePosition = 269;
+    final double shootSpeed = 0.5;
+    final int outtakePosition = 134;
     final double ticksPerInch = (ticksPerRev) / (Math.PI * wheelDiameterInches);
 
     @Override
@@ -136,18 +136,18 @@ public class VelocityAutonPath1 extends LinearOpMode {
         sleep((long) (seconds * 1000));
         stopMotors();
     }
-    public void shoot(double speed, double seconds) {
+    public void shoot(long seconds) {
         resetShoot();
         leftOuttake.setTargetPosition(outtakePosition);
         rightOuttake.setTargetPosition(outtakePosition);
-        rightOuttake.setPower(speed);
-        leftOuttake.setPower(speed);
-        sleep(500);
-        leftOuttake.setTargetPosition(outtakePosition);
-        rightOuttake.setTargetPosition(outtakePosition);
-        rightOuttake.setPower(0.5);
-        leftOuttake.setPower(0.5);
-        sleep((long) (seconds * 1000));
+        rightOuttake.setPower(shootSpeed);
+        leftOuttake.setPower(shootSpeed);
+        sleep(1000);
+        leftOuttake.setTargetPosition(-outtakePosition);
+        rightOuttake.setTargetPosition(-outtakePosition);
+        rightOuttake.setPower(shootSpeed);
+        leftOuttake.setPower(shootSpeed);
+        sleep(seconds * 1000);
 
     }
     public void stopMotors() {
