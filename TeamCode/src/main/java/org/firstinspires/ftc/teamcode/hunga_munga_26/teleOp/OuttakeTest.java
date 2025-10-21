@@ -53,6 +53,11 @@ public class OuttakeTest extends OpMode {
         leftOuttake.setDirection(DcMotorSimple.Direction.REVERSE);
         rightOuttake.setDirection(DcMotorSimple.Direction.FORWARD);
 
+        leftOuttake.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
+        rightOuttake.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
+
+        leftOuttake.setTargetPosition(0);
+        rightOuttake.setTargetPosition(0);
     }
 
     /*
