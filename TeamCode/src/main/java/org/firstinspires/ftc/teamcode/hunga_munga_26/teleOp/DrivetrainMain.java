@@ -21,7 +21,14 @@ public class DrivetrainMain extends OpMode {
 
     Deadline gamepadRateLimit = new Deadline(250, TimeUnit.MILLISECONDS);
     DcMotor leftFront, rightFront, rightBack, leftBack;
+
+    DcMotorEx leftOuttake, rightOuttake;
+    DcMotorEx intake;
+
+    private boolean shooting = false;
+    private boolean returning = false;
     IMU imu;
+
     @Override
     public void init() {
         leftFront = hardwareMap.get(DcMotor.class, "leftFront");
@@ -41,6 +48,8 @@ public class DrivetrainMain extends OpMode {
                 RevHubOrientationOnRobot.UsbFacingDirection.UP
         ));
         imu.initialize(parameters);
+
+
     }
 
     @Override
@@ -66,7 +75,6 @@ public class DrivetrainMain extends OpMode {
         double adjustedStrafe = vertical * Math.sin(heading) + strafe * Math.cos(heading);
 
 
-
         double max = Math.max(Math.abs(adjustedStrafe) + Math.abs(adjustedVertical) + Math.abs(turn), 1);
 
         double RFPower = ((turn + (adjustedVertical - adjustedStrafe)) / max) * drivePower;
@@ -78,7 +86,6 @@ public class DrivetrainMain extends OpMode {
         rightBack.setPower(RBPower);
         leftFront.setPower(LFPower);
         leftBack.setPower(LBPower);
-
 
 
         leftFront = hardwareMap.get(DcMotorEx.class, "leftFront");
@@ -110,6 +117,65 @@ public class DrivetrainMain extends OpMode {
         rightFront.setDirection(DcMotorEx.Direction.REVERSE);
         leftBack.setDirection(DcMotorEx.Direction.FORWARD);
         rightBack.setDirection(DcMotorEx.Direction.REVERSE);
+
+
+        int outtakePosition = 134;
+        if (gamepad1.a && !shooting) {
+            resetOuttake();
+            shooting = true;
+            leftOuttake.setTargetPosition(outtakePosition);
+            rightOuttake.setTargetPosition(outtakePosition);
+            leftOuttake.setPower(1);
+            rightOuttake.setPower(1);
+        }
+        if (shooting) {
+            if (leftOuttake.getCurrentPosition() >= outtakePosition) {
+                leftOuttake.setPower(-1);
+                rightOuttake.setPower(-1);
+                returning = true;
+                shooting = false;
+            }
+        }
+        if (returning) {
+            if (leftOuttake.getCurrentPosition() <= 0) {
+                returning = false;
+                shooting = false;
+                leftOuttake.setPower(0);
+                rightOuttake.setPower(0);
+            }
+        }
+
+
+    }
+
+    private void resetOuttake() {
+        leftOuttake.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
+        rightOuttake.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
+
+        leftOuttake.setTargetPosition(0);
+        rightOuttake.setTargetPosition(0);
+    }
+    private void Intake () {
+
+        if (gamepad1.right_trigger > 0) {
+            intake.setPower(1);
+        } else {
+            intake.setPower(0);
+        }
+
+        intake.setDirection(DcMotorSimple.Direction.REVERSE);
+        intake.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        intake = hardwareMap.get(DcMotorEx.class, "intake");
+
+        leftOuttake = hardwareMap.get(DcMotorEx.class, "leftOuttake");
+        rightOuttake = hardwareMap.get(DcMotorEx.class, "rightOuttake");
+
+        leftOuttake.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        rightOuttake.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
+        leftOuttake.setDirection(DcMotorSimple.Direction.REVERSE);
+        rightOuttake.setDirection(DcMotorSimple.Direction.FORWARD);
+
 
     }
 
