@@ -55,7 +55,7 @@ public class VelocityEncoderAuton extends LinearOpMode {
          Like if you wanted to go forward 30 inches
          vertical(inches: 30, speed: 0.9, wait: 2);
          */
-        vertical(48,1);
+        vertical(-48,1);
         turn(50,0.5);
     }
 

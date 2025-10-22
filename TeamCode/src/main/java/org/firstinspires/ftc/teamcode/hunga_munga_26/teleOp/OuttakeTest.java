@@ -7,8 +7,6 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
-import com.qualcomm.robotcore.util.ElapsedTime;
-
 
 @TeleOp
 public class OuttakeTest extends OpMode {
@@ -19,17 +17,14 @@ public class OuttakeTest extends OpMode {
     //Initialize Variables
     private boolean shooting = false;
     private boolean returning = false;
-    //private boolean returns = false;
-    private double shootStartTime = 0;
+    private boolean returns = false;
+    private long shootStartTime = 0;
     private long returnStartTime = 0;
-    ElapsedTime timer = new ElapsedTime(ElapsedTime.Resolution.MILLISECONDS);
-    /*
 
+    /*
     (Button) Initialize Period, before you press start on your program.
      */
     public void init() {
-
-
 
         //set hardware map names (aka what the controller understands)
         //leftFront = hardwareMap.get(DcMotor.class, "leftFront");
@@ -40,7 +35,7 @@ public class OuttakeTest extends OpMode {
         leftOuttake = hardwareMap.get(DcMotorEx.class, "leftOuttake");
         rightOuttake = hardwareMap.get(DcMotorEx.class, "rightOuttake");
 
-        // Motor power goes from -maxSpeed -> maxSpee
+        // Motor power goes from -maxSpeed -> maxSpeed
         // Sets motor direction. Says which direction the motor will turn when given full power of maxSpeed
 
         leftOuttake.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -65,6 +60,7 @@ public class OuttakeTest extends OpMode {
     public void loop() {
 
         shootTest();
+        returnTest();
     }
 
     /*
@@ -83,17 +79,14 @@ public class OuttakeTest extends OpMode {
     public void shootTest() {
         if (gamepad1.a && !shooting) {
             shooting = true;
-            //shootStartTime = System.currentTimeMillis();
-            timer.reset();
-            shootStartTime = timer.startTime();
+            shootStartTime = System.currentTimeMillis();
             leftOuttake.setPower(1);
             rightOuttake.setPower(1);
         }
 
         long fireDuration = 500;
         if (shooting) {
-            //if (System.currentTimeMillis() - shootStartTime >= fireDuration) {
-            if (timer.time() - shootStartTime >= fireDuration) {
+            if (System.currentTimeMillis() - shootStartTime >= fireDuration) {
                 leftOuttake.setPower(-1);
                 rightOuttake.setPower(-1);
                 returning = true;
@@ -112,22 +105,22 @@ public class OuttakeTest extends OpMode {
             }
         }
     }
-    //public void returnTest() {
-        //if (gamepad1.b && !returns) {
-           // returns=true;
-           // shootStartTime = System.currentTimeMillis();
-          //  leftOuttake.setPower(-1);
-          //  rightOuttake.setPower(-1);
-       // }
-      //  long returnsDuration = 5000;
-      //  if (returns) {
-        //    if (System.currentTimeMillis() - shootStartTime >= returnsDuration) {
-         //       returns=false;
-          //      leftOuttake.setVelocity(0);
-          //      rightOuttake.setVelocity(0);
-          //  }
-     //   }
- //   }
+    public void returnTest() {
+        if (gamepad1.b && !returns) {
+            returns=true;
+            shootStartTime = System.currentTimeMillis();
+            leftOuttake.setPower(-1);
+            rightOuttake.setPower(-1);
+        }
+        long returnsDuration = 5000;
+        if (returns) {
+            if (System.currentTimeMillis() - shootStartTime >= returnsDuration) {
+                returns=false;
+                leftOuttake.setVelocity(0);
+                rightOuttake.setVelocity(0);
+            }
+        }
+    }
 }
 
 
