@@ -5,7 +5,9 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.IMU;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
@@ -15,7 +17,7 @@ import java.util.concurrent.TimeUnit;
 
 
 @TeleOp(name = "FCD Test")
-public class FCDTest extends OpMode {
+public class DrivetrainMain extends OpMode {
 
     Deadline gamepadRateLimit = new Deadline(250, TimeUnit.MILLISECONDS);
     DcMotor leftFront, rightFront, rightBack, leftBack;
@@ -51,7 +53,6 @@ public class FCDTest extends OpMode {
         double strafe = gamepad1.left_stick_x;
         double turn = -gamepad1.right_stick_x;
 
-        //max power over here is 0.95
         double drivePower = 0.95 - (0.6 * gamepad1.right_trigger);
 
         if (gamepadRateLimit.hasExpired() && gamepad1.a) {
@@ -78,5 +79,41 @@ public class FCDTest extends OpMode {
         leftFront.setPower(LFPower);
         leftBack.setPower(LBPower);
 
+
+
+        leftFront = hardwareMap.get(DcMotorEx.class, "leftFront");
+        rightFront = hardwareMap.get(DcMotorEx.class, "rightFront");
+        leftBack = hardwareMap.get(DcMotorEx.class, "leftBack");
+        rightBack = hardwareMap.get(DcMotorEx.class, "rightBack");
+
+        leftFront.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
+        rightFront.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
+        leftBack.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
+        rightBack.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
+
+        leftFront.setTargetPosition(0);
+        rightFront.setTargetPosition(0);
+        leftBack.setTargetPosition(0);
+        rightBack.setTargetPosition(0);
+
+        leftFront.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
+        rightFront.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
+        leftBack.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
+        rightBack.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
+
+        leftFront.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
+        rightFront.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
+        leftBack.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
+        rightBack.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
+
+        leftFront.setDirection(DcMotorEx.Direction.FORWARD);
+        rightFront.setDirection(DcMotorEx.Direction.REVERSE);
+        leftBack.setDirection(DcMotorEx.Direction.FORWARD);
+        rightBack.setDirection(DcMotorEx.Direction.REVERSE);
+
     }
+
 }
+
+
+
