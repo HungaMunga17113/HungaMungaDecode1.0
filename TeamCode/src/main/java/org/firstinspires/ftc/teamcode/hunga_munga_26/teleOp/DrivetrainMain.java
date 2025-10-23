@@ -159,7 +159,10 @@ public class DrivetrainMain extends OpMode {
 
         if (gamepad1.right_trigger > 0) {
             intake.setPower(1);
-        } else {
+        } else if (gamepad1.x){
+            intake.setPower(-1);
+        }
+        else {
             intake.setPower(0);
         }
 

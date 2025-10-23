@@ -15,6 +15,7 @@ public class FinalTeleOp extends OpMode {
     private boolean shooting = false;
     private boolean returning = false;
     double maxSpeed = 1.0;
+    long startTime = 0;
     /*
     (Button) Initialize Period, before you press start on your program.
      */
@@ -46,19 +47,18 @@ public class FinalTeleOp extends OpMode {
         leftOuttake.setDirection(DcMotorSimple.Direction.REVERSE);
         rightOuttake.setDirection(DcMotorSimple.Direction.FORWARD);
 
-        leftOuttake.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
-        rightOuttake.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
-
-        leftOuttake.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
-        rightOuttake.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
 
         leftOuttake.setTargetPosition(0);
         rightOuttake.setTargetPosition(0);
+
+        leftOuttake.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
+        rightOuttake.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
     }
 
     public void loop() {
         Drive();
         Intake();
+        Outtake();
     }
 
     /*
@@ -151,42 +151,87 @@ public class FinalTeleOp extends OpMode {
         }
 
     }
-    public void shootTest() {
-        int outtakePosition = 134;
-        if (gamepad1.a && !shooting) {
-            resetOuttake();
-            shooting = true;
-            leftOuttake.setTargetPosition(outtakePosition);
-            rightOuttake.setTargetPosition(outtakePosition);
-            leftOuttake.setPower(1);
-            rightOuttake.setPower(1);
-        }
-        if (shooting) {
-            if (leftOuttake.getCurrentPosition() >= outtakePosition) {
-                leftOuttake.setPower(-1);
-                rightOuttake.setPower(-1);
-                returning = true;
-                shooting = false;
-            }
-        }
-        if (returning) {
-            if (leftOuttake.getCurrentPosition() <= 0) {
-                returning = false;
-                shooting = false;
-                leftOuttake.setPower(0);
-                rightOuttake.setPower(0);
-            }
-        }
-    }
+    //public void Outtake() {
+        //int outtakePosition = 90;
+        //if (gamepad1.a && !shooting) {
+            //resetOuttake();
+            //shooting = true;
+            //leftOuttake.setTargetPosition(outtakePosition);
+            //rightOuttake.setTargetPosition(outtakePosition);
+          //  leftOuttake.setPower(1);
+          //  rightOuttake.setPower(1);
+    //    }
+    //    if (shooting) {
+     //       if (leftOuttake.getCurrentPosition() >= outtakePosition) {
+    //            leftOuttake.setTargetPosition(0);
+     //           rightOuttake.setTargetPosition(0);
+     //           leftOuttake.setPower(-1);
+      //          rightOuttake.setPower(-1);
+     //           returning = true;
+     //           shooting = false;
+       //     }
+     //   }
+   //     if (returning) {
+    //        if (leftOuttake.getCurrentPosition() <= 0) {
+    //            returning = false;
+     //           shooting = false;
+     //           leftOuttake.setPower(0);
+       //         rightOuttake.setPower(0);
+          //  }
+     //   }
+  //  }
     public void resetOuttake() {
-        leftOuttake.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
-        rightOuttake.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
-
         leftOuttake.setTargetPosition(0);
         rightOuttake.setTargetPosition(0);
 
         leftOuttake.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
         rightOuttake.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
     }
+    //public void Outtake() {
+        //int outtakePosition = 87;
+        //if (gamepad1.a && !shooting) {
+      //  resetOuttake();
+      //  shooting = true;
+     //   leftOuttake.setTargetPosition(-outtakePosition);
+     //   rightOuttake.setTargetPosition(-outtakePosition);
+     //   leftOuttake.setPower(1);
+     //   rightOuttake.setPower(1);
+    //    }
+    //    if (gamepad1.b && shooting) {
+    //        shooting = false;
+    //        leftOuttake.setTargetPosition(0);
+     //       rightOuttake.setTargetPosition(0);
+    //        leftOuttake.setPower(-1);
+     //       rightOuttake.setPower(-1);
+  //      }
+  //  }
+    public void Outtake() {
+        //int outtakePosition = 90;
 
+        if (gamepad1.a && !shooting) {
+            resetOuttake();
+            shooting = true;
+            startTime = System.currentTimeMillis();
+            leftOuttake.setPower(1);
+            rightOuttake.setPower(1);
+            }
+        int shootTime = 500;
+            if (shooting) {
+               if (System.currentTimeMillis()- startTime >= shootTime) {
+                    leftOuttake.setPower(-1);
+                    rightOuttake.setPower(-1);
+                    returning = true;
+                    shooting = false;
+             }
+           }
+            int returnTime = 2500;
+             if (returning) {
+                if (System.currentTimeMillis()-startTime >= returnTime) {
+                    returning = false;
+                   shooting = false;
+                   leftOuttake.setPower(0);
+                   rightOuttake.setPower(0);
+          }
+           }
+          }
 }
