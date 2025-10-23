@@ -33,6 +33,7 @@ public class NewTest extends OpMode {
      */
     public void init() {
 
+
         //set hardware map names (aka what the controller understands)
         leftFront = hardwareMap.get(DcMotor.class, "leftFront");
         leftBack = hardwareMap.get(DcMotor.class, "leftBack");
