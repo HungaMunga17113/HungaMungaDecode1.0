@@ -25,6 +25,7 @@ public class NewTest extends OpMode {
 
     private ElapsedTime outtakeTime = new ElapsedTime();
 
+//TODO - CAPITALIZE ENUMURATION VALUES!! otherwise ishaan will come and KILL u :D :P
     private enum outtakeModes {Shoot, Return, Rest};
     private outtakeModes pivotMode;
     double outtakePower = 1;
@@ -33,18 +34,20 @@ public class NewTest extends OpMode {
      */
     public void init() {
 
-
         //set hardware map names (aka what the controller understands)
         leftFront = hardwareMap.get(DcMotor.class, "leftFront");
         leftBack = hardwareMap.get(DcMotor.class, "leftBack");
         rightFront = hardwareMap.get(DcMotor.class, "rightFront");
         rightBack = hardwareMap.get(DcMotor.class, "rightBack");
         intake = hardwareMap.get(DcMotorEx.class, "intake");
+
         leftOuttake = hardwareMap.get(DcMotorEx.class, "leftOuttake");
         rightOuttake = hardwareMap.get(DcMotorEx.class, "rightOuttake");
 
         // When no power (aka no joysticks moving (idle) ), robot should brake on stop
-        intake.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        //Because intake is suppsed to be rolliing and you don actually use absolute position with encoder values, keep it float not brake
+        //intake.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
         leftOuttake.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         rightOuttake.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
@@ -52,6 +55,7 @@ public class NewTest extends OpMode {
         leftFront.setDirection(DcMotorSimple.Direction.REVERSE);
         rightFront.setDirection(DcMotorSimple.Direction.FORWARD);
         leftBack.setDirection(DcMotorSimple.Direction.REVERSE);
+
         intake.setDirection(DcMotorSimple.Direction.REVERSE);
         leftOuttake.setDirection(DcMotorSimple.Direction.REVERSE);
         rightOuttake.setDirection(DcMotorSimple.Direction.FORWARD);
