@@ -56,9 +56,11 @@ public class TickCounter extends LinearOpMode {
             telemetry.addData("leftBack Motor Position", leftBackPausePosition);
             telemetry.addData("rightFront Motor Position", rightFrontPausePosition);
             telemetry.addData("rightBack Motor Position", rightBackPausePosition);
+            telemetry.addData("Tick Average", tickAverage);
+
             telemetry.addData("leftOuttake Motor Position", leftOuttakePausePosition);
             telemetry.addData("rightOuttake Motor Position", rightOuttakePausePosition);
-            telemetry.addData("Tick Average", tickAverage);
+            
             // Update the display on the Driver Station
             telemetry.update();
         }
