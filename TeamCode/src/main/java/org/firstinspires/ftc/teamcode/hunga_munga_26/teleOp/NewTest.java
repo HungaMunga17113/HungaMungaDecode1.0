@@ -16,6 +16,7 @@ import java.util.concurrent.TimeUnit;
 
 @TeleOp
 public class NewTest extends OpMode {
+    //game manuel 0 mecanum drive
     Deadline gamepadRateLimit = new Deadline(250, TimeUnit.MILLISECONDS);
 
     DcMotor leftFront, leftBack, rightFront, rightBack;
@@ -43,7 +44,7 @@ public class NewTest extends OpMode {
         rightOuttake = hardwareMap.get(DcMotorEx.class, "rightOuttake");
 
         // When no power (aka no joysticks moving (idle) ), robot should brake on stop
-        intake.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        //intake.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         leftOuttake.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         rightOuttake.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
@@ -56,7 +57,7 @@ public class NewTest extends OpMode {
         rightOuttake.setDirection(DcMotorSimple.Direction.FORWARD);
         imu = hardwareMap.get(IMU.class, "imu");
         IMU.Parameters parameters = new IMU.Parameters(new RevHubOrientationOnRobot(
-                RevHubOrientationOnRobot.LogoFacingDirection.LEFT,
+                RevHubOrientationOnRobot.LogoFacingDirection.BACKWARD,
                 RevHubOrientationOnRobot.UsbFacingDirection.UP
         ));
         imu.initialize(parameters);

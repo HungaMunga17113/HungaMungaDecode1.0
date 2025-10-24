@@ -43,6 +43,10 @@ public class NewTest2 extends OpMode {
         rightOuttake = hardwareMap.get(DcMotorEx.class, "rightOuttake");
 
         // When no power (aka no joysticks moving (idle) ), robot should brake on stop
+        leftFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        leftBack.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        rightFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        rightBack.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         intake.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         leftOuttake.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         rightOuttake.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -54,12 +58,6 @@ public class NewTest2 extends OpMode {
         intake.setDirection(DcMotorSimple.Direction.REVERSE);
         leftOuttake.setDirection(DcMotorSimple.Direction.REVERSE);
         rightOuttake.setDirection(DcMotorSimple.Direction.FORWARD);
-        imu = hardwareMap.get(IMU.class, "imu");
-        IMU.Parameters parameters = new IMU.Parameters(new RevHubOrientationOnRobot(
-                RevHubOrientationOnRobot.LogoFacingDirection.LEFT,
-                RevHubOrientationOnRobot.UsbFacingDirection.UP
-        ));
-        imu.initialize(parameters);
 
         outtakeTime.reset();
     }
@@ -73,17 +71,19 @@ public class NewTest2 extends OpMode {
     public void Drive() {
         double max;
 
-        double axial = -gamepad1.left_stick_y;
-        double lateral = -gamepad1.right_stick_x;
-        double yaw = -gamepad1.left_stick_x;
+        double axial = gamepad1.left_stick_y;
+        double lateral = -gamepad1.left_stick_x;
+        double yaw = -gamepad1.right_stick_x;
 
+        //double leftFrontPower = axial + lateral - yaw;
+        //double rightFrontPower =axial - lateral + yaw;
+        //double leftBackPower = axial - lateral + yaw;
+        //double rightBackPower = axial + lateral - yaw;
         double leftFrontPower = axial + lateral + yaw;
         double rightFrontPower = axial - lateral - yaw;
         double leftBackPower = axial - lateral + yaw;
         double rightBackPower = axial + lateral - yaw;
 
-        // Normalize the values so no wheel power exceeds 100%
-        // This ensures that the robot maintains the desired motion.
         max = Math.max(Math.abs(leftFrontPower), Math.abs(rightFrontPower));
         max = Math.max(max, Math.abs(leftBackPower));
         max = Math.max(max, Math.abs(rightBackPower));
@@ -98,6 +98,18 @@ public class NewTest2 extends OpMode {
         rightBack.setPower(rightBackPower);
         leftFront.setPower(leftFrontPower);
         leftBack.setPower(leftBackPower);
+        //if (gamepad1.x) {
+           // leftFront.setPower(1);
+        //}
+        //if (gamepad1.y) {
+        //    leftBack.setPower(1);
+        //}
+        //if (gamepad1.a) {
+          //  rightFront.setPower(1);
+        //}
+        //if (gamepad1.b) {
+         //   rightBack.setPower(1);
+        //}
 
     }
 
