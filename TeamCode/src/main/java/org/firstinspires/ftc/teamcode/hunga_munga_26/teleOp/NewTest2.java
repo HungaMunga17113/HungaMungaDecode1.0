@@ -74,7 +74,7 @@ public class NewTest2 extends OpMode {
         double axial = gamepad1.left_stick_y;
         double lateral = -gamepad1.left_stick_x;
         double yaw = -gamepad1.right_stick_x;
-
+        double drivePower = 0.95 - (0.6 * gamepad1.left_trigger);
         //double leftFrontPower = axial + lateral - yaw;
         //double rightFrontPower =axial - lateral + yaw;
         //double leftBackPower = axial - lateral + yaw;
@@ -94,10 +94,10 @@ public class NewTest2 extends OpMode {
             leftBackPower /= max;
             rightBackPower /= max;
         }
-        rightFront.setPower(rightFrontPower);
-        rightBack.setPower(rightBackPower);
-        leftFront.setPower(leftFrontPower);
-        leftBack.setPower(leftBackPower);
+        rightFront.setPower(rightFrontPower*drivePower);
+        rightBack.setPower(rightBackPower*drivePower);
+        leftFront.setPower(leftFrontPower*drivePower);
+        leftBack.setPower(leftBackPower*drivePower);
         //if (gamepad1.x) {
            // leftFront.setPower(1);
         //}
@@ -115,7 +115,7 @@ public class NewTest2 extends OpMode {
 
     private void Intake() {
         double intakePower = 1;
-        if (gamepad1.left_bumper) {
+        if (gamepad1.right_trigger > 0.15) {
             intake.setPower(intakePower);
         } else if (gamepad1.y) {
             intake.setPower(-intakePower);
@@ -130,7 +130,7 @@ public class NewTest2 extends OpMode {
             leftOuttake.setPower(outtakePower);
             rightOuttake.setPower(outtakePower);
             outtakeTime.reset();
-        } else if (gamepad1.right_trigger > 0.15) {
+        } else if (gamepad1.left_bumper) {
             pivotMode = outtakeModes.Return;
             leftOuttake.setPower(-outtakePower);
             rightOuttake.setPower(-outtakePower);
