@@ -27,7 +27,7 @@ public class NewTest2 extends OpMode {
 
     private enum outtakeModes {Shoot, Return, Rest};
     private outtakeModes pivotMode;
-    double outtakePower = 1;
+    double outtakePower = 0.95;
     /*
     (Button) Initialize Period, before you press start on your program.
      */
@@ -136,17 +136,17 @@ public class NewTest2 extends OpMode {
             rightOuttake.setPower(-outtakePower);
             outtakeTime.reset();
         } else {
-            double downTime = 1.0;
-            if (outtakeTime.seconds() < downTime) {
-                leftOuttake.setPower(-0.05);
-                rightOuttake.setPower(-0.05);
-            } else {
-                leftOuttake.setPower(0);
-                rightOuttake.setPower(0);
+            //double downTime = 1.0;
+            //if (outtakeTime.seconds() < downTime) {
+            leftOuttake.setPower(-0.05);
+            rightOuttake.setPower(-0.05);
+            //} else {
+            //    leftOuttake.setPower(0);
+            //    rightOuttake.setPower(0);
             }
 
             pivotMode = outtakeModes.Rest;
         }
     }
-}
+
 
