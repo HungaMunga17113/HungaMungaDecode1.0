@@ -17,7 +17,7 @@ import org.firstinspires.ftc.robotcore.internal.system.Deadline;
 import java.util.concurrent.TimeUnit;
 
 @TeleOp
-public class NewTest2 extends OpMode {
+public class NewTest3 extends OpMode {
     Deadline gamepadRateLimit = new Deadline(250, TimeUnit.MILLISECONDS);
 
     DcMotor leftFront, leftBack, rightFront, rightBack;
@@ -26,7 +26,7 @@ public class NewTest2 extends OpMode {
 
     ElapsedTime outtakeTime = new ElapsedTime();
 
-    private enum outtakeModes {Move, Shoot, Return, Rest};
+    private enum outtakeModes {Shoot, Return, Rest};
     private outtakeModes pivotMode;
     double outtakePower = 0.99;
     /*
@@ -140,19 +140,10 @@ public class NewTest2 extends OpMode {
         }
          */
         if (gamepad1.right_bumper && !leftOuttake.isBusy()) {
-            pivotMode = outtakeModes.Shoot;
-            leftFront.setPower(1);
-            rightFront.setPower(1);
-            leftBack.setPower(1);
-            rightBack.setPower(1);
-            outtakeTime.reset();
-        }
-        if (pivotMode == outtakeModes.Move && outtakeTime.milliseconds() > 200) {
-            stopMotors();
-            pivotMode = outtakeModes.Shoot;
-            leftOuttake.setPower(outtakePower);
-            rightOuttake.setPower(outtakePower);
-            outtakeTime.reset();
+                pivotMode = outtakeModes.Shoot;
+                leftOuttake.setPower(outtakePower);
+                rightOuttake.setPower(outtakePower);
+                outtakeTime.reset();
         }
         if (pivotMode == outtakeModes.Shoot && outtakeTime.milliseconds() > 400) {
             pivotMode = outtakeModes.Return;
@@ -167,13 +158,7 @@ public class NewTest2 extends OpMode {
             outtakeTime.reset();
         }
     }
-    public void stopMotors() {
-        leftFront.setPower(0);
-        leftBack.setPower(0);
-        rightFront.setPower(0);
-        rightBack.setPower(0);
-        intake.setPower(0);
-    }
+
     private double getBatteryVoltage() {
         double result = Double.POSITIVE_INFINITY;
         for (VoltageSensor sensor : hardwareMap.voltageSensor) {
@@ -185,4 +170,5 @@ public class NewTest2 extends OpMode {
         return result;
     }
 }
+
 

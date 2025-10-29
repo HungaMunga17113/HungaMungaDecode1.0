@@ -61,14 +61,16 @@ public class FinalRedAuton extends LinearOpMode {
         //Turn - (27.5,1)
         //Turn - (53,0.5)
         waitForStart();
-        vertical (22.6,0.45);
+        //vertical (-12,2);
+
+        vertical (23,0.45);
         sleep(250);
         shoot();
-        vertical (38.41165,1.233);
+        vertical (39.91165,1.233);
         sleep(50);
         turn(-37.35,0.5);
         sleep(50);
-        vertical(-40,2.75,1);
+        vertical(-40,3,1);
         sleep(250);
         vertical(30,1.75, 1);
         sleep(50);
@@ -77,7 +79,7 @@ public class FinalRedAuton extends LinearOpMode {
         vertical(-26.8411,2);
         sleep(200);
         shootDown();
-        sleep(300);
+        sleep(350);
         shoot();
         sleep(50);
         vertical(26.8411,1.5);
@@ -85,22 +87,22 @@ public class FinalRedAuton extends LinearOpMode {
         sleep(50);
         turn(34.5,0.5);
         sleep(50);
-        vertical(36.4,1);
+        vertical(37,1);
         sleep(50);
-        turn(-33.9,0.96);
+        turn(-31.9,0.96);
         sleep(50);
-        vertical(-30,1.75,1);
+        vertical(-30,2,1);
         sleep(50);
-        vertical(22,1,1);
+        vertical(23.5,1,1);
         sleep(50);
         turn(31.25,0.95);
         sleep(50);
-        vertical(-41.75,1.45);
+        vertical(-40.75,1.45);
         sleep(50);
-        turn(-33.67,0.5);
+        turn(-32.67,0.5);
         sleep(200);
         shootDown();
-        sleep(300);
+        sleep(350);
         shoot();
 
 
@@ -181,10 +183,10 @@ public class FinalRedAuton extends LinearOpMode {
         //resetShoot();
         rightOuttake.setPower(shootSpeed);
         leftOuttake.setPower(shootSpeed);
-        sleep(1000);
+        sleep(850);
         rightOuttake.setPower(-shootSpeed);
         leftOuttake.setPower(-shootSpeed);
-        sleep(1000);
+        sleep(950);
         rightOuttake.setPower(-0.05);
         leftOuttake.setPower(-0.05);
 
