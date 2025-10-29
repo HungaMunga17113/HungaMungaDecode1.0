@@ -61,27 +61,32 @@ public class FinalBlueAuton extends LinearOpMode {
         //Turn - (27.5,1)
         //Turn - (53,0.5)
         waitForStart();
+        //First 3 balls
         vertical (23,0.45);
         sleep(350);
         shoot();
+        //Second 3 balls
         vertical (38.41165,1.233);
         sleep(50);
         turn(37.35,0.5);
         sleep(50);
+        //Intaking second 3 balls
         vertical(-40,3,1);
         sleep(250);
         vertical(30,1.75, 1);
         sleep(50);
+        //Returning to the goal
         turn(-35.25,0.5);
         sleep(50);
         vertical(-26.8411,2);
         sleep(200);
+        //Shooting second 3 balls
         shootDown();
         sleep(350);
         shoot();
         sleep(50);
+        //Third 3 balls
         vertical(26.8411,1.5);
-        //Part 2
         sleep(50);
         turn(-34.5,0.5);
         sleep(50);
@@ -89,16 +94,19 @@ public class FinalBlueAuton extends LinearOpMode {
         sleep(50);
         turn(31.9,0.96);
         sleep(50);
+        //Intaking third 3 balls
         vertical(-30,2,1);
         sleep(50);
         vertical(23.5,1,1);
         sleep(50);
+        //Returning to goal
         turn(-31.25,0.95);
         sleep(50);
         vertical(-40.75,1.45);
         sleep(50);
         turn(32.67,0.5);
         sleep(200);
+        //Shooting last 3 balls
         shootDown();
         sleep(350);
         shoot();
