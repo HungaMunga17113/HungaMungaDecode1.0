@@ -93,7 +93,7 @@ public class OuttakeTest extends OpMode {
         long fireDuration = 500;
         if (shooting) {
             //if (System.currentTimeMillis() - shootStartTime >= fireDuration) {
-            if (timer.time() - shootStartTime >= fireDuration) {
+            if (timer.time() >= fireDuration) {
                 leftOuttake.setPower(-1);
                 rightOuttake.setPower(-1);
                 returning = true;
@@ -120,7 +120,8 @@ public class OuttakeTest extends OpMode {
           //  rightOuttake.setPower(-1);
        // }
       //  long returnsDuration = 5000;
-      //  if (returns) {
+      //  if
+    //  (returns) {
         //    if (System.currentTimeMillis() - shootStartTime >= returnsDuration) {
          //       returns=false;
           //      leftOuttake.setVelocity(0);
