@@ -7,14 +7,15 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 @TeleOp
-public class MainTest extends OpMode {
+public class FinalTeleOp extends OpMode {
 
-    // Initializing/making motor names
     DcMotor leftFront, leftBack, rightFront, rightBack;
-    DcMotorEx leftShooter, rightShooter;
-    //Initialize Variables
+    DcMotor intake;
+    DcMotor leftOuttake, rightOuttake;
+    private boolean shooting = false;
+    private boolean returning = false;
     double maxSpeed = 1.0;
-    double maxVelocity = 100;
+    long startTime = 0;
     /*
     (Button) Initialize Period, before you press start on your program.
      */
@@ -25,46 +26,39 @@ public class MainTest extends OpMode {
         leftBack = hardwareMap.get(DcMotor.class, "leftBack");
         rightFront = hardwareMap.get(DcMotor.class, "rightFront");
         rightBack = hardwareMap.get(DcMotor.class, "rightBack");
-
-        leftShooter = hardwareMap.get(DcMotorEx.class, "leftshooter");
-        rightShooter = hardwareMap.get(DcMotorEx.class, "rightshooter");
-
-        // Motor power goes from -maxSpeed -> maxSpee
-        // Sets motor direction. Says which direction the motor will turn when given full power of maxSpeed
-
-        leftShooter.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        rightShooter.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        intake = hardwareMap.get(DcMotorEx.class, "intake");
+        leftOuttake = hardwareMap.get(DcMotorEx.class, "leftOuttake");
+        rightOuttake = hardwareMap.get(DcMotorEx.class, "rightOuttake");
 
         // When no power (aka no joysticks moving (idle) ), robot should brake on stop
         leftFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         leftBack.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         rightFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         rightBack.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        intake.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        leftOuttake.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        rightOuttake.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         rightBack.setDirection(DcMotorSimple.Direction.FORWARD);
         leftFront.setDirection(DcMotorSimple.Direction.REVERSE);
         rightFront.setDirection(DcMotorSimple.Direction.FORWARD);
         leftBack.setDirection(DcMotorSimple.Direction.REVERSE);
-        leftShooter.setDirection(DcMotorSimple.Direction.FORWARD);
-        rightShooter.setDirection(DcMotorSimple.Direction.REVERSE);
-        
+        intake.setDirection(DcMotorSimple.Direction.REVERSE);
+        leftOuttake.setDirection(DcMotorSimple.Direction.REVERSE);
+        rightOuttake.setDirection(DcMotorSimple.Direction.FORWARD);
+
+
+        leftOuttake.setTargetPosition(0);
+        rightOuttake.setTargetPosition(0);
+
+        leftOuttake.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
+        rightOuttake.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
     }
 
-    /*
-    (Button) What happens when you press Start/Play
-    You constantly update all your code
-    Basically just keep all your code over here
-     */
     public void loop() {
-//        Drive();
-        
-        if (gamepad1.a) {
-            setShooter(maxVelocity);
-        }
-        
-        else {
-            setShooter(0);
-        }
+        Drive();
+        Intake();
+        Outtake();
     }
 
     /*
@@ -146,24 +140,98 @@ public class MainTest extends OpMode {
             rightBack.setPower(0);
         }
 
+    }
+    private void Intake() {
+
         if (gamepad1.right_trigger > 0) {
-            rightShooter.setPower(-1.0);
-            leftShooter.setPower(1.0);
-        } else if (gamepad1.left_trigger > 0) {
-            rightShooter.setPower(-1.0);
-            leftShooter.setPower(1.0);
-        } else {
-            rightShooter.setPower(0);
-            leftShooter.setPower(0);
+            intake.setPower(1);
+        }
+        else {
+            intake.setPower(0);
         }
 
-
     }
-    
-    private void setShooter(double velocity) {
-        rightShooter.setVelocity(velocity);
-        leftShooter.setVelocity(velocity);
-    }
-    
+    //public void Outtake() {
+        //int outtakePosition = 90;
+        //if (gamepad1.a && !shooting) {
+            //resetOuttake();
+            //shooting = true;
+            //leftOuttake.setTargetPosition(outtakePosition);
+            //rightOuttake.setTargetPosition(outtakePosition);
+          //  leftOuttake.setPower(1);
+          //  rightOuttake.setPower(1);
+    //    }
+    //    if (shooting) {
+     //       if (leftOuttake.getCurrentPosition() >= outtakePosition) {
+    //            leftOuttake.setTargetPosition(0);
+     //           rightOuttake.setTargetPosition(0);
+     //           leftOuttake.setPower(-1);
+      //          rightOuttake.setPower(-1);
+     //           returning = true;
+     //           shooting = false;
+       //     }
+     //   }
+   //     if (returning) {
+    //        if (leftOuttake.getCurrentPosition() <= 0) {
+    //            returning = false;
+     //           shooting = false;
+     //           leftOuttake.setPower(0);
+       //         rightOuttake.setPower(0);
+          //  }
+     //   }
+  //  }
+    public void resetOuttake() {
+        leftOuttake.setTargetPosition(0);
+        rightOuttake.setTargetPosition(0);
 
+        leftOuttake.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
+        rightOuttake.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
+    }
+    //public void Outtake() {
+        //int outtakePosition = 87;
+        //if (gamepad1.a && !shooting) {
+      //  resetOuttake();
+      //  shooting = true;
+     //   leftOuttake.setTargetPosition(-outtakePosition);
+     //   rightOuttake.setTargetPosition(-outtakePosition);
+     //   leftOuttake.setPower(1);
+     //   rightOuttake.setPower(1);
+    //    }
+    //    if (gamepad1.b && shooting) {
+    //        shooting = false;
+    //        leftOuttake.setTargetPosition(0);
+     //       rightOuttake.setTargetPosition(0);
+    //        leftOuttake.setPower(-1);
+     //       rightOuttake.setPower(-1);
+  //      }
+  //  }
+    public void Outtake() {
+        //int outtakePosition = 90;
+
+        if (gamepad1.a && !shooting) {
+            resetOuttake();
+            shooting = true;
+            startTime = System.currentTimeMillis();
+            leftOuttake.setPower(1);
+            rightOuttake.setPower(1);
+            }
+        int shootTime = 500;
+            if (shooting) {
+               if (System.currentTimeMillis()- startTime >= shootTime) {
+                    leftOuttake.setPower(-1);
+                    rightOuttake.setPower(-1);
+                    returning = true;
+                    shooting = false;
+             }
+           }
+            int returnTime = 2500;
+             if (returning) {
+                if (System.currentTimeMillis()-startTime >= returnTime) {
+                    returning = false;
+                   shooting = false;
+                   leftOuttake.setPower(0);
+                   rightOuttake.setPower(0);
+          }
+           }
+          }
 }

@@ -50,18 +50,17 @@ public class VelocityAutonPath_2 extends LinearOpMode {
         waitForStart();
 
         vertical(8,1);
-        turn(27,0.5);
+        strafe(5,1);
         sleep(1500);
-        turn(27,0.5);
-        strafe(7,1);
-        turn(13,0.5);
-        sleep(3000);
-        strafe(25,1.5);
-        vertical(20,1.5);
-        vertical(-20,1.5);
-        strafe(-25,1);
-        turn(26.5,0.5);
-
+        turn(30,0.5);
+        vertical(8,1);
+        strafe(5,1);
+        sleep(1500);
+        turn(30,0.5);
+        vertical(8,1);
+        strafe(5,1);
+        sleep(1500);
+        turn(30,0.5);
     }
 
     public void vertical(double inchesPerSecond, double seconds) {
