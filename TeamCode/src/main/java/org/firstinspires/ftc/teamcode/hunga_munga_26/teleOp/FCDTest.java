@@ -51,7 +51,7 @@ public class FCDTest extends OpMode {
         double strafe = gamepad1.left_stick_x;
         double turn = -gamepad1.right_stick_x;
 
-        //max power oover here is 0.95
+        //max power over here is 0.95
         double drivePower = 0.95 - (0.6 * gamepad1.right_trigger);
 
         if (gamepadRateLimit.hasExpired() && gamepad1.a) {
@@ -77,5 +77,6 @@ public class FCDTest extends OpMode {
         rightBack.setPower(RBPower);
         leftFront.setPower(LFPower);
         leftBack.setPower(LBPower);
+
     }
 }

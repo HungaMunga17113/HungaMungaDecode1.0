@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.hunga_munga_26.teleOp;
 
+import static java.lang.Thread.sleep;
+
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -11,11 +13,13 @@ public class OuttakeTest extends OpMode {
 
     // Initializing/making motor names
     DcMotor leftFront, leftBack, rightFront, rightBack;
-    DcMotorEx leftShooter, rightShooter;
+    DcMotorEx leftOuttake, rightOuttake;
     //Initialize Variables
-    double minPower = 0.58;
-    double minVelocity = 1625;
-    double maxVelocity = 5000;
+    private boolean shooting = false;
+    private boolean returning = false;
+    private boolean returns = false;
+    private long shootStartTime = 0;
+    private long returnStartTime = 0;
 
     /*
     (Button) Initialize Period, before you press start on your program.
@@ -28,14 +32,14 @@ public class OuttakeTest extends OpMode {
         //rightFront = hardwareMap.get(DcMotor.class, "rightFront");
         //rightBack = hardwareMap.get(DcMotor.class, "rightBack");
 
-        leftShooter = hardwareMap.get(DcMotorEx.class, "leftShooter");
-        rightShooter = hardwareMap.get(DcMotorEx.class, "rightShooter");
+        leftOuttake = hardwareMap.get(DcMotorEx.class, "leftOuttake");
+        rightOuttake = hardwareMap.get(DcMotorEx.class, "rightOuttake");
 
-        // Motor power goes from -maxSpeed -> maxSpee
+        // Motor power goes from -maxSpeed -> maxSpeed
         // Sets motor direction. Says which direction the motor will turn when given full power of maxSpeed
 
-        leftShooter.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        rightShooter.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        leftOuttake.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        rightOuttake.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         // When no power (aka no joysticks moving (idle) ), robot should brake on stop
         //leftFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -43,8 +47,8 @@ public class OuttakeTest extends OpMode {
         //rightFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         //rightBack.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
-        leftShooter.setDirection(DcMotorSimple.Direction.FORWARD);
-        rightShooter.setDirection(DcMotorSimple.Direction.REVERSE);
+        leftOuttake.setDirection(DcMotorSimple.Direction.REVERSE);
+        rightOuttake.setDirection(DcMotorSimple.Direction.FORWARD);
 
     }
 
@@ -54,7 +58,9 @@ public class OuttakeTest extends OpMode {
     Basically just keep all your code over here
      */
     public void loop() {
-        Drive();
+
+        shootTest();
+        returnTest();
     }
 
     /*
@@ -69,27 +75,55 @@ public class OuttakeTest extends OpMode {
             a. Robot strafes left | (rightFront, leftBack maxSpeed) & (rightBack, leftFront -maxSpeed)
             b. Robot strafes left | (rightFront, leftBack -maxSpeed) & (rightBack, leftFront maxSpeed)
      */
-    private void Drive() {
 
-        if (gamepad1.right_trigger > 0) {
-            rightShooter.setVelocity(maxVelocity);
-            leftShooter.setVelocity(maxVelocity);
-        } else if (gamepad1.left_trigger > 0) {
-            rightShooter.setVelocity(minVelocity);
-            leftShooter.setVelocity(minVelocity);
-        } else if (gamepad1.a) {
-            leftShooter.setPower(minPower);
-            rightShooter.setPower(minPower);
-        } else {
-            rightShooter.setVelocity(0);
-            leftShooter.setVelocity(0);
-            leftShooter.setPower(0);
-            rightShooter.setPower(0);
+    public void shootTest() {
+        if (gamepad1.a && !shooting) {
+            shooting = true;
+            shootStartTime = System.currentTimeMillis();
+            leftOuttake.setPower(1);
+            rightOuttake.setPower(1);
         }
 
+        long fireDuration = 500;
+        if (shooting) {
+            if (System.currentTimeMillis() - shootStartTime >= fireDuration) {
+                leftOuttake.setPower(-1);
+                rightOuttake.setPower(-1);
+                returning = true;
+                shooting = false;
+                returnStartTime = System.currentTimeMillis();
 
+            }
+        }
+        long returnDuration = 1000;
+        if (returning) {
+            if (System.currentTimeMillis() - returnStartTime >= returnDuration) {
+                returning = false;
+                shooting = false;
+                leftOuttake.setPower(0);
+                rightOuttake.setPower(0);
+            }
+        }
+    }
+    public void returnTest() {
+        if (gamepad1.b && !returns) {
+            returns=true;
+            shootStartTime = System.currentTimeMillis();
+            leftOuttake.setPower(-1);
+            rightOuttake.setPower(-1);
+        }
+        long returnsDuration = 5000;
+        if (returns) {
+            if (System.currentTimeMillis() - shootStartTime >= returnsDuration) {
+                returns=false;
+                leftOuttake.setVelocity(0);
+                rightOuttake.setVelocity(0);
+            }
+        }
     }
 }
+
+
 
 
 

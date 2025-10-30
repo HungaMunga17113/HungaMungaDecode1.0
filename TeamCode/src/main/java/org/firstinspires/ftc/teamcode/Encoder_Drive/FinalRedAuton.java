@@ -5,9 +5,9 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
-    // adb connect 192.168.43.1:5555
+// adb connect 192.168.43.1:5555
 @Autonomous
-public class VelocityAutonPath1 extends LinearOpMode {
+public class FinalRedAuton extends LinearOpMode {
 
     DcMotorEx intake;
     DcMotorEx leftOuttake;
@@ -20,8 +20,7 @@ public class VelocityAutonPath1 extends LinearOpMode {
     // Motor + Wheel Constants
     final double wheelDiameterInches = 4.29449;
     final double ticksPerRev = 537.6;
-    final double shootSpeed = 0.5;
-    final int outtakePosition = 134;
+    final double shootSpeed = 1;
     final double ticksPerInch = (ticksPerRev) / (Math.PI * wheelDiameterInches);
 
     @Override
@@ -30,10 +29,9 @@ public class VelocityAutonPath1 extends LinearOpMode {
         rightFront = hardwareMap.get(DcMotorEx.class, "rightFront");
         leftBack = hardwareMap.get(DcMotorEx.class, "leftBack");
         rightBack = hardwareMap.get(DcMotorEx.class, "rightBack");
-        intake = hardwareMap.get(DcMotorEx.class, "intake");
         leftOuttake = hardwareMap.get(DcMotorEx.class, "leftOuttake");
         rightOuttake = hardwareMap.get(DcMotorEx.class, "rightOuttake");
-
+        intake = hardwareMap.get(DcMotorEx.class, "intake");
 
         leftFront.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
         rightFront.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
@@ -45,11 +43,12 @@ public class VelocityAutonPath1 extends LinearOpMode {
         leftBack.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
         rightBack.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
 
-        rightBack.setDirection(DcMotorSimple.Direction.FORWARD);
         leftFront.setDirection(DcMotorSimple.Direction.REVERSE);
-        rightFront.setDirection(DcMotorSimple.Direction.FORWARD);
         leftBack.setDirection(DcMotorSimple.Direction.REVERSE);
-        leftOuttake.setDirection(DcMotorSimple.Direction.FORWARD);
+        rightFront.setDirection(DcMotorSimple.Direction.FORWARD);
+        rightBack.setDirection(DcMotorSimple.Direction.FORWARD);
+        intake.setDirection(DcMotorSimple.Direction.REVERSE);
+        leftOuttake.setDirection(DcMotorSimple.Direction.REVERSE);
         rightOuttake.setDirection(DcMotorSimple.Direction.FORWARD);
 
         leftFront.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
@@ -62,8 +61,63 @@ public class VelocityAutonPath1 extends LinearOpMode {
         //Turn - (27.5,1)
         //Turn - (53,0.5)
         waitForStart();
+        //vertical (-12,2);
 
-        turn(28.5,1);
+        //First 3 balls
+        vertical (20,0.45);
+        sleep(350);
+        shoot();
+        //Second 3 balls
+        vertical (38.41165,1.233);
+        sleep(50);
+        turn(-37,0.5);
+        strafe(-24,0.5);
+        sleep(50);
+        //Intaking second 3 balls
+        vertical(-27,4,2);
+        vertical(7,0.5);
+        vertical(-4,2.5,1);
+        sleep(300);
+        vertical(30,1.5, 1);
+        sleep(50);
+        //Returning to the goal
+        turn(35.25,0.5);
+        sleep(50);
+        vertical(-26.8411,2);
+        sleep(200);
+        //Shooting second 3 balls
+        shootDown();
+        sleep(350);
+        shoot();
+        sleep(50);
+        //Third 3 balls
+        vertical(26.8411,1.5);
+        sleep(50);
+        turn(34.5,0.5);
+        sleep(50);
+        vertical(38,1);
+        sleep(50);
+        turn(-33,0.96);
+        sleep(50);
+        //Intaking third 3 balls
+        vertical(-27,2,1);
+        sleep(50);
+        vertical(23.75,1,1);
+        sleep(50);
+        //Returning to goal
+        turn(31,0.95);
+        sleep(50);
+        vertical(-40.5,1.45);
+        sleep(50);
+        turn(-30,0.5);
+        sleep(200);
+        //Shooting last 3 balls
+        shootDown();
+        sleep(350);
+        shoot();
+
+
+        //vertical(42,2,0);
         //turn(-26.5,0.5);
         //sleep(2000);
         //turn(-26.5,0.5);
@@ -74,49 +128,43 @@ public class VelocityAutonPath1 extends LinearOpMode {
         //turn(26.5,0.5);
 
     }
-        public void vertical(double inchesPerSecond, double seconds) {
-            reset();
-            double ticksPerSecond = inchesPerSecond * ticksPerInch;
-            leftFront.setVelocity(ticksPerSecond);
-            leftBack.setVelocity(ticksPerSecond);
-            rightFront.setVelocity(ticksPerSecond);
-            rightBack.setVelocity(ticksPerSecond);
-
-            sleep((long) (seconds * 1000));
-            stopMotors();
-        }
-
-        public void vertical(double inchesPerSecond, double seconds, double inchesPerSecondIntake) {
+    public void vertical(double inchesPerSecond, double seconds) {
         reset();
         double ticksPerSecond = inchesPerSecond * ticksPerInch;
-        double ticksPerSecondIntake = inchesPerSecondIntake * ticksPerInch;
         leftFront.setVelocity(ticksPerSecond);
         leftBack.setVelocity(ticksPerSecond);
         rightFront.setVelocity(ticksPerSecond);
         rightBack.setVelocity(ticksPerSecond);
-        //intake.setVelocity(ticksPerSecondIntake);
-
         sleep((long) (seconds * 1000));
-        leftFront.setVelocity(0);
-        leftBack.setVelocity(0);
-        rightFront.setVelocity(0);
-        rightBack.setVelocity(0);
         stopMotors();
     }
 
-        public void strafe(double inchesPerSecond, double seconds) {
-            reset();
-            double ticksPerSecond = inchesPerSecond * ticksPerInch;
-            leftFront.setVelocity(ticksPerSecond);
-            leftBack.setVelocity(-ticksPerSecond);
-            rightFront.setVelocity(-ticksPerSecond);
-            rightBack.setVelocity(ticksPerSecond);
+    public void vertical(double inchesPerSecond, double seconds, double inchesPerSecondIntake) {
+        reset();
+        double ticksPerSecond = inchesPerSecond * ticksPerInch;
+        leftFront.setVelocity(ticksPerSecond);
+        leftBack.setVelocity(ticksPerSecond);
+        rightFront.setVelocity(ticksPerSecond);
+        rightBack.setVelocity(ticksPerSecond);
+        intake.setPower(1);
 
-            sleep((long) (seconds * 1000));
-            stopMotors();
-        }
+        sleep((long) (seconds * 1000));
+        stopMotors();
+    }
 
-        public void strafe(double inchesPerSecond, double seconds, double inchesPerSecondIntake) {
+    public void strafe(double inchesPerSecond, double seconds) {
+        reset();
+        double ticksPerSecond = inchesPerSecond * ticksPerInch;
+        leftFront.setVelocity(ticksPerSecond);
+        leftBack.setVelocity(-ticksPerSecond);
+        rightFront.setVelocity(-ticksPerSecond);
+        rightBack.setVelocity(ticksPerSecond);
+
+        sleep((long) (seconds * 1000));
+        stopMotors();
+    }
+
+    public void strafe(double inchesPerSecond, double seconds, double inchesPerSecondIntake) {
         reset();
         double ticksPerSecond = inchesPerSecond * ticksPerInch;
         double ticksPerSecondIntake = inchesPerSecondIntake * ticksPerInch;
@@ -142,17 +190,25 @@ public class VelocityAutonPath1 extends LinearOpMode {
         sleep((long) (seconds * 1000));
         stopMotors();
     }
-    public void shoot(long seconds) {
-        leftOuttake.setTargetPosition(outtakePosition);
-        rightOuttake.setTargetPosition(outtakePosition);
+    public void shoot() {
+        //resetShoot();
         rightOuttake.setPower(shootSpeed);
         leftOuttake.setPower(shootSpeed);
+        sleep(850);
+        rightOuttake.setPower(-shootSpeed);
+        leftOuttake.setPower(-shootSpeed);
+        sleep(950);
+        rightOuttake.setPower(-0.05);
+        leftOuttake.setPower(-0.05);
+
+    }
+
+    public void shootDown() {
+        rightOuttake.setPower(-shootSpeed);
+        leftOuttake.setPower(-shootSpeed);
         sleep(1000);
-        leftOuttake.setTargetPosition(-outtakePosition);
-        rightOuttake.setTargetPosition(-outtakePosition);
-        rightOuttake.setPower(shootSpeed);
-        leftOuttake.setPower(shootSpeed);
-        sleep(seconds * 1000);
+        rightOuttake.setPower(-0.05);
+        leftOuttake.setPower(-0.05);
 
     }
     public void stopMotors() {
@@ -160,6 +216,7 @@ public class VelocityAutonPath1 extends LinearOpMode {
         leftBack.setVelocity(0);
         rightFront.setVelocity(0);
         rightBack.setVelocity(0);
+        intake.setPower(0);
     }
 
     public void reset() {
@@ -173,5 +230,13 @@ public class VelocityAutonPath1 extends LinearOpMode {
         leftBack.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
         rightBack.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
     }
+    public void resetShoot() {
+        leftOuttake.setTargetPosition(0);
+        rightOuttake.setTargetPosition(0);
+        leftOuttake.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        rightOuttake.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
+    }
+
 }
+
 
