@@ -63,44 +63,55 @@ public class FinalRedAuton extends LinearOpMode {
         waitForStart();
         //vertical (-12,2);
 
-        vertical (23,0.45);
-        sleep(250);
+        //First 3 balls
+        vertical (20,0.45);
+        sleep(350);
         shoot();
-        vertical (39.91165,1.233);
+        //Second 3 balls
+        vertical (38.41165,1.233);
         sleep(50);
-        turn(-37.35,0.5);
+        turn(-37,0.5);
+        strafe(-24,0.5);
         sleep(50);
-        vertical(-40,3,1);
-        sleep(250);
-        vertical(30,1.75, 1);
+        //Intaking second 3 balls
+        vertical(-27,4,2);
+        vertical(7,0.5);
+        vertical(-4,2.5,1);
+        sleep(300);
+        vertical(30,1.5, 1);
         sleep(50);
-        turn(33.25,0.5);
+        //Returning to the goal
+        turn(35.25,0.5);
         sleep(50);
         vertical(-26.8411,2);
         sleep(200);
+        //Shooting second 3 balls
         shootDown();
         sleep(350);
         shoot();
         sleep(50);
+        //Third 3 balls
         vertical(26.8411,1.5);
-        //Part 2
         sleep(50);
         turn(34.5,0.5);
         sleep(50);
-        vertical(37,1);
+        vertical(38,1);
         sleep(50);
-        turn(-31.9,0.96);
+        turn(-33,0.96);
         sleep(50);
-        vertical(-30,2,1);
+        //Intaking third 3 balls
+        vertical(-27,2,1);
         sleep(50);
-        vertical(23.5,1,1);
+        vertical(23.75,1,1);
         sleep(50);
-        turn(31.25,0.95);
+        //Returning to goal
+        turn(31,0.95);
         sleep(50);
-        vertical(-40.75,1.45);
+        vertical(-40.5,1.45);
         sleep(50);
-        turn(-32.67,0.5);
+        turn(-30,0.5);
         sleep(200);
+        //Shooting last 3 balls
         shootDown();
         sleep(350);
         shoot();
