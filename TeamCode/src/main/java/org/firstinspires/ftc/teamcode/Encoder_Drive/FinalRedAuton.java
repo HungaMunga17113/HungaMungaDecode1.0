@@ -75,8 +75,6 @@ public class FinalRedAuton extends LinearOpMode {
         sleep(50);
         //Intaking second 3 balls
         vertical(-27,3,2);
-        vertical(7,0.5);
-        vertical(-4,1.5,1);
         sleep(300);
         vertical(30,1.5, 1);
         sleep(50);
@@ -98,8 +96,6 @@ public class FinalRedAuton extends LinearOpMode {
         strafe(-49.175,1);
         //Intaking third 3 balls
         vertical(-23,1.5,2);
-        vertical(7,0.5);
-        vertical(-4,0.75,1);
         sleep(50);
         vertical(30,1, 1);
         sleep(50);
