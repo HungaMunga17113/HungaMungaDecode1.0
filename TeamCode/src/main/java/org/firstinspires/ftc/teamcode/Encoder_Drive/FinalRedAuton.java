@@ -61,27 +61,25 @@ public class FinalRedAuton extends LinearOpMode {
         //Turn - (27.5,1)
         //Turn - (53,0.5)
         waitForStart();
-        //vertical (-12,2);
-
         //First 3 balls
         vertical (18,0.45);
         sleep(350);
         shoot();
         //Second 3 balls
-        vertical (36,1.233);
+        vertical (36.5,1.233);
         sleep(50);
-        turn(-36,0.5);
-        strafe(-21.45,0.5);
+        turn(-35.5,0.5);
+        strafe(-23,0.5);
         sleep(50);
         //Intaking second 3 balls
-        vertical(-27,3,2);
-        sleep(300);
-        vertical(30,1.5, 1);
+        vertical(-27,2.5,2);
+        sleep(200);
+        vertical(29,1.5, 1);
         sleep(50);
         //Returning to the goal
-        turn(36,0.5);
+        turn(35,0.5);
         sleep(50);
-        vertical(-25.67,2);
+        vertical(-26.3411,2);
         sleep(200);
         //Shooting second 3 balls
         shootDown();
@@ -89,27 +87,38 @@ public class FinalRedAuton extends LinearOpMode {
         shoot();
         sleep(50);
         //Third 3 balls
-        vertical(26.8411,1.5);
+        vertical(27.6411,1.5);
         sleep(50);
-        turn(-30.45,0.5);
+        turn(-35.92,0.5);
         sleep(50);
-        strafe(-49.175,1);
+        strafe(-44.75,1);
+        sleep(50);
         //Intaking third 3 balls
-        vertical(-23,1.5,2);
+
+        vertical(-25,2.5 ,2);
+        strafe(-8,0.5);
         sleep(50);
-        vertical(30,1, 1);
+        vertical(30,0.65,1);
         sleep(50);
+        strafe(41.75,2);
         //Returning to goal
-        turn(31,0.5);
+        //turn(-30,0.95);
         sleep(50);
-        vertical(-39.75,1.1);
-        turn(-31,0.5);
+        turn(31.6,0.5);
+        sleep(200);
+        shootDown();
+        sleep(350);
+        shoot();
+        /*
+        vertical(-44,1.45);
+        sleep(50);
+        turn(30,0.5);
         sleep(200);
         //Shooting last 3 balls
         shootDown();
-        sleep(300);
+        sleep(350);
         shoot();
-
+         */
 
         //vertical(42,2,0);
         //turn(-26.5,0.5);
@@ -185,6 +194,7 @@ public class FinalRedAuton extends LinearOpMode {
         stopMotors();
     }
     public void shoot() {
+        stopMotors();
         //resetShoot();
         rightOuttake.setPower(shootSpeed);
         leftOuttake.setPower(shootSpeed);
@@ -225,10 +235,8 @@ public class FinalRedAuton extends LinearOpMode {
         rightBack.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
     }
     public void resetShoot() {
-        leftOuttake.setTargetPosition(0);
-        rightOuttake.setTargetPosition(0);
-        leftOuttake.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        rightOuttake.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
+        leftOuttake.setVelocity(0);
+        rightOuttake.setVelocity(0);
     }
 
 }
