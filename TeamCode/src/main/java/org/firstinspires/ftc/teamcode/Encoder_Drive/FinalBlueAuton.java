@@ -62,26 +62,24 @@ public class FinalBlueAuton extends LinearOpMode {
         //Turn - (53,0.5)
         waitForStart();
         //First 3 balls
-        vertical (20,0.45);
+        vertical (18,0.45);
         sleep(350);
         shoot();
         //Second 3 balls
-        vertical (38.41165,1.233);
+        vertical (36.5,1.233);
         sleep(50);
-        turn(37,0.5);
-        strafe(24,0.5);
+        turn(35.5,0.5);
+        strafe(23,0.5);
         sleep(50);
         //Intaking second 3 balls
-        vertical(-27,4,2);
-        vertical(7,0.5);
-        vertical(-4,2.5,1);
-        sleep(300);
-        vertical(30,1.5, 1);
+        vertical(-27,2.5,2);
+        sleep(200);
+        vertical(29,1.5, 1);
         sleep(50);
         //Returning to the goal
-        turn(-35.25,0.5);
+        turn(-35,0.5);
         sleep(50);
-        vertical(-26.8411,2);
+        vertical(-26.3411,2);
         sleep(200);
         //Shooting second 3 balls
         shootDown();
@@ -89,23 +87,30 @@ public class FinalBlueAuton extends LinearOpMode {
         shoot();
         sleep(50);
         //Third 3 balls
-        vertical(26.8411,1.5);
+        vertical(27.6411,1.5);
         sleep(50);
-        turn(-34.5,0.5);
+        turn(35.92,0.5);
         sleep(50);
-        vertical(38,1);
-        sleep(50);
-        turn(33,0.96);
+        strafe(44.75,1);
         sleep(50);
         //Intaking third 3 balls
-        vertical(-27,2,1);
+
+        vertical(-25,2.5 ,2);
+        strafe(8,0.5);
         sleep(50);
-        vertical(23.75,1,1);
+        vertical(30,0.65,1);
         sleep(50);
+        strafe(-41.75,2);
         //Returning to goal
-        turn(-31,0.95);
+        //turn(-30,0.95);
         sleep(50);
-        vertical(-40.5,1.45);
+        turn(-31.6,0.5);
+        sleep(200);
+        shootDown();
+        sleep(350);
+        shoot();
+        /*
+        vertical(-44,1.45);
         sleep(50);
         turn(30,0.5);
         sleep(200);
@@ -113,7 +118,7 @@ public class FinalBlueAuton extends LinearOpMode {
         shootDown();
         sleep(350);
         shoot();
-
+         */
 
         //vertical(42,2,0);
         //turn(-26.5,0.5);
