@@ -7,7 +7,8 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 // adb connect 192.168.43.1:5555
 @Autonomous
-public class FinalRedAuton extends LinearOpMode {
+public class FinalRedAuton extends LinearOpMode
+
 
     DcMotorEx intake;
     DcMotorEx leftOuttake;

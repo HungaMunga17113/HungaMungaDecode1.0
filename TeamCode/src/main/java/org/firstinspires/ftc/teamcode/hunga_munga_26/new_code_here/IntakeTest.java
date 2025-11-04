@@ -27,16 +27,16 @@ public class IntakeTest extends OpMode {
     @Override
     public void loop() {
         double inPower = gamepad1.left_trigger;   // 0.0 to 1.0
-        double outPower = gamepad1.right_trigger; // 0.0 to 1.0
+//        double outPower = gamepad1.right_trigger; // 0.0 to 1.0
 
         if (inPower > 0) {
             // Intake IN (forward)
             intakeMotor.setPower(inPower); // proportional to trigger pull
             telemetry.addLine("Intake: IN");
-        } else if (outPower > 0) {
-            // Outtake OUT (reverse)
-            intakeMotor.setPower(-outPower); // proportional to trigger pull
-            telemetry.addLine("Intake: OUT");
+//        } else if (outPower > 0) {
+//            // Outtake OUT (reverse)
+//            intakeMotor.setPower(-outPower); // proportional to trigger pull
+//            telemetry.addLine("Intake: OUT");
         } else {
             // Stop
             intakeMotor.setPower(0.0);
