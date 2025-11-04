@@ -1,28 +1,34 @@
-package org.firstinspires.ftc.teamcode.Roadrunner.roadrunner_tutorial;
+package org.firstinspires.ftc.teamcode.hunga_munga_26.new_code_here;
 
+import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.roadrunner.Action;
 import com.acmerobotics.roadrunner.ParallelAction;
 import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.SequentialAction;
-import com.acmerobotics.roadrunner.SleepAction;
 import com.acmerobotics.roadrunner.Vector2d;
 import com.acmerobotics.roadrunner.ftc.Actions;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.Roadrunner.MecanumDrive;
 import org.firstinspires.ftc.teamcode.Roadrunner.roadrunner_tutorial.base_subsystem_templates.Motor_Template;
+import org.firstinspires.ftc.teamcode.Roadrunner.roadrunner_tutorial.base_subsystem_templates.RunIntake_Template;
 import org.firstinspires.ftc.teamcode.Roadrunner.roadrunner_tutorial.base_subsystem_templates.Servo_Template;
-@Disabled
-public class AutonTest extends LinearOpMode {
+
+@Config
+@Autonomous(name = "RRAutonBlueLM2")
+public class RRAutonBlueLM2 extends LinearOpMode {
+
+
     @Override
     public void runOpMode() {
         //Pose that the robot starts at
-        Pose2d initialPose = new Pose2d(-63, 39, Math.toRadians(90));
+        Pose2d initialPose = new Pose2d(-63, 39, Math.toRadians(135));
         MecanumDrive drive = new MecanumDrive(hardwareMap, initialPose);
 
         Motor_Template motor = new Motor_Template(hardwareMap);
         Servo_Template servo = new Servo_Template(hardwareMap);
+        RunIntake_Template intake = new RunIntake_Template(hardwareMap);
 
 
 
@@ -36,6 +42,10 @@ public class AutonTest extends LinearOpMode {
                 .strafeToLinearHeading(new Vector2d(-35,49),Math.toRadians(0))
                 .build();
 
+        //Wait - this is super chopped ask someone for help
+        Action wait1sec = drive.actionBuilder(new Pose2d(0, 0, Math.toRadians(0)))
+                .waitSeconds(1)
+                .build();
 
 
         // Initialize (What happens before when you press start)
@@ -74,7 +84,10 @@ public class AutonTest extends LinearOpMode {
                                         motor.toPos2(),
                                         servo.toPos2()
                                 ),
-                                new SleepAction(1)
+                                intake.in(),
+                                wait1sec, //this function is rlly chopped ask someone for help
+                                intake.idle()
+
                         )
 
                 )
