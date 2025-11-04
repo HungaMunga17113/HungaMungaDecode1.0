@@ -20,7 +20,7 @@ public abstract class OutakeTest extends OpMode {
         outakemotorright.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.FLOAT);
         // Set default direction (flip if needed)
         outakemotorleft.setDirection(DcMotorSimple.Direction.FORWARD);
-        outakemotorright.setDirection(DcMotorSimple.Direction.REVERSE);
+        outakemotorright.setDirection(DcMotorSimple.Direction.FORWARD);
         telemetry.addLine("Intake initialized. Left Trigger = In, Right Trigger = Out");
     }
 
