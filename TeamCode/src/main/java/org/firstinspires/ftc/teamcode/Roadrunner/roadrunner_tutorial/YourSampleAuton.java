@@ -5,6 +5,7 @@ import com.acmerobotics.roadrunner.Action;
 import com.acmerobotics.roadrunner.ParallelAction;
 import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.SequentialAction;
+import com.acmerobotics.roadrunner.SleepAction;
 import com.acmerobotics.roadrunner.Vector2d;
 import com.acmerobotics.roadrunner.ftc.Actions;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
@@ -42,10 +43,6 @@ public class YourSampleAuton extends LinearOpMode {
                 .strafeToLinearHeading(new Vector2d(-35,49),Math.toRadians(0))
                 .build();
 
-        //Wait - this is super chopped ask someone for help
-        Action wait1sec = drive.actionBuilder(new Pose2d(0, 0, Math.toRadians(0)))
-                .waitSeconds(1)
-                .build();
 
 
         // Initialize (What happens before when you press start)
@@ -84,7 +81,7 @@ public class YourSampleAuton extends LinearOpMode {
                                         servo.toPos2()
                                 ),
                                 intake.in(),
-                                wait1sec, //this function is rlly chopped ask someone for help
+                                new SleepAction(1),
                                 intake.idle()
 
                         )
