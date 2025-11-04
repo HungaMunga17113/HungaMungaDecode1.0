@@ -1,0 +1,66 @@
+package org.firstinspires.ftc.teamcode.Roadrunner.subsystems;
+
+import androidx.annotation.NonNull;
+
+import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
+import com.acmerobotics.roadrunner.Action;
+import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorEx;
+import com.qualcomm.robotcore.hardware.HardwareMap;
+
+public class Intake {
+    public final DcMotorEx intake;
+
+
+    public Intake(HardwareMap hardwareMap) {
+        intake = hardwareMap.get(DcMotorEx.class, "intake");
+        intake.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+
+    }
+
+    //-----------------------------In--------------------------------------\\
+    public class IntakeIn implements Action {
+
+        @Override
+        public boolean run(@NonNull TelemetryPacket packet) {
+            intake.setPower(1.0);
+            return false;
+        }
+    }
+    public Action in() {
+        return new IntakeIn();
+    }
+
+    //-----------------------------Idle--------------------------------------\\
+    public class IntakeIdle implements Action {
+
+        @Override
+        public boolean run(@NonNull TelemetryPacket packet) {
+            intake.setPower(0.0);
+            return false;
+        }
+    }
+    public Action idle() {
+        return new IntakeIdle();
+    }
+
+    //-----------------------------Out--------------------------------------\\
+    public class IntakeOut implements Action {
+
+        @Override
+        public boolean run(@NonNull TelemetryPacket packet) {
+            intake.setPower(-1.0);
+            return false;
+        }
+    }
+    public Action out() {
+        return new IntakeOut();
+    }
+
+
+}
+
+
+
+
+
