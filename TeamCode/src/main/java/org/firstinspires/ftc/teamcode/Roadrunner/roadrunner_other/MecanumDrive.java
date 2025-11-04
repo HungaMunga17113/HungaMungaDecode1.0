@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.Roadrunner;
+package org.firstinspires.ftc.teamcode.Roadrunner.roadrunner_other;
 
 import androidx.annotation.NonNull;
 
@@ -44,8 +44,6 @@ import org.firstinspires.ftc.teamcode.Roadrunner.roadrunner_other.messages.Drive
 import org.firstinspires.ftc.teamcode.Roadrunner.roadrunner_other.messages.MecanumCommandMessage;
 import org.firstinspires.ftc.teamcode.Roadrunner.roadrunner_other.messages.MecanumLocalizerInputsMessage;
 import org.firstinspires.ftc.teamcode.Roadrunner.roadrunner_other.messages.PoseMessage;
-import org.firstinspires.ftc.teamcode.Roadrunner.roadrunner_other.Drawing;
-import org.firstinspires.ftc.teamcode.Roadrunner.roadrunner_other.Localizer;
 
 import java.lang.Math;
 import java.util.Arrays;
@@ -245,7 +243,7 @@ public final class MecanumDrive {
 
         voltageSensor = hardwareMap.voltageSensor.iterator().next();
 
-        localizer = new DriveLocalizer(pose);
+        localizer = new TwoDeadWheelLocalizer(hardwareMap, lazyImu.get(), PARAMS.inPerTick, pose);
 
         FlightRecorder.write("MECANUM_PARAMS", PARAMS);
     }
