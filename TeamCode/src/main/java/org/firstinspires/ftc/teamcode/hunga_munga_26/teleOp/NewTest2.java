@@ -8,8 +8,6 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.IMU;
 import com.qualcomm.robotcore.util.ElapsedTime;
-import com.qualcomm.robotcore.hardware.VoltageSensor;
-
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.internal.system.Deadline;
@@ -23,12 +21,13 @@ public class NewTest2 extends OpMode {
     DcMotor leftFront, leftBack, rightFront, rightBack;
     DcMotor intake;
     DcMotor leftOuttake, rightOuttake;
+    IMU imu;
 
-    ElapsedTime outtakeTime = new ElapsedTime();
+    private ElapsedTime outtakeTime = new ElapsedTime();
 
-    private enum outtakeModes {Move, Shoot, Return, Rest};
+    private enum outtakeModes {Shoot, Return, Rest};
     private outtakeModes pivotMode;
-    double outtakePower = 0.99;
+    double outtakePower = 0.95;
     /*
     (Button) Initialize Period, before you press start on your program.
      */
@@ -68,6 +67,7 @@ public class NewTest2 extends OpMode {
         Intake();
         Outtake();
     }
+
     public void Drive() {
         double max;
 
@@ -75,7 +75,10 @@ public class NewTest2 extends OpMode {
         double lateral = -gamepad1.left_stick_x;
         double yaw = -gamepad1.right_stick_x;
         double drivePower = 0.95 - (0.6 * gamepad1.left_trigger);
-
+        //double leftFrontPower = axial + lateral - yaw;
+        //double rightFrontPower =axial - lateral + yaw;
+        //double leftBackPower = axial - lateral + yaw;
+        //double rightBackPower = axial + lateral - yaw;
         double leftFrontPower = axial + lateral + yaw;
         double rightFrontPower = axial - lateral - yaw;
         double leftBackPower = axial - lateral + yaw;
@@ -96,16 +99,16 @@ public class NewTest2 extends OpMode {
         leftFront.setPower(leftFrontPower*drivePower);
         leftBack.setPower(leftBackPower*drivePower);
         //if (gamepad1.x) {
-        // leftFront.setPower(1);
+           // leftFront.setPower(1);
         //}
         //if (gamepad1.y) {
         //    leftBack.setPower(1);
         //}
         //if (gamepad1.a) {
-        //  rightFront.setPower(1);
+          //  rightFront.setPower(1);
         //}
         //if (gamepad1.b) {
-        //   rightBack.setPower(1);
+         //   rightBack.setPower(1);
         //}
 
     }
@@ -122,67 +125,28 @@ public class NewTest2 extends OpMode {
     }
 
     private void Outtake() {
-        /*
-        if (getBatteryVoltage() > 12.8) {
-            if (getBatteryVoltage()>12.8 && getBatteryVoltage()<12.85) {
-                outtakePower = 0.9902;
-            } else if (getBatteryVoltage()>=12.85 && getBatteryVoltage()<13) {
-                outtakePower = 0.9722;
-            } else if (getBatteryVoltage()>=13 && getBatteryVoltage()<13.15) {
-                outtakePower = 0.9479;
-            } else if (getBatteryVoltage()>=13.15 && getBatteryVoltage()<13.3) {
-                outtakePower = 0.923;
-            } else if (getBatteryVoltage()>=13.3) {
-                outtakePower = 0.85;
-            }
-        } else {
-            outtakePower = 1;
-        }
-         */
-        if (gamepad1.right_bumper && !leftOuttake.isBusy()) {
-            pivotMode = outtakeModes.Shoot;
-            leftFront.setPower(1);
-            rightFront.setPower(1);
-            leftBack.setPower(1);
-            rightBack.setPower(1);
-            outtakeTime.reset();
-        }
-        if (pivotMode == outtakeModes.Move && outtakeTime.milliseconds() > 200) {
-            stopMotors();
+        if (gamepad1.right_bumper) {
             pivotMode = outtakeModes.Shoot;
             leftOuttake.setPower(outtakePower);
             rightOuttake.setPower(outtakePower);
             outtakeTime.reset();
-        }
-        if (pivotMode == outtakeModes.Shoot && outtakeTime.milliseconds() > 400) {
+        } else if (gamepad1.left_bumper) {
             pivotMode = outtakeModes.Return;
             leftOuttake.setPower(-outtakePower);
             rightOuttake.setPower(-outtakePower);
             outtakeTime.reset();
-        }
-        if (pivotMode == outtakeModes.Return && outtakeTime.milliseconds() > 750) {
-            pivotMode = outtakeModes.Rest;
-            leftOuttake.setPower(-0.167);
-            rightOuttake.setPower(-0.167);
-            outtakeTime.reset();
-        }
-    }
-    public void stopMotors() {
-        leftFront.setPower(0);
-        leftBack.setPower(0);
-        rightFront.setPower(0);
-        rightBack.setPower(0);
-        intake.setPower(0);
-    }
-    private double getBatteryVoltage() {
-        double result = Double.POSITIVE_INFINITY;
-        for (VoltageSensor sensor : hardwareMap.voltageSensor) {
-            double voltage = sensor.getVoltage();
-            if (voltage > 0) {
-                result = Math.min(result, voltage);
+        } else {
+            //double downTime = 1.0;
+            //if (outtakeTime.seconds() < downTime) {
+            leftOuttake.setPower(-0.05);
+            rightOuttake.setPower(-0.05);
+            //} else {
+            //    leftOuttake.setPower(0);
+            //    rightOuttake.setPower(0);
             }
+
+            pivotMode = outtakeModes.Rest;
         }
-        return result;
     }
-}
+
 

@@ -10,7 +10,8 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 public class Motor_Template {
-    private final DcMotorEx motor;
+    public final DcMotorEx motor;
+
 
     // Motor_Template is the class name
     public Motor_Template(HardwareMap hardwareMap) {
@@ -21,6 +22,7 @@ public class Motor_Template {
         // Automatic motion of robot is set to forward unless mentioned to change
         // Negative is backward, positive is forward
         motor.setDirection(DcMotorSimple.Direction.FORWARD);
+        //
     }
 
 

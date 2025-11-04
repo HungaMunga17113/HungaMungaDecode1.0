@@ -1,20 +1,25 @@
-package org.firstinspires.ftc.teamcode.roadrunner_tutorial;
+package org.firstinspires.ftc.teamcode.hunga_munga_26.new_code_here;
 
+import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.roadrunner.Action;
 import com.acmerobotics.roadrunner.ParallelAction;
 import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.SequentialAction;
 import com.acmerobotics.roadrunner.Vector2d;
 import com.acmerobotics.roadrunner.ftc.Actions;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.Roadrunner.MecanumDrive;
 import org.firstinspires.ftc.teamcode.Roadrunner.roadrunner_tutorial.base_subsystem_templates.Motor_Template;
 import org.firstinspires.ftc.teamcode.Roadrunner.roadrunner_tutorial.base_subsystem_templates.RunIntake_Template;
 import org.firstinspires.ftc.teamcode.Roadrunner.roadrunner_tutorial.base_subsystem_templates.Servo_Template;
-@Disabled
-public class AutonTest extends LinearOpMode {
+
+@Config
+@Autonomous(name = "RRAutonBlueLM2")
+public class RRAutonRedLM2 extends LinearOpMode {
+
+
     @Override
     public void runOpMode() {
         //Pose that the robot starts at
@@ -56,7 +61,6 @@ public class AutonTest extends LinearOpMode {
         if (isStopRequested()) return;
 
         //Run (What happens when you press start)
-        motor.motor.setPower(1);
         Actions.runBlocking(
                 new SequentialAction(
 
