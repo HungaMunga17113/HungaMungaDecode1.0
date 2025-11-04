@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 // adb connect 192.168.43.1:5555
 @Autonomous
-public class FinalBlueAuton extends LinearOpMode {
+public class FinalFarAuton extends LinearOpMode {
 
     DcMotorEx intake;
     DcMotorEx leftOuttake;
@@ -61,75 +61,7 @@ public class FinalBlueAuton extends LinearOpMode {
         //Turn - (27.5,1)
         //Turn - (53,0.5)
         waitForStart();
-        //First 3 balls
-        vertical (18,0.45);
-        sleep(350);
-        shoot();
-        //Second 3 balls
-        vertical (36.5,1.233);
-        sleep(50);
-        turn(35.5,0.5);
-        strafe(23,0.5);
-        sleep(50);
-        //Intaking second 3 balls
-        vertical(-27,2.5,2);
-        sleep(200);
-        vertical(29,1.5, 1);
-        sleep(50);
-        //Returning to the goal
-        turn(-35,0.5);
-        sleep(50);
-        vertical(-26.3411,2);
-        sleep(200);
-        //Shooting second 3 balls
-        shootDown();
-        sleep(350);
-        shoot();
-        sleep(50);
-        //Third 3 balls
-        vertical(27.6411,1.5);
-        sleep(50);
-        turn(35.92,0.5);
-        sleep(50);
-        strafe(44.75,1);
-        sleep(50);
-        //Intaking third 3 balls
-
-        vertical(-25,2.5 ,2);
-        strafe(8,0.5);
-        sleep(50);
-        vertical(30,0.65,1);
-        sleep(50);
-        strafe(-41.75,2);
-        //Returning to goal
-        //turn(-30,0.95);
-        sleep(50);
-        turn(-31.6,0.5);
-        sleep(200);
-        shootDown();
-        sleep(350);
-        shoot();
-        /*
-        vertical(-44,1.45);
-        sleep(50);
-        turn(30,0.5);
-        sleep(200);
-        //Shooting last 3 balls
-        shootDown();
-        sleep(350);
-        shoot();
-         */
-
-        //vertical(42,2,0);
-        //turn(-26.5,0.5);
-        //sleep(2000);
-        //turn(-26.5,0.5);
-        //strafe(12,1,0);
-        //vertical(24,1.5,0);
-        //vertical(-24,1.5,0);
-        //strafe(-12,1,0);
-        //turn(26.5,0.5);
-
+        vertical(-20,1.5);
     }
     public void vertical(double inchesPerSecond, double seconds) {
         reset();
@@ -240,5 +172,3 @@ public class FinalBlueAuton extends LinearOpMode {
     }
 
 }
-
-

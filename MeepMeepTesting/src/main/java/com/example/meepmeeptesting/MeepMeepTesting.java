@@ -23,10 +23,7 @@ public class MeepMeepTesting {
 //                .strafeToLinearHeading(new Vector2d(-50,-30),Math.toRadians(90),new TranslationalVelConstraint(90))
 //                .waitSeconds(2)
 //                .splineToSplineHeading(new Pose2d(20,20,Math.toRadians(90)),Math.toRadians(0))
-                        .splineToLinearHeading(new Pose2d(30,30,Math.toRadians(180)),Math.toRadians(90))
-                        .splineToLinearHeading(new Pose2d(0,60,Math.toRadians(270)),Math.toRadians(180))
-                        .splineToLinearHeading(new Pose2d(-30,30,Math.toRadians(0)),Math.toRadians(270))
-                        .splineToLinearHeading(new Pose2d(0,0,Math.toRadians(0)),Math.toRadians(0))
+
                 .build());
 
         meepMeep.setBackground(MeepMeep.Background.FIELD_INTO_THE_DEEP_JUICE_DARK)
