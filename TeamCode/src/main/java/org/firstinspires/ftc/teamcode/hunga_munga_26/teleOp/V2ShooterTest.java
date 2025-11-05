@@ -77,8 +77,8 @@ public class V2ShooterTest extends OpMode {
 
     public void shootTest() {
         if (gamepad1.right_trigger > 0.15) {
-            leftOuttake.setPower(1);
-            rightOuttake.setPower(1);
+            leftOuttake.setPower(0.97);
+            rightOuttake.setPower(0.97);
         }
         else {
             leftOuttake.setPower(0);
