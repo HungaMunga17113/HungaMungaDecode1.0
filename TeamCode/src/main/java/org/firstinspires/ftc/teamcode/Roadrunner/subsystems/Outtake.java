@@ -32,17 +32,24 @@ public class Outtake {
         public boolean run(@NonNull TelemetryPacket packet) {
             leftOuttake.setPower(1.0);
             rightOuttake.setPower(1.0);
-            new SleepAction(1);
-            leftOuttake.setPower(-1.0);
-            rightOuttake.setPower(-1.0);
-            new SleepAction(1);
-            leftOuttake.setPower(-0.15);
-            rightOuttake.setPower(-0.15);
             return false;
         }
     }
     public Action shoot() {
         return new OuttakeOut();
+    }
+    // ----------------------------Idle-------------------------------------\\
+    public class OuttakeIdle implements Action {
+
+        @Override
+        public boolean run(@NonNull TelemetryPacket packet) {
+            leftOuttake.setPower(-0.4);
+            rightOuttake.setPower(-0.4);
+            return false;
+        }
+    }
+    public Action idle() {
+        return new OuttakeIdle();
     }
     //-----------------------------Down--------------------------------------\\
     public class OuttakeDown implements Action {
@@ -51,9 +58,6 @@ public class Outtake {
         public boolean run(@NonNull TelemetryPacket packet) {
             leftOuttake.setPower(-1.0);
             rightOuttake.setPower(-1.0);
-            new SleepAction(1);
-            leftOuttake.setPower(-0.15);
-            rightOuttake.setPower(-0.15);
             return false;
         }
     }
