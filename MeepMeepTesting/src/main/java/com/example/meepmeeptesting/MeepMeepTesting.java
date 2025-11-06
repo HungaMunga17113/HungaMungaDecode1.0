@@ -17,27 +17,30 @@ public class MeepMeepTesting {
 
         RoadRunnerBotEntity myBot = new DefaultBotBuilder(meepMeep)
                 // Set bot constraints: maxVel, maxAccel, maxAngVel, maxAngAccel, track width
-                .setConstraints(65, 60, Math.toRadians(180), Math.toRadians(180), 15)
+                .setConstraints(60, 60, Math.toRadians(180), Math.toRadians(180), 15)
                 .build();
 
-        myBot.runAction(myBot.getDrive().actionBuilder(new Pose2d(50, 50, Math.toRadians(45)))
+        myBot.runAction(myBot.getDrive().actionBuilder(new Pose2d(48, 48, Math.toRadians(50)))
                 .strafeToConstantHeading(new Vector2d(47,47))
+                .waitSeconds(1.5)
                 //1st 3 balls over
-                .strafeToLinearHeading(new Vector2d(11,16),Math.toRadians(90))
-                .strafeToConstantHeading(new Vector2d(11,53), new TranslationalVelConstraint(30))
-                .strafeToLinearHeading(new Vector2d(47,47),Math.toRadians(45))
+                .strafeToLinearHeading(new Vector2d(12,22),Math.toRadians(90),new TranslationalVelConstraint(70))
+                .strafeToConstantHeading(new Vector2d(12,55),new TranslationalVelConstraint(20))
+                .strafeToLinearHeading(new Vector2d(47,47),Math.toRadians(50),new TranslationalVelConstraint(70))
+                .waitSeconds(1.5)
                 //2nd 3 balls over
-                .strafeToLinearHeading(new Vector2d(-13,16),Math.toRadians(90))
-                .strafeToConstantHeading(new Vector2d(-13,61))
-                .strafeToConstantHeading(new Vector2d(-13,50))
-                .strafeToLinearHeading(new Vector2d(47,47),Math.toRadians(45))
+                .strafeToLinearHeading(new Vector2d(-15,22),Math.toRadians(90),new TranslationalVelConstraint(70))
+                .strafeToConstantHeading(new Vector2d(-15,62),new TranslationalVelConstraint(20))
+                .strafeToConstantHeading(new Vector2d(-15,50))
+                .strafeToLinearHeading(new Vector2d(47,47),Math.toRadians(50),new TranslationalVelConstraint(70))
+                .waitSeconds(1.5)
                 //3rd 3 balls over
-                .strafeToLinearHeading(new Vector2d(-34,16),Math.toRadians(90))
-                .strafeToConstantHeading(new Vector2d(-34,61))
-                .strafeToConstantHeading(new Vector2d(-34,55))
-                .strafeToLinearHeading(new Vector2d(47,47),Math.toRadians(45))
+                .strafeToLinearHeading(new Vector2d(-35,22),Math.toRadians(90),new TranslationalVelConstraint(70))
+                .strafeToConstantHeading(new Vector2d(-35,62),new TranslationalVelConstraint(20))
+                .strafeToConstantHeading(new Vector2d(-35,50))
+                .strafeToLinearHeading(new Vector2d(47,47),Math.toRadians(50),new TranslationalVelConstraint(70))
+                .waitSeconds(1.5)
                 //4th 3 balls over
-                .strafeToLinearHeading(new Vector2d(10,43),Math.toRadians(90),new TranslationalVelConstraint(70))
 
 
 
@@ -52,9 +55,16 @@ public class MeepMeepTesting {
 
                 .build());
 
-        meepMeep.setBackground(MeepMeep.Background.FIELD_DECODE_JUICE_DARK)
+        BufferedImage bg = null;
+        try {
+            bg = ImageIO.read(new File("MeepMeepTesting/src/main/java/com/example/meepmeeptesting/DECODE.png"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        meepMeep.setBackground(bg)
                 .setDarkMode(true)
                 .setBackgroundAlpha(0.95f)
+
                 .addEntity(myBot)
                 .start();
     }
