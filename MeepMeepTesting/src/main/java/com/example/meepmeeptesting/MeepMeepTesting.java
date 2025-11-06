@@ -28,7 +28,6 @@ public class MeepMeepTesting {
                 .strafeToConstantHeading(new Vector2d(-12,55),new TranslationalVelConstraint(20))
                 .strafeToLinearHeading(new Vector2d(-47,47),Math.toRadians(125),new TranslationalVelConstraint(70))
                 .waitSeconds(1.5)
-                //hi
                 //2nd 3 balls over
                 .strafeToLinearHeading(new Vector2d(15,22),Math.toRadians(90),new TranslationalVelConstraint(70))
                 .strafeToConstantHeading(new Vector2d(15,62),new TranslationalVelConstraint(20))
@@ -42,6 +41,7 @@ public class MeepMeepTesting {
                 .strafeToLinearHeading(new Vector2d(-47,47),Math.toRadians(125),new TranslationalVelConstraint(70))
                 .waitSeconds(1.5)
                 //4th 3 balls over
+                .strafeToLinearHeading(new Vector2d(2.5,47),Math.toRadians(270),new TranslationalVelConstraint(70))
 
 
 
