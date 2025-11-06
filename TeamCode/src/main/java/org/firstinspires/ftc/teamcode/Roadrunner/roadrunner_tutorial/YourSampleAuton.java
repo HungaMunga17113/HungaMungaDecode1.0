@@ -48,6 +48,8 @@ public class YourSampleAuton extends LinearOpMode {
         //                .strafeToConstantHeading(new Vector2d(-34,61))
         //                .strafeToConstantHeading(new Vector2d(-34,55))
         //                .strafeToLinearHeading(new Vector2d(45,45),Math.toRadians(45),new TranslationalVelConstraint(90))
+
+//Commented main paths from MeepMeepTesting
 //                .strafeToConstantHeading(new Vector2d(47,47))
 //                .waitSeconds(1.5)
 //                //1st 3 balls over
