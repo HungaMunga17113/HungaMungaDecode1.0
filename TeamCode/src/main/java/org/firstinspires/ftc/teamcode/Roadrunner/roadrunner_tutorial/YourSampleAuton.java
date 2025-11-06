@@ -12,10 +12,11 @@ import com.acmerobotics.roadrunner.ftc.Actions;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
-import org.firstinspires.ftc.teamcode.Roadrunner.MecanumDrive;
+import org.firstinspires.ftc.teamcode.Roadrunner.roadrunner_other.MecanumDrive;
 import org.firstinspires.ftc.teamcode.Roadrunner.roadrunner_tutorial.base_subsystem_templates.Motor_Template;
 import org.firstinspires.ftc.teamcode.Roadrunner.roadrunner_tutorial.base_subsystem_templates.Servo_Template;
 import org.firstinspires.ftc.teamcode.Roadrunner.subsystems.Intake;
+import org.firstinspires.ftc.teamcode.Roadrunner.subsystems.Outtake;
 
 @Config
 @Autonomous(name = "Your Own Autonomous!")
@@ -31,6 +32,7 @@ public class YourSampleAuton extends LinearOpMode {
         Motor_Template motor = new Motor_Template(hardwareMap);
         Servo_Template servo = new Servo_Template(hardwareMap);
         Intake intake = new Intake(hardwareMap);
+        Outtake outtake = new Outtake(hardwareMap);
 
 
         //-----------------------Paths-----------------------\\
@@ -120,7 +122,8 @@ public class YourSampleAuton extends LinearOpMode {
                         new ParallelAction(
                                 path1,
                                 motor.toPos3(),
-                                intake.in()
+                                intake.in(),
+                                outtake.shoot()
                         ),
 
                         //----------Second Path!----------\\
