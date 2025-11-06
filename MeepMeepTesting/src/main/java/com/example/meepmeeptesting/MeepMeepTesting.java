@@ -22,17 +22,21 @@ public class MeepMeepTesting {
 
         myBot.runAction(myBot.getDrive().actionBuilder(new Pose2d(50, 50, Math.toRadians(45)))
                 .strafeToConstantHeading(new Vector2d(47,47))
+                //1st 3 balls over
                 .strafeToLinearHeading(new Vector2d(11,11),Math.toRadians(90),new TranslationalVelConstraint(90))
                 .strafeToConstantHeading(new Vector2d(11,53))
-                .strafeToLinearHeading(new Vector2d(45,45),Math.toRadians(45),new TranslationalVelConstraint(90))
+                .strafeToLinearHeading(new Vector2d(47,47),Math.toRadians(45),new TranslationalVelConstraint(90))
+                //2nd 3 balls over
                 .strafeToLinearHeading(new Vector2d(-13,13.5),Math.toRadians(90),new TranslationalVelConstraint(90))
                 .strafeToConstantHeading(new Vector2d(-13,61))
                 .strafeToConstantHeading(new Vector2d(-13,50))
                 .strafeToLinearHeading(new Vector2d(47,47),Math.toRadians(45),new TranslationalVelConstraint(90))
+                //3rd 3 balls over
                 .strafeToLinearHeading(new Vector2d(-34,25),Math.toRadians(90),new TranslationalVelConstraint(90))
                 .strafeToConstantHeading(new Vector2d(-34,61))
                 .strafeToConstantHeading(new Vector2d(-34,55))
-                .strafeToLinearHeading(new Vector2d(45,45),Math.toRadians(45),new TranslationalVelConstraint(90))
+                .strafeToLinearHeading(new Vector2d(47,47),Math.toRadians(45),new TranslationalVelConstraint(90))
+                //4th 3 balls over
 
 
 
