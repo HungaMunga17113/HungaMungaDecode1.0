@@ -12,7 +12,7 @@ import com.acmerobotics.roadrunner.ftc.Actions;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
-import org.firstinspires.ftc.teamcode.Roadrunner.roadrunner_other.MecanumDrive;
+import org.firstinspires.ftc.teamcode.Roadrunner.roadrunner_tutorial.base_subsystem_templates.MecanumDrive;
 import org.firstinspires.ftc.teamcode.Roadrunner.roadrunner_tutorial.base_subsystem_templates.Motor_Template;
 import org.firstinspires.ftc.teamcode.Roadrunner.roadrunner_tutorial.base_subsystem_templates.Servo_Template;
 import org.firstinspires.ftc.teamcode.Roadrunner.subsystems.Intake;
@@ -48,53 +48,53 @@ public class YourSampleAuton extends LinearOpMode {
         //                .strafeToConstantHeading(new Vector2d(-34,61))
         //                .strafeToConstantHeading(new Vector2d(-34,55))
         //                .strafeToLinearHeading(new Vector2d(45,45),Math.toRadians(45),new TranslationalVelConstraint(90))
+
+//Commented main paths from MeepMeepTesting
+//                .strafeToConstantHeading(new Vector2d(47,47))
+//                .waitSeconds(1.5)
+//                //1st 3 balls over
+//                .strafeToLinearHeading(new Vector2d(12,22),Math.toRadians(90),new TranslationalVelConstraint(70))
+//                .strafeToConstantHeading(new Vector2d(12,55),new TranslationalVelConstraint(20))
+//                .strafeToLinearHeading(new Vector2d(47,47),Math.toRadians(50),new TranslationalVelConstraint(70))
+//                .waitSeconds(1.5)
+//                //2nd 3 balls over
+//                .strafeToLinearHeading(new Vector2d(12,22),Math.toRadians(90),new TranslationalVelConstraint(70))
+//                .strafeToConstantHeading(new Vector2d(12,55),new TranslationalVelConstraint(20))
+//                .strafeToLinearHeading(new Vector2d(47,47),Math.toRadians(50),new TranslationalVelConstraint(70))
+//                .waitSeconds(1.5)
+//                //3rd 3 balls over
+//                .strafeToLinearHeading(new Vector2d(-35,22),Math.toRadians(90),new TranslationalVelConstraint(70))
+//                .strafeToConstantHeading(new Vector2d(-35,62),new TranslationalVelConstraint(20))
+//                .strafeToConstantHeading(new Vector2d(-35,50))
+//                .strafeToLinearHeading(new Vector2d(47,47),Math.toRadians(50),new TranslationalVelConstraint(70))
+//                .waitSeconds(1.5);
+        //4th 3 balls over
         Action path1 = drive.actionBuilder(initialPose)
                 .strafeToConstantHeading(new Vector2d(47,47))
+                .waitSeconds(1.5)
                 .build();
 
         //Calling path2 ASSUMES the robot is at (-58,57) BEFORE the path is run as shown below
         Action path2 = drive.actionBuilder(new Pose2d(47, 47, Math.toRadians(45)))
-                .strafeToLinearHeading(new Vector2d(11,11),Math.toRadians(90),new TranslationalVelConstraint(90))
+                .strafeToLinearHeading(new Vector2d(12,22),Math.toRadians(90),new TranslationalVelConstraint(70))
+                .strafeToConstantHeading(new Vector2d(12,55),new TranslationalVelConstraint(20))
+                .strafeToLinearHeading(new Vector2d(47,47),Math.toRadians(50),new TranslationalVelConstraint(70))
+                .waitSeconds(1.5)
                 .build();
 
         Action path3 = drive.actionBuilder(new Pose2d(11, 11, Math.toRadians(90)))
-                .strafeToConstantHeading(new Vector2d(11,53))
+                .strafeToLinearHeading(new Vector2d(12,22),Math.toRadians(90),new TranslationalVelConstraint(70))
+                .strafeToConstantHeading(new Vector2d(12,55),new TranslationalVelConstraint(20))
+                .strafeToLinearHeading(new Vector2d(47,47),Math.toRadians(50),new TranslationalVelConstraint(70))
+                .waitSeconds(1.5)
                 .build();
 
         Action path4 = drive.actionBuilder(new Pose2d(11, 53, Math.toRadians(90)))
-                .strafeToLinearHeading(new Vector2d(45,45),Math.toRadians(45),new TranslationalVelConstraint(90))
-                .build();
-
-        Action path5 = drive.actionBuilder(new Pose2d(45, 45, Math.toRadians(45)))
-                .strafeToLinearHeading(new Vector2d(-13,13.5),Math.toRadians(90),new TranslationalVelConstraint(90))
-                .build();
-
-        Action path6 = drive.actionBuilder(new Pose2d(-13, 13.5, Math.toRadians(90)))
-                .strafeToConstantHeading(new Vector2d(-13,61))
-                .build();
-
-        Action path7 = drive.actionBuilder(new Pose2d(13, 61, Math.toRadians(90)))
-                .strafeToConstantHeading(new Vector2d(-13,50))
-                .build();
-
-        Action path8 = drive.actionBuilder(new Pose2d(-13, 50, Math.toRadians(90)))
-                .strafeToLinearHeading(new Vector2d(47,47),Math.toRadians(45),new TranslationalVelConstraint(90))
-                .build();
-
-        Action path9 = drive.actionBuilder(new Pose2d(47, 47, Math.toRadians(45)))
-                .strafeToLinearHeading(new Vector2d(-34,25),Math.toRadians(90),new TranslationalVelConstraint(90))
-                .build();
-
-        Action path10 = drive.actionBuilder(new Pose2d(-34, 25, Math.toRadians(90)))
-                .strafeToConstantHeading(new Vector2d(-34,61))
-                .build();
-
-        Action path11 = drive.actionBuilder(new Pose2d(-34, 61, Math.toRadians(90)))
-                .strafeToConstantHeading(new Vector2d(-34,55))
-                .build();
-
-        Action path12 = drive.actionBuilder(new Pose2d(-34, 55, Math.toRadians(90)))
-                .strafeToLinearHeading(new Vector2d(45,45),Math.toRadians(45),new TranslationalVelConstraint(90))
+                .strafeToLinearHeading(new Vector2d(-35,22),Math.toRadians(90),new TranslationalVelConstraint(70))
+                .strafeToConstantHeading(new Vector2d(-35,62),new TranslationalVelConstraint(20))
+                .strafeToConstantHeading(new Vector2d(-35,50))
+                .strafeToLinearHeading(new Vector2d(47,47),Math.toRadians(50),new TranslationalVelConstraint(70))
+                .waitSeconds(1.5)
                 .build();
 
 
@@ -119,29 +119,29 @@ public class YourSampleAuton extends LinearOpMode {
                         //----------First Path!----------\\
 
                         //Runs path 1 *WHILE* motor moves to position 3
-                        new ParallelAction(
-                                path1,
-                                motor.toPos3(),
-                                intake.in(),
-                                outtake.shoot()
+                        new SequentialAction(
+                                path1
                         ),
-
                         //----------Second Path!----------\\
 
                         //Runs path 2 *AFTER*
                         //(motor moves to position 2 *WHILE* servo moves to position 2)
                         new SequentialAction(
-                                path12,
-                                new ParallelAction(
-                                        motor.toPos2(),
-                                        servo.toPos2()
-                                ),
-                                new SleepAction(1)
+                                path2
+                        ),
+
+                        new SequentialAction(
+                                path3
+                        ),
+
+                        new SequentialAction(
+                                path4
+                        )
 
                         )
 
-                )
-        );
+                );
+
 
 
     }
