@@ -1,0 +1,72 @@
+package com.example.meepmeeptesting;
+
+import com.acmerobotics.roadrunner.Pose2d;
+import com.acmerobotics.roadrunner.TranslationalVelConstraint;
+import com.acmerobotics.roadrunner.Vector2d;
+import com.noahbres.meepmeep.MeepMeep;
+import com.noahbres.meepmeep.roadrunner.DefaultBotBuilder;
+import com.noahbres.meepmeep.roadrunner.entity.RoadRunnerBotEntity;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import javax.imageio.ImageIO;
+
+public class IshaanNathanBio {
+    public static void main(String[] args) {
+        MeepMeep meepMeep = new MeepMeep(700);
+
+        RoadRunnerBotEntity myBot = new DefaultBotBuilder(meepMeep)
+                // Set bot constraints: maxVel, maxAccel, maxAngVel, maxAngAccel, track width
+                .setConstraints(65, 60, Math.toRadians(180), Math.toRadians(180), 15)
+                .build();
+
+        myBot.runAction(myBot.getDrive().actionBuilder(new Pose2d(-55, 46, Math.toRadians(127)))
+                .waitSeconds(2)
+                .strafeToConstantHeading(new Vector2d(-47,47))
+//                //1st 3 balls over
+//                .strafeToLinearHeading(new Vector2d(-11,22),Math.toRadians(90))
+//                .strafeToConstantHeading(new Vector2d(-11,53), new TranslationalVelConstraint(30))
+//                .strafeToLinearHeading(new Vector2d(-47,47),Math.toRadians(45))
+//                //2nd 3 balls over
+//                .strafeToLinearHeading(new Vector2d(13,22),Math.toRadians(90))
+//                .strafeToConstantHeading(new Vector2d(13,61))
+//                .strafeToConstantHeading(new Vector2d(13,50))
+//                .strafeToLinearHeading(new Vector2d(-47,47),Math.toRadians(45))
+                //3rd 3 balls over
+
+
+                //go to 4th set
+                .strafeToLinearHeading(new Vector2d(37,22),Math.toRadians(90))
+                //pick up 4th set
+                .strafeToConstantHeading(new Vector2d(35,50))
+
+                //go back to score
+                .splineToConstantHeading(new Vector2d(-30,36),Math.toRadians(180))
+                .splineTo(new Vector2d(-47,47),Math.toRadians(180))
+
+
+
+
+                //4th 3 balls over
+                .strafeToLinearHeading(new Vector2d(-10,43),Math.toRadians(90),new TranslationalVelConstraint(70))
+
+
+
+
+// .turn(Math.toRadians(90))
+//                .lineToY(30)
+//                .turn(Math.toRadians(90))
+//                .lineToX(0)
+//                .strafeToLinearHeading(new Vector2d(-50,-30),Math.toRadians(90),new TranslationalVelConstraint(90))
+//                .waitSeconds(2)
+//                .splineToSplineHeading(new Pose2d(20,20,Math.toRadians(90)),Math.toRadians(0))
+
+                .build());
+
+        meepMeep.setBackground(MeepMeep.Background.FIELD_DECODE_JUICE_DARK)
+                .setDarkMode(true)
+                .setBackgroundAlpha(0.95f)
+                .addEntity(myBot)
+                .start();
+    }
+}
