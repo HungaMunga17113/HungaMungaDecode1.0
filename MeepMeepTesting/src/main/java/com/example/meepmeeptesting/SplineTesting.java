@@ -17,25 +17,16 @@ public class SplineTesting {
 
         RoadRunnerBotEntity myBot = new DefaultBotBuilder(meepMeep)
                 // Set bot constraints: maxVel, maxAccel, maxAngVel, maxAngAccel, track width
-                .setConstraints(60, 60, Math.toRadians(180), Math.toRadians(180), 15)
+                .setConstraints(65, 60, Math.toRadians(180), Math.toRadians(180), 15)
                 .build();
 
-        myBot.runAction(myBot.getDrive().actionBuilder(new Pose2d(-48, 48, Math.toRadians(125)))
-                .strafeToLinearHeading(new Vector2d(-11,21),Math.toRadians(90),new TranslationalVelConstraint(90))
+        myBot.runAction(myBot.getDrive().actionBuilder(new Pose2d(-55, 46, Math.toRadians(127)))
+                .waitSeconds(2)
+                .strafeToConstantHeading(new Vector2d(-47,47))
+                .strafeToLinearHeading(new Vector2d(37,22),Math.toRadians(90))
+                .strafeToConstantHeading(new Vector2d(35,50))
+                .splineToConstantHeading(new Vector2d(-30,36),Math.toRadians(180))
                 .splineTo(new Vector2d(-47,47),Math.toRadians(180))
-
-
-
-
-
-// .turn(Math.toRadians(90))
-//                .lineToY(30)
-//                .turn(Math.toRadians(90))
-//                .lineToX(0)
-//                .strafeToLinearHeading(new Vector2d(-50,-30),Math.toRadians(90),new TranslationalVelConstraint(90))
-//                .waitSeconds(2)
-//                .splineToSplineHeading(new Pose2d(20,20,Math.toRadians(90)),Math.toRadians(0))
-
                 .build());
 
         meepMeep.setBackground(MeepMeep.Background.FIELD_DECODE_JUICE_DARK)

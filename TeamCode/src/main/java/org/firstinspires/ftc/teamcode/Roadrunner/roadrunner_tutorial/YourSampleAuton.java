@@ -27,7 +27,7 @@ public class YourSampleAuton extends LinearOpMode {
     @Override
     public void runOpMode() {
         //Pose that the robot starts at
-        Pose2d initialPose = new Pose2d(50, 50, Math.toRadians(45));
+        Pose2d initialPose = new Pose2d(-55, 46, Math.toRadians(127));
         MecanumDrive drive = new MecanumDrive(hardwareMap, initialPose);
         Motor_Template motor = new Motor_Template(hardwareMap);
         Servo_Template servo = new Servo_Template(hardwareMap);
@@ -37,6 +37,7 @@ public class YourSampleAuton extends LinearOpMode {
 
         //-----------------------Paths-----------------------\\
         Action shoot1path = drive.actionBuilder(initialPose)
+                .waitSeconds(0.5)
                 .strafeToConstantHeading(new Vector2d(-47,47))
                 .waitSeconds(1.5)
                 .build();
@@ -94,12 +95,6 @@ public class YourSampleAuton extends LinearOpMode {
         //Run (What happens when you press start)
         Actions.runBlocking(
                 new SequentialAction(
-//                        new ParallelAction(
-//                                path1,
-//                                motor.toPos3(),
-//                                intake.in(),
-//                                outtake.shoot()
-//                        ),
                         new SequentialAction(
                                 shoot1path,
                                 outtake.shoot(),
@@ -107,7 +102,9 @@ public class YourSampleAuton extends LinearOpMode {
                                 outtake.idle()
                         ),
                         new SequentialAction(
-                                intake1path
+                                intake.in(),
+                                intake1path,
+                                intake.idle()
                         ),
                         new SequentialAction(
                                 shoot2path,
@@ -116,7 +113,9 @@ public class YourSampleAuton extends LinearOpMode {
                                 outtake.idle()
                         ),
                         new SequentialAction(
-                                intake2path
+                                intake.in(),
+                                intake2path,
+                                intake.idle()
                         ),
                         new SequentialAction(
                                 shoot3path,
@@ -125,7 +124,9 @@ public class YourSampleAuton extends LinearOpMode {
                                 outtake.idle()
                         ),
                         new SequentialAction(
-                                intake3path
+                                intake.in(),
+                                intake3path,
+                                intake.idle()
                         ),
                         new SequentialAction(
                                 shoot4path,
@@ -136,13 +137,7 @@ public class YourSampleAuton extends LinearOpMode {
                         new SequentialAction(
                                 extra
                         )
-
-
-
-
                 )
         );
-
-
     }
 }

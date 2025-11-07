@@ -20,7 +20,8 @@ public class MeepMeepTesting {
                 .setConstraints(60, 60, Math.toRadians(180), Math.toRadians(180), 15)
                 .build();
 
-        myBot.runAction(myBot.getDrive().actionBuilder(new Pose2d(-48, 48, Math.toRadians(125)))
+        myBot.runAction(myBot.getDrive().actionBuilder(new Pose2d(-55, 46, Math.toRadians(127)))
+                .waitSeconds(0.5)
                 .strafeToConstantHeading(new Vector2d(-47,47))
                 .waitSeconds(1.5)
                 //1st 3 balls over
