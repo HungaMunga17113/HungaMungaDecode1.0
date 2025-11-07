@@ -20,7 +20,7 @@ import org.firstinspires.ftc.teamcode.Roadrunner.subsystems.Intake;
 import org.firstinspires.ftc.teamcode.Roadrunner.subsystems.Outtake;
 
 @Config
-@Autonomous(name = "Your Own Autonomous!")
+@Autonomous(name = "LM2 12 Ball Red Autonomous")
 public class YourSampleAuton extends LinearOpMode {
 
 
