@@ -83,8 +83,6 @@ public class YourSampleAuton extends LinearOpMode {
         // Initialize (What happens before when you press start)
         Actions.runBlocking(
                 new SequentialAction(
-                    servo.toPos1(),
-                    motor.toPos2(),
                         intake.in()
                 )
         );
@@ -103,25 +101,37 @@ public class YourSampleAuton extends LinearOpMode {
 //                                outtake.shoot()
 //                        ),
                         new SequentialAction(
-                                shoot1path
+                                shoot1path,
+                                outtake.shoot(),
+                                outtake.down(),
+                                outtake.idle()
                         ),
                         new SequentialAction(
                                 intake1path
                         ),
                         new SequentialAction(
-                                shoot2path
+                                shoot2path,
+                                outtake.shoot(),
+                                outtake.down(),
+                                outtake.idle()
                         ),
                         new SequentialAction(
                                 intake2path
                         ),
                         new SequentialAction(
-                                shoot3path
+                                shoot3path,
+                                outtake.shoot(),
+                                outtake.down(),
+                                outtake.idle()
                         ),
                         new SequentialAction(
                                 intake3path
                         ),
                         new SequentialAction(
-                                shoot4path
+                                shoot4path,
+                                outtake.shoot(),
+                                outtake.down(),
+                                outtake.idle()
                         ),
                         new SequentialAction(
                                 extra
