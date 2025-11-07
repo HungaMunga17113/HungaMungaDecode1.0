@@ -36,35 +36,44 @@ public class YourSampleAuton extends LinearOpMode {
 
 
         //-----------------------Paths-----------------------\\
-        Action path1 = drive.actionBuilder(initialPose)
+        Action shoot1path = drive.actionBuilder(initialPose)
                 .strafeToConstantHeading(new Vector2d(-47,47))
                 .waitSeconds(1.5)
                 .build();
 
-        Action path2 = drive.actionBuilder(new Pose2d(-58, 57, Math.toRadians(315)))
+        Action intake1path = drive.actionBuilder(new Pose2d(-58, 57, Math.toRadians(315)))
                 .strafeToLinearHeading(new Vector2d(-12,22),Math.toRadians(90),new TranslationalVelConstraint(70))
                 .strafeToConstantHeading(new Vector2d(-12,55),new TranslationalVelConstraint(20))
+                .build();
+
+        Action shoot2path = drive.actionBuilder(new Pose2d(-58, 57, Math.toRadians(315)))
                 .strafeToLinearHeading(new Vector2d(-47,47),Math.toRadians(125),new TranslationalVelConstraint(70))
                 .waitSeconds(1.5)
                 .build();
 
-        Action path3 = drive.actionBuilder(new Pose2d(-58, 57, Math.toRadians(315)))
+        Action intake2path = drive.actionBuilder(new Pose2d(-58, 57, Math.toRadians(315)))
                 .strafeToLinearHeading(new Vector2d(15,22),Math.toRadians(90),new TranslationalVelConstraint(70))
                 .strafeToConstantHeading(new Vector2d(15,62),new TranslationalVelConstraint(20))
                 .strafeToConstantHeading(new Vector2d(15,50))
+                .build();
+
+        Action shoot3path = drive.actionBuilder(new Pose2d(-58, 57, Math.toRadians(315)))
                 .strafeToLinearHeading(new Vector2d(-47,47),Math.toRadians(125),new TranslationalVelConstraint(70))
                 .waitSeconds(1.5)
                 .build();
 
-        Action path4 = drive.actionBuilder(new Pose2d(-58, 57, Math.toRadians(315)))
+        Action intake3path = drive.actionBuilder(new Pose2d(-58, 57, Math.toRadians(315)))
                 .strafeToLinearHeading(new Vector2d(35,22),Math.toRadians(90),new TranslationalVelConstraint(70))
                 .strafeToConstantHeading(new Vector2d(35,62),new TranslationalVelConstraint(20))
+                .build();
+
+        Action shoot4path = drive.actionBuilder(new Pose2d(-58, 57, Math.toRadians(315)))
                 .strafeToConstantHeading(new Vector2d(35,50))
                 .strafeToLinearHeading(new Vector2d(-47,47),Math.toRadians(125),new TranslationalVelConstraint(70))
                 .waitSeconds(1.5)
                 .build();
 
-        Action path5 = drive.actionBuilder(new Pose2d(-58, 57, Math.toRadians(315)))
+        Action extra = drive.actionBuilder(new Pose2d(-58, 57, Math.toRadians(315)))
                 .strafeToLinearHeading(new Vector2d(2.5,47),Math.toRadians(270),new TranslationalVelConstraint(70))
                 .build();
 
@@ -75,7 +84,8 @@ public class YourSampleAuton extends LinearOpMode {
         Actions.runBlocking(
                 new SequentialAction(
                     servo.toPos1(),
-                    motor.toPos2()
+                    motor.toPos2(),
+                        intake.in()
                 )
         );
 
@@ -93,20 +103,30 @@ public class YourSampleAuton extends LinearOpMode {
 //                                outtake.shoot()
 //                        ),
                         new SequentialAction(
-                                path1
+                                shoot1path
                         ),
                         new SequentialAction(
-                                path2
+                                intake1path
                         ),
                         new SequentialAction(
-                                path3
+                                shoot2path
                         ),
                         new SequentialAction(
-                                path4
+                                intake2path
                         ),
                         new SequentialAction(
-                                path5
+                                shoot3path
+                        ),
+                        new SequentialAction(
+                                intake3path
+                        ),
+                        new SequentialAction(
+                                shoot4path
+                        ),
+                        new SequentialAction(
+                                extra
                         )
+
 
 
 
