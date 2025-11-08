@@ -47,34 +47,34 @@ public class YourSampleAuton extends LinearOpMode {
                 .strafeToConstantHeading(new Vector2d(-12,55),new TranslationalVelConstraint(20))
                 .build();
 
-        Action shoot2path = drive.actionBuilder(new Pose2d(-12, 55, Math.toRadians(315)))
-                .strafeToLinearHeading(new Vector2d(-47,47),Math.toRadians(125),new TranslationalVelConstraint(70))
+        Action shoot2path = drive.actionBuilder(new Pose2d(-12, 55, Math.toRadians(90)))
+                .strafeToLinearHeading(new Vector2d(-47,47),Math.toRadians(127),new TranslationalVelConstraint(70))
                 .waitSeconds(1.5)
                 .build();
 
-        Action intake2path = drive.actionBuilder(new Pose2d(-58, 57, Math.toRadians(315)))
+        Action intake2path = drive.actionBuilder(new Pose2d(-47, 47, Math.toRadians(127)))
                 .strafeToLinearHeading(new Vector2d(15,22),Math.toRadians(90),new TranslationalVelConstraint(70))
                 .strafeToConstantHeading(new Vector2d(15,62),new TranslationalVelConstraint(20))
                 .strafeToConstantHeading(new Vector2d(15,50))
                 .build();
 
-        Action shoot3path = drive.actionBuilder(new Pose2d(-58, 57, Math.toRadians(315)))
-                .strafeToLinearHeading(new Vector2d(-47,47),Math.toRadians(125),new TranslationalVelConstraint(70))
+        Action shoot3path = drive.actionBuilder(new Pose2d(-16, 50, Math.toRadians(90)))
+                .strafeToLinearHeading(new Vector2d(-47,47),Math.toRadians(127),new TranslationalVelConstraint(70))
                 .waitSeconds(1.5)
                 .build();
 
-        Action intake3path = drive.actionBuilder(new Pose2d(-58, 57, Math.toRadians(315)))
+        Action intake3path = drive.actionBuilder(new Pose2d(-47, 47, Math.toRadians(127)))
                 .strafeToLinearHeading(new Vector2d(35,22),Math.toRadians(90),new TranslationalVelConstraint(70))
                 .strafeToConstantHeading(new Vector2d(35,62),new TranslationalVelConstraint(20))
                 .build();
 
-        Action shoot4path = drive.actionBuilder(new Pose2d(-58, 57, Math.toRadians(315)))
+        Action shoot4path = drive.actionBuilder(new Pose2d(35, 62, Math.toRadians(90)))
                 .strafeToConstantHeading(new Vector2d(35,50))
-                .strafeToLinearHeading(new Vector2d(-47,47),Math.toRadians(125),new TranslationalVelConstraint(70))
+                .strafeToLinearHeading(new Vector2d(-47,47),Math.toRadians(127),new TranslationalVelConstraint(70))
                 .waitSeconds(1.5)
                 .build();
 
-        Action extra = drive.actionBuilder(new Pose2d(-58, 57, Math.toRadians(315)))
+        Action extra = drive.actionBuilder(new Pose2d(-47, 47, Math.toRadians(127)))
                 .strafeToLinearHeading(new Vector2d(2.5,47),Math.toRadians(270),new TranslationalVelConstraint(70))
                 .build();
 
