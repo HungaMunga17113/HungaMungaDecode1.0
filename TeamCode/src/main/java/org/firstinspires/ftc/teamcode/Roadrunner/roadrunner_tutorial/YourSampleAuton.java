@@ -20,14 +20,14 @@ import org.firstinspires.ftc.teamcode.Roadrunner.subsystems.Intake;
 import org.firstinspires.ftc.teamcode.Roadrunner.subsystems.Outtake;
 
 @Config
-@Autonomous(name = "Your Own Autonomous!")
+@Autonomous(name = "LM2 12 Ball Red Autonomous")
 public class YourSampleAuton extends LinearOpMode {
 
 
     @Override
     public void runOpMode() {
         //Pose that the robot starts at
-        Pose2d initialPose = new Pose2d(50, 50, Math.toRadians(45));
+        Pose2d initialPose = new Pose2d(-55, 46, Math.toRadians(127));
         MecanumDrive drive = new MecanumDrive(hardwareMap, initialPose);
         Motor_Template motor = new Motor_Template(hardwareMap);
         Servo_Template servo = new Servo_Template(hardwareMap);
@@ -36,65 +36,46 @@ public class YourSampleAuton extends LinearOpMode {
 
 
         //-----------------------Paths-----------------------\\
-        //                .strafeToConstantHeading(new Vector2d(47,47))
-        //                .strafeToLinearHeading(new Vector2d(11,11),Math.toRadians(90),new TranslationalVelConstraint(90))
-        //                .strafeToConstantHeading(new Vector2d(11,53))
-        //                .strafeToLinearHeading(new Vector2d(45,45),Math.toRadians(45),new TranslationalVelConstraint(90))
-        //                .strafeToLinearHeading(new Vector2d(-13,13.5),Math.toRadians(90),new TranslationalVelConstraint(90))
-        //                .strafeToConstantHeading(new Vector2d(-13,61))
-        //                .strafeToConstantHeading(new Vector2d(-13,50))
-        //                .strafeToLinearHeading(new Vector2d(47,47),Math.toRadians(45),new TranslationalVelConstraint(90))
-        //                .strafeToLinearHeading(new Vector2d(-34,25),Math.toRadians(90),new TranslationalVelConstraint(90))
-        //                .strafeToConstantHeading(new Vector2d(-34,61))
-        //                .strafeToConstantHeading(new Vector2d(-34,55))
-        //                .strafeToLinearHeading(new Vector2d(45,45),Math.toRadians(45),new TranslationalVelConstraint(90))
-        Action path1 = drive.actionBuilder(initialPose)
-                .strafeToConstantHeading(new Vector2d(47,47))
+        Action shoot1path = drive.actionBuilder(initialPose)
+                .waitSeconds(0.5)
+                .strafeToConstantHeading(new Vector2d(-47,47))
+                .waitSeconds(1.5)
                 .build();
 
-        //Calling path2 ASSUMES the robot is at (-58,57) BEFORE the path is run as shown below
-        Action path2 = drive.actionBuilder(new Pose2d(47, 47, Math.toRadians(45)))
-                .strafeToLinearHeading(new Vector2d(11,11),Math.toRadians(90),new TranslationalVelConstraint(90))
+        Action intake1path = drive.actionBuilder(new Pose2d(-58, 57, Math.toRadians(315)))
+                .strafeToLinearHeading(new Vector2d(-12,22),Math.toRadians(90),new TranslationalVelConstraint(70))
+                .strafeToConstantHeading(new Vector2d(-12,55),new TranslationalVelConstraint(20))
                 .build();
 
-        Action path3 = drive.actionBuilder(new Pose2d(11, 11, Math.toRadians(90)))
-                .strafeToConstantHeading(new Vector2d(11,53))
+        Action shoot2path = drive.actionBuilder(new Pose2d(-58, 57, Math.toRadians(315)))
+                .strafeToLinearHeading(new Vector2d(-47,47),Math.toRadians(125),new TranslationalVelConstraint(70))
+                .waitSeconds(1.5)
                 .build();
 
-        Action path4 = drive.actionBuilder(new Pose2d(11, 53, Math.toRadians(90)))
-                .strafeToLinearHeading(new Vector2d(45,45),Math.toRadians(45),new TranslationalVelConstraint(90))
+        Action intake2path = drive.actionBuilder(new Pose2d(-58, 57, Math.toRadians(315)))
+                .strafeToLinearHeading(new Vector2d(15,22),Math.toRadians(90),new TranslationalVelConstraint(70))
+                .strafeToConstantHeading(new Vector2d(15,62),new TranslationalVelConstraint(20))
+                .strafeToConstantHeading(new Vector2d(15,50))
                 .build();
 
-        Action path5 = drive.actionBuilder(new Pose2d(45, 45, Math.toRadians(45)))
-                .strafeToLinearHeading(new Vector2d(-13,13.5),Math.toRadians(90),new TranslationalVelConstraint(90))
+        Action shoot3path = drive.actionBuilder(new Pose2d(-58, 57, Math.toRadians(315)))
+                .strafeToLinearHeading(new Vector2d(-47,47),Math.toRadians(125),new TranslationalVelConstraint(70))
+                .waitSeconds(1.5)
                 .build();
 
-        Action path6 = drive.actionBuilder(new Pose2d(-13, 13.5, Math.toRadians(90)))
-                .strafeToConstantHeading(new Vector2d(-13,61))
+        Action intake3path = drive.actionBuilder(new Pose2d(-58, 57, Math.toRadians(315)))
+                .strafeToLinearHeading(new Vector2d(35,22),Math.toRadians(90),new TranslationalVelConstraint(70))
+                .strafeToConstantHeading(new Vector2d(35,62),new TranslationalVelConstraint(20))
                 .build();
 
-        Action path7 = drive.actionBuilder(new Pose2d(13, 61, Math.toRadians(90)))
-                .strafeToConstantHeading(new Vector2d(-13,50))
+        Action shoot4path = drive.actionBuilder(new Pose2d(-58, 57, Math.toRadians(315)))
+                .strafeToConstantHeading(new Vector2d(35,50))
+                .strafeToLinearHeading(new Vector2d(-47,47),Math.toRadians(125),new TranslationalVelConstraint(70))
+                .waitSeconds(1.5)
                 .build();
 
-        Action path8 = drive.actionBuilder(new Pose2d(-13, 50, Math.toRadians(90)))
-                .strafeToLinearHeading(new Vector2d(47,47),Math.toRadians(45),new TranslationalVelConstraint(90))
-                .build();
-
-        Action path9 = drive.actionBuilder(new Pose2d(47, 47, Math.toRadians(45)))
-                .strafeToLinearHeading(new Vector2d(-34,25),Math.toRadians(90),new TranslationalVelConstraint(90))
-                .build();
-
-        Action path10 = drive.actionBuilder(new Pose2d(-34, 25, Math.toRadians(90)))
-                .strafeToConstantHeading(new Vector2d(-34,61))
-                .build();
-
-        Action path11 = drive.actionBuilder(new Pose2d(-34, 61, Math.toRadians(90)))
-                .strafeToConstantHeading(new Vector2d(-34,55))
-                .build();
-
-        Action path12 = drive.actionBuilder(new Pose2d(-34, 55, Math.toRadians(90)))
-                .strafeToLinearHeading(new Vector2d(45,45),Math.toRadians(45),new TranslationalVelConstraint(90))
+        Action extra = drive.actionBuilder(new Pose2d(-58, 57, Math.toRadians(315)))
+                .strafeToLinearHeading(new Vector2d(2.5,47),Math.toRadians(270),new TranslationalVelConstraint(70))
                 .build();
 
 
@@ -103,8 +84,7 @@ public class YourSampleAuton extends LinearOpMode {
         // Initialize (What happens before when you press start)
         Actions.runBlocking(
                 new SequentialAction(
-                    servo.toPos1(),
-                    motor.toPos2()
+                        intake.in()
                 )
         );
 
@@ -115,34 +95,49 @@ public class YourSampleAuton extends LinearOpMode {
         //Run (What happens when you press start)
         Actions.runBlocking(
                 new SequentialAction(
-
-                        //----------First Path!----------\\
-
-                        //Runs path 1 *WHILE* motor moves to position 3
-                        new ParallelAction(
-                                path1,
-                                motor.toPos3(),
-                                intake.in(),
-                                outtake.shoot()
-                        ),
-
-                        //----------Second Path!----------\\
-
-                        //Runs path 2 *AFTER*
-                        //(motor moves to position 2 *WHILE* servo moves to position 2)
                         new SequentialAction(
-                                path12,
-                                new ParallelAction(
-                                        motor.toPos2(),
-                                        servo.toPos2()
-                                ),
-                                new SleepAction(1)
-
+                                shoot1path,
+                                outtake.shoot(),
+                                outtake.down(),
+                                outtake.idle()
+                        ),
+                        new SequentialAction(
+                                intake.in(),
+                                intake1path,
+                                intake.idle()
+                        ),
+                        new SequentialAction(
+                                shoot2path,
+                                outtake.shoot(),
+                                outtake.down(),
+                                outtake.idle()
+                        ),
+                        new SequentialAction(
+                                intake.in(),
+                                intake2path,
+                                intake.idle()
+                        ),
+                        new SequentialAction(
+                                shoot3path,
+                                outtake.shoot(),
+                                outtake.down(),
+                                outtake.idle()
+                        ),
+                        new SequentialAction(
+                                intake.in(),
+                                intake3path,
+                                intake.idle()
+                        ),
+                        new SequentialAction(
+                                shoot4path,
+                                outtake.shoot(),
+                                outtake.down(),
+                                outtake.idle()
+                        ),
+                        new SequentialAction(
+                                extra
                         )
-
                 )
         );
-
-
     }
 }
