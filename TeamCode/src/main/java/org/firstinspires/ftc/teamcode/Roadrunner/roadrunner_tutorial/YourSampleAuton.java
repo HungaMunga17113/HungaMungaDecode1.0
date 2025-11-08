@@ -42,12 +42,12 @@ public class YourSampleAuton extends LinearOpMode {
                 .waitSeconds(1.5)
                 .build();
 
-        Action intake1path = drive.actionBuilder(new Pose2d(-58, 57, Math.toRadians(315)))
+        Action intake1path = drive.actionBuilder(new Pose2d(-47, 47, Math.toRadians(127)))
                 .strafeToLinearHeading(new Vector2d(-12,22),Math.toRadians(90),new TranslationalVelConstraint(70))
                 .strafeToConstantHeading(new Vector2d(-12,55),new TranslationalVelConstraint(20))
                 .build();
 
-        Action shoot2path = drive.actionBuilder(new Pose2d(-58, 57, Math.toRadians(315)))
+        Action shoot2path = drive.actionBuilder(new Pose2d(-12, 55, Math.toRadians(315)))
                 .strafeToLinearHeading(new Vector2d(-47,47),Math.toRadians(125),new TranslationalVelConstraint(70))
                 .waitSeconds(1.5)
                 .build();
