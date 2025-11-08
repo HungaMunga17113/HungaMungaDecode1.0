@@ -9,6 +9,7 @@ import com.acmerobotics.roadrunner.Vector2d;
 import com.acmerobotics.roadrunner.ftc.Actions;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.DcMotorEx;
 
 import org.firstinspires.ftc.teamcode.Roadrunner.roadrunner_tutorial.base_subsystem_templates.MecanumDriveV1;
 import org.firstinspires.ftc.teamcode.Roadrunner.roadrunner_tutorial.base_subsystem_templates.Motor_Template;
@@ -20,11 +21,6 @@ public class AutonTest extends LinearOpMode {
         //Pose that the robot starts at
         Pose2d initialPose = new Pose2d(-63, 39, Math.toRadians(90));
         MecanumDriveV1 drive = new MecanumDriveV1(hardwareMap, initialPose);
-
-        Motor_Template motor = new Motor_Template(hardwareMap);
-        Servo_Template servo = new Servo_Template(hardwareMap);
-
-
 
         //-----------------------Paths-----------------------\\
         Action path1 = drive.actionBuilder(initialPose)
