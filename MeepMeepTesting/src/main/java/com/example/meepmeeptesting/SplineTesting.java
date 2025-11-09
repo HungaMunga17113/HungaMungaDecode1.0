@@ -21,12 +21,25 @@ public class SplineTesting {
                 .build();
 
         myBot.runAction(myBot.getDrive().actionBuilder(new Pose2d(-55, 46, Math.toRadians(127)))
-                .waitSeconds(2)
+                .waitSeconds(0.5)
                 .strafeToConstantHeading(new Vector2d(-47,47))
+                .waitSeconds(2)
+                .strafeToLinearHeading(new Vector2d(-11.5,21),Math.toRadians(90))
+                .strafeToConstantHeading(new Vector2d(-11.5,50))
+                .splineToConstantHeading(new Vector2d(-45,45),Math.toRadians(180))
+                .strafeToLinearHeading(new Vector2d(-47,47),Math.toRadians(127))
+                .waitSeconds(2)
+                .strafeToLinearHeading(new Vector2d(12,24.5),Math.toRadians(90))
+                .strafeToConstantHeading(new Vector2d(12,40))
+                .splineToConstantHeading(new Vector2d(-45,45),Math.toRadians(175))
+                .strafeToLinearHeading(new Vector2d(-47,47),Math.toRadians(127))
+                .waitSeconds(2)
                 .strafeToLinearHeading(new Vector2d(37,22),Math.toRadians(90))
                 .strafeToConstantHeading(new Vector2d(35,50))
-                .splineToConstantHeading(new Vector2d(-30,36),Math.toRadians(180))
-                .splineTo(new Vector2d(-47,47),Math.toRadians(180))
+                .splineToConstantHeading(new Vector2d(-30,36),Math.toRadians(175))
+                .strafeToLinearHeading(new Vector2d(-47,47),Math.toRadians(127))
+                .waitSeconds(2)
+                .strafeToLinearHeading(new Vector2d(2,47),Math.toRadians(270))
                 .build());
 
         meepMeep.setBackground(MeepMeep.Background.FIELD_DECODE_JUICE_DARK)
