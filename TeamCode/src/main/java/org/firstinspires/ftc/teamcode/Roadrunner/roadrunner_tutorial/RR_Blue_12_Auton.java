@@ -34,9 +34,9 @@ public class RR_Blue_12_Auton extends LinearOpMode {
                 .strafeToConstantHeading(new Vector2d(-45,-45))
                 .waitSeconds(0.25)
                 .stopAndAdd(outtake.shoot())
-                .waitSeconds(0.5)
+                .waitSeconds(0.45)
                 .stopAndAdd(outtake.down())
-                .waitSeconds(0.5)
+                .waitSeconds(0.45)
                 .stopAndAdd(outtake.idle())
                 .build();
 
@@ -55,9 +55,9 @@ public class RR_Blue_12_Auton extends LinearOpMode {
                 .stopAndAdd(intake.idle())
                 .waitSeconds(0.25)
                 .stopAndAdd(outtake.shoot())
-                .waitSeconds(0.5)
+                .waitSeconds(0.45)
                 .stopAndAdd(outtake.down())
-                .waitSeconds(0.5)
+                .waitSeconds(0.45)
                 .stopAndAdd(outtake.idle())
                 .build();
 
@@ -75,9 +75,9 @@ public class RR_Blue_12_Auton extends LinearOpMode {
                 .stopAndAdd(intake.idle())
                 .waitSeconds(0.25)
                 .stopAndAdd(outtake.shoot())
-                .waitSeconds(0.5)
+                .waitSeconds(0.45)
                 .stopAndAdd(outtake.down())
-                .waitSeconds(0.5)
+                .waitSeconds(0.45)
                 .stopAndAdd(outtake.idle())
                 .build();
 
@@ -95,9 +95,9 @@ public class RR_Blue_12_Auton extends LinearOpMode {
                 .stopAndAdd(intake.idle())
                 .waitSeconds(0.25)
                 .stopAndAdd(outtake.shoot())
-                .waitSeconds(0.5)
+                .waitSeconds(0.45)
                 .stopAndAdd(outtake.down())
-                .waitSeconds(0.5)
+                .waitSeconds(0.45)
                 .stopAndAdd(outtake.idle())
                 .build();
 

@@ -16,13 +16,13 @@ import org.firstinspires.ftc.teamcode.Roadrunner.subsystems.Outtake;
 
 @Config
 @Autonomous(name = "RR Red Auton")
-public class RR_Red_12_Auton extends LinearOpMode {
+public class RR_Far_Blue_Auton extends LinearOpMode {
 
 
     @Override
     public void runOpMode() {
         //Pose that the robot starts at
-        Pose2d initialPose = new Pose2d(-55, 46, Math.toRadians(127));
+        Pose2d initialPose = new Pose2d(60, -24, Math.toRadians(180));
         MecanumDrive drive = new MecanumDrive(hardwareMap, initialPose);
         Intake intake = new Intake(hardwareMap);
         Outtake outtake = new Outtake(hardwareMap);
@@ -31,13 +31,7 @@ public class RR_Red_12_Auton extends LinearOpMode {
         //-----------------------Paths-----------------------\\
         Action shoot1path = drive.actionBuilder(initialPose)
                 .waitSeconds(0.3)
-                .strafeToConstantHeading(new Vector2d(-45,45))
-                .waitSeconds(0.25)
-                .stopAndAdd(outtake.shoot())
-                .waitSeconds(0.45)
-                .stopAndAdd(outtake.down())
-                .waitSeconds(0.45)
-                .stopAndAdd(outtake.idle())
+                .strafeToConstantHeading(new Vector2d(57.5,-36))
                 .build();
 
         Action intake1path = drive.actionBuilder(new Pose2d(-45, 45, Math.toRadians(127)))
@@ -55,9 +49,9 @@ public class RR_Red_12_Auton extends LinearOpMode {
                 .stopAndAdd(intake.idle())
                 .waitSeconds(0.25)
                 .stopAndAdd(outtake.shoot())
-                .waitSeconds(0.45)
+                .waitSeconds(0.5)
                 .stopAndAdd(outtake.down())
-                .waitSeconds(0.45)
+                .waitSeconds(0.5)
                 .stopAndAdd(outtake.idle())
                 .build();
 
@@ -75,9 +69,9 @@ public class RR_Red_12_Auton extends LinearOpMode {
                 .stopAndAdd(intake.idle())
                 .waitSeconds(0.25)
                 .stopAndAdd(outtake.shoot())
-                .waitSeconds(0.45)
+                .waitSeconds(0.5)
                 .stopAndAdd(outtake.down())
-                .waitSeconds(0.45)
+                .waitSeconds(0.5)
                 .stopAndAdd(outtake.idle())
                 .build();
 
@@ -95,9 +89,9 @@ public class RR_Red_12_Auton extends LinearOpMode {
                 .stopAndAdd(intake.idle())
                 .waitSeconds(0.25)
                 .stopAndAdd(outtake.shoot())
-                .waitSeconds(0.45)
+                .waitSeconds(0.5)
                 .stopAndAdd(outtake.down())
-                .waitSeconds(0.45)
+                .waitSeconds(0.5)
                 .stopAndAdd(outtake.idle())
                 .build();
 
@@ -111,7 +105,7 @@ public class RR_Red_12_Auton extends LinearOpMode {
         // Initialize (What happens before when you press start)
         Actions.runBlocking(
                 new SequentialAction(
-                //        intake.in()
+                        //        intake.in()
                 )
         );
 
@@ -124,45 +118,9 @@ public class RR_Red_12_Auton extends LinearOpMode {
                 new SequentialAction(
                         new SequentialAction(
                                 shoot1path
-                              //  outtake.shoot(),
-                              //  outtake.down(),
-                              //  outtake.idle()
-                        ),
-                        new SequentialAction(
-                             //   intake.in(),
-                                intake1path
-                            //    intake.idle()
-                        ),
-                        new SequentialAction(
-                                shoot2path
-                            //    outtake.shoot(),
-                            //    outtake.down(),
-                            //    outtake.idle()
-                        ),
-                        new SequentialAction(
-                         //       intake.in(),
-                                intake2path
-                          //      intake.idle()
-                        ),
-                        new SequentialAction(
-                                shoot3path
-                         //       outtake.shoot(),
-                         //       outtake.down(),
-                         //       outtake.idle()
-                        ),
-                        new SequentialAction(
-                         //       intake.in(),
-                                intake3path
-                         //       intake.idle()
-                        ),
-                        new SequentialAction(
-                                shoot4path
-                         //       outtake.shoot(),
-                         //       outtake.down(),
-                         //       outtake.idle()
-                        ),
-                        new SequentialAction(
-                                extra
+                                //  outtake.shoot(),
+                                //  outtake.down(),
+                                //  outtake.idle()
                         )
                 )
         );
