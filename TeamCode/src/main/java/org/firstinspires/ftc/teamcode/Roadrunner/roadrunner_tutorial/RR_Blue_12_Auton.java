@@ -16,7 +16,7 @@ import org.firstinspires.ftc.teamcode.Roadrunner.subsystems.Outtake;
 
 @Config
 @Autonomous(name = "RR Red Auton")
-public class RR_Blue_Auton extends LinearOpMode {
+public class RR_Blue_12_Auton extends LinearOpMode {
 
 
     @Override
