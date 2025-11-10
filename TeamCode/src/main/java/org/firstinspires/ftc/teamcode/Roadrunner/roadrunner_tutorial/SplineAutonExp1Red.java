@@ -4,7 +4,6 @@ import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.roadrunner.Action;
 import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.SequentialAction;
-import com.acmerobotics.roadrunner.TranslationalVelConstraint;
 import com.acmerobotics.roadrunner.Vector2d;
 import com.acmerobotics.roadrunner.ftc.Actions;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
@@ -16,7 +15,7 @@ import org.firstinspires.ftc.teamcode.Roadrunner.subsystems.Outtake;
 
 @Config
 @Autonomous(name = "Gate RR Red Auton")
-public class SplineAutonExp1 extends LinearOpMode {
+public class SplineAutonExp1Red extends LinearOpMode {
 
 
     @Override
