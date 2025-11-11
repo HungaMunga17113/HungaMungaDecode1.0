@@ -43,8 +43,8 @@ public class Outtake {
 
         @Override
         public boolean run(@NonNull TelemetryPacket packet) {
-            leftOuttake.setPower(-0.4);
-            rightOuttake.setPower(-0.4);
+            leftOuttake.setPower(-0.3);
+            rightOuttake.setPower(-0.3);
             return false;
         }
     }

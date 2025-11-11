@@ -139,7 +139,7 @@ public class NewTest3 extends OpMode {
             outtakePower = 1;
         }
          */
-        if (gamepad1.right_bumper && !leftOuttake.isBusy()) {
+        if (gamepad1.left_bumper && !leftOuttake.isBusy()) {
                 pivotMode = outtakeModes.Shoot;
                 leftOuttake.setPower(outtakePower);
                 rightOuttake.setPower(outtakePower);
