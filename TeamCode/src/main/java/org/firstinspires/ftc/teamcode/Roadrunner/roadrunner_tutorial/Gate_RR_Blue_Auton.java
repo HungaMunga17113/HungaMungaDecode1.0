@@ -15,14 +15,14 @@ import org.firstinspires.ftc.teamcode.Roadrunner.subsystems.Intake;
 import org.firstinspires.ftc.teamcode.Roadrunner.subsystems.Outtake;
 
 @Config
-@Autonomous(name = "Gate RR Red Auton")
-public class Gate_RR_Red_Auton extends LinearOpMode {
+@Autonomous(name = "RR Blue 12 Auton")
+public class Gate_RR_Blue_Auton extends LinearOpMode {
 
 
     @Override
     public void runOpMode() {
         //Pose that the robot starts at
-        Pose2d initialPose = new Pose2d(-55, 46, Math.toRadians(127));
+        Pose2d initialPose = new Pose2d(-55, -46, Math.toRadians(235));
         MecanumDrive drive = new MecanumDrive(hardwareMap, initialPose);
         Intake intake = new Intake(hardwareMap);
         Outtake outtake = new Outtake(hardwareMap);
@@ -30,9 +30,9 @@ public class Gate_RR_Red_Auton extends LinearOpMode {
 
         //-----------------------Paths-----------------------\\
         Action shoot1path = drive.actionBuilder(initialPose)
-                .waitSeconds(0.05)
-                .strafeToConstantHeading(new Vector2d(-45,45))
-                .waitSeconds(0.235)
+                .waitSeconds(0.125)
+                .strafeToConstantHeading(new Vector2d(-45,-45))
+                .waitSeconds(0.25)
                 .stopAndAdd(outtake.shoot())
                 .waitSeconds(0.35)
                 .stopAndAdd(outtake.down())
@@ -40,24 +40,21 @@ public class Gate_RR_Red_Auton extends LinearOpMode {
                 .stopAndAdd(outtake.idle())
                 .build();
 
-        Action intake1path = drive.actionBuilder(new Pose2d(-45, 45, Math.toRadians(127)))
-                .strafeToLinearHeading(new Vector2d(-13.5,20),Math.toRadians(90))
+        Action intake1path = drive.actionBuilder(new Pose2d(-45, -45, Math.toRadians(235)))
+                .strafeToLinearHeading(new Vector2d(-13.5,-20),Math.toRadians(270))
                 .stopAndAdd(intake.in())
-                .strafeToConstantHeading(new Vector2d(-14.5,55),new TranslationalVelConstraint(17.5))
-
-                .strafeToConstantHeading(new Vector2d(-13,43))
-                .strafeToLinearHeading(new Vector2d(-5.2,59),Math.toRadians(180))
+                .strafeToConstantHeading(new Vector2d(-14.5,-55),new TranslationalVelConstraint(17.5))
+                //.lineToYLinearHeading(37.5, Math.toRadians(80))
+                //.lineToYSplineHeading(55, Math.toRadians(100))
+                .strafeToConstantHeading(new Vector2d(-13.5,-41))
+                .strafeToLinearHeading(new Vector2d(-3.5,-59),Math.toRadians(180))
                 .waitSeconds(0.3)
-                /*
-                .lineToYLinearHeading(50, Math.toRadians(60))
-                .lineToYSplineHeading(42.67, Math.toRadians(120))
-                */
                 .build();
 
-        Action shoot2path = drive.actionBuilder(new Pose2d(-5.2, 59, Math.toRadians(180)))
-                .strafeToLinearHeading(new Vector2d(-45,45),Math.toRadians(125))
+        Action shoot2path = drive.actionBuilder(new Pose2d(-2.5, -59, Math.toRadians(180)))
+                .strafeToLinearHeading(new Vector2d(-45,-45),Math.toRadians(235))
                 .stopAndAdd(intake.idle())
-                .waitSeconds(0.235)
+                .waitSeconds(0.25)
                 .stopAndAdd(outtake.shoot())
                 .waitSeconds(0.35)
                 .stopAndAdd(outtake.down())
@@ -65,19 +62,19 @@ public class Gate_RR_Red_Auton extends LinearOpMode {
                 .stopAndAdd(outtake.idle())
                 .build();
 
-        Action intake2path = drive.actionBuilder(new Pose2d(-45, 45, Math.toRadians(125)))
-                .strafeToLinearHeading(new Vector2d(10.3,17),Math.toRadians(90))
+        Action intake2path = drive.actionBuilder(new Pose2d(-45, -45, Math.toRadians(235)))
+                .strafeToLinearHeading(new Vector2d(11,-17),Math.toRadians(270))
                 .stopAndAdd(intake.in())
-                .strafeToConstantHeading(new Vector2d(9.3,62),new TranslationalVelConstraint(20))
+                .strafeToConstantHeading(new Vector2d(10,-62),new TranslationalVelConstraint(20))
                 //.strafeToConstantHeading(new Vector2d(9,50))
-                .lineToYLinearHeading(53.5, Math.toRadians(65))
-                .lineToYSplineHeading(45, Math.toRadians(115))
+                .lineToYLinearHeading(-53.5, Math.toRadians(305))
+                .lineToYSplineHeading(-43, Math.toRadians(235))
                 .build();
 
-        Action shoot3path = drive.actionBuilder(new Pose2d(9.5, 50, Math.toRadians(90)))
-                .strafeToLinearHeading(new Vector2d(-45,45),Math.toRadians(125))
+        Action shoot3path = drive.actionBuilder(new Pose2d(10, -43, Math.toRadians(235)))
+                .strafeToLinearHeading(new Vector2d(-45,-45),Math.toRadians(235))
                 .stopAndAdd(intake.idle())
-                .waitSeconds(0.235)
+                .waitSeconds(0.25)
                 .stopAndAdd(outtake.shoot())
                 .waitSeconds(0.35)
                 .stopAndAdd(outtake.down())
@@ -85,19 +82,19 @@ public class Gate_RR_Red_Auton extends LinearOpMode {
                 .stopAndAdd(outtake.idle())
                 .build();
 
-        Action intake3path = drive.actionBuilder(new Pose2d(-45, 45, Math.toRadians(125)))
-                .strafeToLinearHeading(new Vector2d(33.5,17.75),Math.toRadians(90))
+        Action intake3path = drive.actionBuilder(new Pose2d(-45, -45, Math.toRadians(235)))
+                .strafeToLinearHeading(new Vector2d(33.5,-17),Math.toRadians(270))
                 .stopAndAdd(intake.in())
-                .strafeToConstantHeading(new Vector2d(32,62),new TranslationalVelConstraint(20))
+                .strafeToConstantHeading(new Vector2d(32,-62),new TranslationalVelConstraint(20))
                 .build();
 
-        Action shoot4path = drive.actionBuilder(new Pose2d(32, 62, Math.toRadians(90)))
+        Action shoot4path = drive.actionBuilder(new Pose2d(32, -62, Math.toRadians(270)))
                 //.strafeToConstantHeading(new Vector2d(31.5,50))
-                .lineToYLinearHeading(53.5, Math.toRadians(65))
-                .lineToYSplineHeading(45, Math.toRadians(115))
-                .strafeToLinearHeading(new Vector2d(-45,45),Math.toRadians(125))
+                .lineToYLinearHeading(-50, Math.toRadians(305))
+                .lineToYSplineHeading(-37.5, Math.toRadians(235))
+                .strafeToLinearHeading(new Vector2d(-45,-45),Math.toRadians(235))
                 .stopAndAdd(intake.idle())
-                .waitSeconds(0.235)
+                .waitSeconds(0.25)
                 .stopAndAdd(outtake.shoot())
                 .waitSeconds(0.35)
                 .stopAndAdd(outtake.down())
@@ -105,8 +102,8 @@ public class Gate_RR_Red_Auton extends LinearOpMode {
                 .stopAndAdd(outtake.idle())
                 .build();
 
-        Action extra = drive.actionBuilder(new Pose2d(-45, 45, Math.toRadians(125)))
-                .strafeToLinearHeading(new Vector2d(2.5,45),Math.toRadians(270))
+        Action extra = drive.actionBuilder(new Pose2d(-45, -45, Math.toRadians(235)))
+                .strafeToLinearHeading(new Vector2d(2.5,-45),Math.toRadians(90))
                 .build();
 
 
@@ -128,24 +125,42 @@ public class Gate_RR_Red_Auton extends LinearOpMode {
                 new SequentialAction(
                         new SequentialAction(
                                 shoot1path
+                                //  outtake.shoot(),
+                                //  outtake.down(),
+                                //  outtake.idle()
                         ),
                         new SequentialAction(
+                                //   intake.in(),
                                 intake1path
+                                //    intake.idle()
                         ),
                         new SequentialAction(
                                 shoot2path
+                                //    outtake.shoot(),
+                                //    outtake.down(),
+                                //    outtake.idle()
                         ),
                         new SequentialAction(
+                                //       intake.in(),
                                 intake2path
+                                //      intake.idle()
                         ),
                         new SequentialAction(
                                 shoot3path
+                                //       outtake.shoot(),
+                                //       outtake.down(),
+                                //       outtake.idle()
                         ),
                         new SequentialAction(
+                                //       intake.in(),
                                 intake3path
+                                //       intake.idle()
                         ),
                         new SequentialAction(
                                 shoot4path
+                                //       outtake.shoot(),
+                                //       outtake.down(),
+                                //       outtake.idle()
                         ),
                         new SequentialAction(
                                 extra
