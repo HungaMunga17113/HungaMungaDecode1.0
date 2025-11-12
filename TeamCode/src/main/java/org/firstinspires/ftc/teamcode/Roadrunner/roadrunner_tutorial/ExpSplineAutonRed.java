@@ -4,6 +4,7 @@ import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.roadrunner.Action;
 import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.SequentialAction;
+import com.acmerobotics.roadrunner.TranslationalVelConstraint;
 import com.acmerobotics.roadrunner.Vector2d;
 import com.acmerobotics.roadrunner.ftc.Actions;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
@@ -14,8 +15,8 @@ import org.firstinspires.ftc.teamcode.Roadrunner.subsystems.Intake;
 import org.firstinspires.ftc.teamcode.Roadrunner.subsystems.Outtake;
 
 @Config
-@Autonomous(name = "Gate RR Red Auton")
-public class SplineAutonExp1Red extends LinearOpMode {
+@Autonomous(name = "RR Red Auton")
+public class ExpSplineAutonRed extends LinearOpMode {
 
 
     @Override
@@ -28,83 +29,72 @@ public class SplineAutonExp1Red extends LinearOpMode {
 
         //-----------------------Paths-----------------------\\
         Action shoot1path = drive.actionBuilder(initialPose)
-                .waitSeconds(0.1)
-                .strafeToConstantHeading(new Vector2d(-47,47))
+                .waitSeconds(0.3)
+                .strafeToConstantHeading(new Vector2d(-45,45))
                 .waitSeconds(0.25)
                 .stopAndAdd(outtake.shoot())
-                .waitSeconds(0.35)
+                .waitSeconds(0.45)
                 .stopAndAdd(outtake.down())
-                .waitSeconds(0.35)
+                .waitSeconds(0.45)
                 .stopAndAdd(outtake.idle())
                 .build();
 
-        Action intake1path = drive.actionBuilder(new Pose2d(-47, 47, Math.toRadians(127)))
-                .strafeToLinearHeading(new Vector2d(-11.5,21),Math.toRadians(90))
+        Action intake1path = drive.actionBuilder(new Pose2d(-45, 45, Math.toRadians(127)))
+                .strafeToLinearHeading(new Vector2d(-13,20),Math.toRadians(90))
                 .stopAndAdd(intake.in())
-                .strafeToConstantHeading(new Vector2d(-11.5,50))
-                .splineToConstantHeading(new Vector2d(-45,45),Math.toRadians(180))
-
-                /*
-                .lineToYLinearHeading(50, Math.toRadians(60))
-                .lineToYSplineHeading(42.67, Math.toRadians(120))
-                */
+                .strafeToConstantHeading(new Vector2d(-13,55),new TranslationalVelConstraint(20))
                 .build();
 
-        Action shoot2path = drive.actionBuilder(new Pose2d(-45, 45, Math.toRadians(180)))
-                .strafeToLinearHeading(new Vector2d(-47,47),Math.toRadians(127))
+        Action shoot2path = drive.actionBuilder(new Pose2d(-13, 45, Math.toRadians(90)))
+                .strafeToLinearHeading(new Vector2d(-45,45),Math.toRadians(127))
                 .stopAndAdd(intake.idle())
                 .waitSeconds(0.25)
                 .stopAndAdd(outtake.shoot())
-                .waitSeconds(0.35)
+                .waitSeconds(0.45)
                 .stopAndAdd(outtake.down())
-                .waitSeconds(0.35)
+                .waitSeconds(0.45)
                 .stopAndAdd(outtake.idle())
                 .build();
 
-        Action intake2path = drive.actionBuilder(new Pose2d(-47, 47, Math.toRadians(127)))
-                .strafeToLinearHeading(new Vector2d(12,24.5),Math.toRadians(90))
+        Action intake2path = drive.actionBuilder(new Pose2d(-45, 45, Math.toRadians(125)))
+                .strafeToLinearHeading(new Vector2d(14,20),Math.toRadians(90))
                 .stopAndAdd(intake.in())
-                .strafeToConstantHeading(new Vector2d(12,40))
-                //.strafeToConstantHeading(new Vector2d(9,50))
+                .strafeToConstantHeading(new Vector2d(14,62),new TranslationalVelConstraint(20))
 //                .lineToYLinearHeading(56, Math.toRadians(65))
 //                .lineToYSplineHeading(50, Math.toRadians(115))
-                .splineToConstantHeading(new Vector2d(-45,45),Math.toRadians(175))
                 .build();
 
-        Action shoot3path = drive.actionBuilder(new Pose2d(-45, 45, Math.toRadians(175)))
-                .strafeToLinearHeading(new Vector2d(-47,47),Math.toRadians(127))
+        Action shoot3path = drive.actionBuilder(new Pose2d(9, 50, Math.toRadians(90)))
+                .strafeToLinearHeading(new Vector2d(-45,45),Math.toRadians(127))
                 .stopAndAdd(intake.idle())
                 .waitSeconds(0.25)
                 .stopAndAdd(outtake.shoot())
-                .waitSeconds(0.35)
+                .waitSeconds(0.45)
                 .stopAndAdd(outtake.down())
-                .waitSeconds(0.35)
+                .waitSeconds(0.45)
                 .stopAndAdd(outtake.idle())
                 .build();
 
-        Action intake3path = drive.actionBuilder(new Pose2d(-47, 47, Math.toRadians(127)))
+        Action intake3path = drive.actionBuilder(new Pose2d(-45, 45, Math.toRadians(125)))
                 .strafeToLinearHeading(new Vector2d(37,22),Math.toRadians(90))
                 .stopAndAdd(intake.in())
-                .strafeToConstantHeading(new Vector2d(35,50))
+                .strafeToConstantHeading(new Vector2d(35,49))
                 .build();
 
-        Action shoot4path = drive.actionBuilder(new Pose2d(35, 50, Math.toRadians(90)))
-                //.strafeToConstantHeading(new Vector2d(31.5,50))
-//                .lineToYLinearHeading(53.5, Math.toRadians(65))
-//                .lineToYSplineHeading(45, Math.toRadians(115))
-                .splineToConstantHeading(new Vector2d(-30,36),Math.toRadians(175))
-                .strafeToLinearHeading(new Vector2d(-47,47),Math.toRadians(127))
+        Action shoot4path = drive.actionBuilder(new Pose2d(32, 49, Math.toRadians(90)))
+                .splineToConstantHeading(new Vector2d(-31,27),Math.toRadians(190))
+                .strafeToLinearHeading(new Vector2d(-47,47),Math.toRadians(127),new TranslationalVelConstraint(80))
                 .stopAndAdd(intake.idle())
                 .waitSeconds(0.25)
                 .stopAndAdd(outtake.shoot())
-                .waitSeconds(0.35)
+                .waitSeconds(0.45)
                 .stopAndAdd(outtake.down())
-                .waitSeconds(0.35)
+                .waitSeconds(0.45)
                 .stopAndAdd(outtake.idle())
                 .build();
 
-        Action extra = drive.actionBuilder(new Pose2d(-47, 47, Math.toRadians(127)))
-                .strafeToLinearHeading(new Vector2d(2,47),Math.toRadians(270))
+        Action extra = drive.actionBuilder(new Pose2d(-45, 45, Math.toRadians(125)))
+                .strafeToLinearHeading(new Vector2d(2.5,45),Math.toRadians(270))
                 .build();
 
 
@@ -126,24 +116,42 @@ public class SplineAutonExp1Red extends LinearOpMode {
                 new SequentialAction(
                         new SequentialAction(
                                 shoot1path
+                                //  outtake.shoot(),
+                                //  outtake.down(),
+                                //  outtake.idle()
                         ),
                         new SequentialAction(
+                                //   intake.in(),
                                 intake1path
+                                //    intake.idle()
                         ),
                         new SequentialAction(
                                 shoot2path
+                                //    outtake.shoot(),
+                                //    outtake.down(),
+                                //    outtake.idle()
                         ),
                         new SequentialAction(
+                                //       intake.in(),
                                 intake2path
+                                //      intake.idle()
                         ),
                         new SequentialAction(
                                 shoot3path
+                                //       outtake.shoot(),
+                                //       outtake.down(),
+                                //       outtake.idle()
                         ),
                         new SequentialAction(
+                                //       intake.in(),
                                 intake3path
+                                //       intake.idle()
                         ),
                         new SequentialAction(
                                 shoot4path
+                                //       outtake.shoot(),
+                                //       outtake.down(),
+                                //       outtake.idle()
                         ),
                         new SequentialAction(
                                 extra

@@ -21,41 +21,33 @@ public class MeepMeepTesting {
                 .build();
 
         myBot.runAction(myBot.getDrive().actionBuilder(new Pose2d(-55, 46, Math.toRadians(127)))
-                .waitSeconds(0.5)
-                .strafeToConstantHeading(new Vector2d(-46,46))
-                .waitSeconds(1.5)
-                //1st 3 balls over
-                .strafeToLinearHeading(new Vector2d(-14,22),Math.toRadians(90),new TranslationalVelConstraint(70))
-                .strafeToConstantHeading(new Vector2d(-14,55),new TranslationalVelConstraint(20))
-                .strafeToLinearHeading(new Vector2d(-46,46),Math.toRadians(125),new TranslationalVelConstraint(70))
-                .waitSeconds(1.5)
-                //2nd 3 balls over
-                .strafeToLinearHeading(new Vector2d(12,22),Math.toRadians(90),new TranslationalVelConstraint(70))
-                .strafeToConstantHeading(new Vector2d(12,62),new TranslationalVelConstraint(20))
-                .strafeToConstantHeading(new Vector2d(12,50))
-                .strafeToLinearHeading(new Vector2d(-46,46),Math.toRadians(125),new TranslationalVelConstraint(70))
-                .waitSeconds(1.5)
-                //3rd 3 balls over
-                .strafeToLinearHeading(new Vector2d(32,22),Math.toRadians(90),new TranslationalVelConstraint(70))
-                .strafeToConstantHeading(new Vector2d(32,62),new TranslationalVelConstraint(20))
-                .strafeToConstantHeading(new Vector2d(32,50))
-                .strafeToLinearHeading(new Vector2d(-46,46),Math.toRadians(125),new TranslationalVelConstraint(70))
-                .waitSeconds(1.5)
-                //4th 3 balls over
-                .strafeToLinearHeading(new Vector2d(2.5,46),Math.toRadians(270),new TranslationalVelConstraint(70))
-
-
-
-
-
-// .turn(Math.toRadians(90))
-//                .lineToY(30)
-//                .turn(Math.toRadians(90))
-//                .lineToX(0)
-//                .strafeToLinearHeading(new Vector2d(-50,-30),Math.toRadians(90),new TranslationalVelConstraint(90))
-//                .waitSeconds(2)
-//                .splineToSplineHeading(new Pose2d(20,20,Math.toRadians(90)),Math.toRadians(0))
-
+                .waitSeconds(0.1)
+                .strafeToConstantHeading(new Vector2d(-45,45))
+                .waitSeconds(0.25)
+                .waitSeconds(0.35)
+                .waitSeconds(0.35)
+                .strafeToLinearHeading(new Vector2d(-13,20),Math.toRadians(90))
+                .strafeToConstantHeading(new Vector2d(-13,55),new TranslationalVelConstraint(20))
+                .strafeToLinearHeading(new Vector2d(-45,45),Math.toRadians(127))
+                .waitSeconds(0.25)
+                .waitSeconds(0.35)
+                .waitSeconds(0.35)
+                .strafeToLinearHeading(new Vector2d(14,20),Math.toRadians(90))
+                .strafeToConstantHeading(new Vector2d(14,62),new TranslationalVelConstraint(20))
+                .strafeToConstantHeading(new Vector2d(14,40),new TranslationalVelConstraint(20))
+                .strafeToLinearHeading(new Vector2d(-45,45),Math.toRadians(127))
+                .waitSeconds(0.25)
+                .waitSeconds(0.35)
+                .waitSeconds(0.35)
+                .strafeToLinearHeading(new Vector2d(37,22),Math.toRadians(90))
+                //pick up 4th set
+                .strafeToConstantHeading(new Vector2d(35,50))
+                .splineToConstantHeading(new Vector2d(-31,27),Math.toRadians(190))
+                .strafeToLinearHeading(new Vector2d(-47,47),Math.toRadians(127),new TranslationalVelConstraint(80))
+                .waitSeconds(0.25)
+                .waitSeconds(0.35)
+                .waitSeconds(0.35)
+                .strafeToLinearHeading(new Vector2d(2.5,45),Math.toRadians(270))
                 .build());
 
         meepMeep.setBackground(MeepMeep.Background.FIELD_DECODE_JUICE_DARK)
