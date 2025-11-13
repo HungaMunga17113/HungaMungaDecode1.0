@@ -109,18 +109,6 @@ public class RedParkTele extends OpMode {
                     mode = Mode.AUTO_PARK;
                     telemetry.addLine("Auto Parking Started!");
                 }
-                if (gamepad1.x) {
-                    Pose2d currentPose = drive.localizer.getPose();
-
-                    // Build action using supported methods
-                    parkAction = drive.actionBuilder(currentPose)
-                            .strafeTo(new Vector2d(getParkX(), getParkY()))
-                            .turnTo(getParkHeading())
-                            .build();
-
-                    mode = Mode.AUTO_PARK;
-                    telemetry.addLine("Auto Parking Started!");
-                }
                 break;
 
             case AUTO_PARK:
