@@ -48,7 +48,6 @@ public class NewTest3 extends OpMode {
         leftBack.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         rightFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         rightBack.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        intake.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         leftOuttake.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         rightOuttake.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 

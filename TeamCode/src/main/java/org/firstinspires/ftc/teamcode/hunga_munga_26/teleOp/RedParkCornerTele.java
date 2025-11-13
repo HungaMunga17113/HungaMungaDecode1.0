@@ -1,62 +1,75 @@
 package org.firstinspires.ftc.teamcode.hunga_munga_26.teleOp;
 
-import com.acmerobotics.roadrunner.Pose2d;
-import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
+import com.acmerobotics.roadrunner.PoseVelocity2d;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
-
-import com.qualcomm.robotcore.hardware.IMU;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.hardware.VoltageSensor;
+
 import org.firstinspires.ftc.teamcode.Roadrunner.roadrunner_tutorial.base_subsystem_templates.MecanumDrive;
-
-
-import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
-import org.firstinspires.ftc.robotcore.internal.system.Deadline;
-
-import java.util.concurrent.TimeUnit;
-import com.acmerobotics.roadrunner.Action;
-import com.acmerobotics.roadrunner.SequentialAction;
-import com.acmerobotics.roadrunner.TranslationalVelConstraint;
+import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.Vector2d;
-import com.acmerobotics.roadrunner.ftc.Actions;
+import com.acmerobotics.roadrunner.Action;
+import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
+
+import org.firstinspires.ftc.robotcore.internal.system.Deadline;
+import java.util.concurrent.TimeUnit;
+
 @TeleOp
-public class ParkTele extends OpMode {
+public class RedParkCornerTele extends OpMode {
     Deadline gamepadRateLimit = new Deadline(250, TimeUnit.MILLISECONDS);
-    Pose2d initialPose = new Pose2d(2.5,-45,Math.toRadians(90));
-    MecanumDrive drive = new MecanumDrive(hardwareMap, initialPose);
+
     DcMotor leftFront, leftBack, rightFront, rightBack;
     DcMotor intake;
     DcMotor leftOuttake, rightOuttake;
 
     ElapsedTime outtakeTime = new ElapsedTime();
 
-    private enum outtakeModes {Shoot, Return, Rest};
+    private enum outtakeModes {Shoot, Return, Rest}
     private outtakeModes pivotMode;
     double outtakePower = 0.99;
-    /*
-    (Button) Initialize Period, before you press start on your program.
-     */
-    public void init() {
+    MecanumDrive drive;
+    // --- Auto Park ---
+    private enum Mode { DRIVER_CONTROL, AUTO_PARK, AUTO_PARK_CORNER }
+    private Mode mode = Mode.DRIVER_CONTROL;
+    private Action parkAction;
 
-        //set hardware map names (aka what the controller understands)
-        leftFront = hardwareMap.get(DcMotor.class, "leftFront");
-        leftBack = hardwareMap.get(DcMotor.class, "leftBack");
+    // Alliance selection
+
+    // Parking pose
+    private static final double PARK_X_RED = 38;
+    private static final double PARK_Y_RED = -33;
+    private static final double PARK_HEADING_RED = Math.toRadians(90);
+
+    private double getParkX() {
+        return PARK_X_RED;
+    }
+
+    private double getParkY() {
+        return PARK_Y_RED;
+    }
+
+    private double getParkHeading() {
+        return PARK_HEADING_RED;
+    }
+
+    @Override
+    public void init() {
+        leftFront  = hardwareMap.get(DcMotor.class, "leftFront");
+        leftBack   = hardwareMap.get(DcMotor.class, "leftBack");
         rightFront = hardwareMap.get(DcMotor.class, "rightFront");
-        rightBack = hardwareMap.get(DcMotor.class, "rightBack");
+        rightBack  = hardwareMap.get(DcMotor.class, "rightBack");
         intake = hardwareMap.get(DcMotorEx.class, "intake");
-        leftOuttake = hardwareMap.get(DcMotorEx.class, "leftOuttake");
+        leftOuttake  = hardwareMap.get(DcMotorEx.class, "leftOuttake");
         rightOuttake = hardwareMap.get(DcMotorEx.class, "rightOuttake");
 
-        // When no power (aka no joysticks moving (idle) ), robot should brake on stop
         leftFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         leftBack.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         rightFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         rightBack.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        intake.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         leftOuttake.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         rightOuttake.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
@@ -71,14 +84,54 @@ public class ParkTele extends OpMode {
         outtakeTime.reset();
     }
 
+    @Override
     public void loop() {
-        Drive();
-        Intake();
-        Outtake();
-    }
-    public void Drive() {
-        double max;
+        drive.updatePoseEstimate();
+        switch (mode) {
+            case DRIVER_CONTROL:
+                Drive();
+                Intake();
+                Outtake();
 
+                // Press A to start auto park
+                if (gamepad1.a) {
+                    // Values tbd
+                    parkAction = drive.actionBuilder(new Pose2d(2.5,45,270))
+                            .strafeTo(new Vector2d(getParkX(), getParkY()))
+                            .turnTo(getParkHeading())
+                            .build();
+
+                    mode = Mode.AUTO_PARK;
+                    telemetry.addLine("Auto Parking Started!");
+                }
+                break;
+
+            case AUTO_PARK:
+                if (parkAction != null) {
+                    TelemetryPacket packet = new TelemetryPacket();
+                    boolean running = parkAction.run(packet);
+
+                    telemetry.addData("AutoPark", running ? "Running..." : "Done");
+                    telemetry.addData("X", drive.localizer.getPose().position.x);
+                    telemetry.addData("Y", drive.localizer.getPose().position.y);
+                    telemetry.addData("Heading",
+                            Math.toDegrees(drive.localizer.getPose().heading.toDouble()));
+
+                    if (!running) {
+                        parkAction = null;
+                        mode = Mode.DRIVER_CONTROL;
+                        telemetry.addLine("Parking complete! Back to manual control.");
+                    }
+                }
+                break;
+
+        }
+
+    }
+
+    // ---------------- Existing subsystems ----------------
+
+    public void Drive() {
         double axial = gamepad1.left_stick_y;
         double lateral = -gamepad1.left_stick_x;
         double yaw = -gamepad1.right_stick_x;
@@ -89,9 +142,10 @@ public class ParkTele extends OpMode {
         double leftBackPower = axial - lateral + yaw;
         double rightBackPower = axial + lateral - yaw;
 
-        max = Math.max(Math.abs(leftFrontPower), Math.abs(rightFrontPower));
-        max = Math.max(max, Math.abs(leftBackPower));
-        max = Math.max(max, Math.abs(rightBackPower));
+        double max = Math.max(
+                Math.max(Math.abs(leftFrontPower), Math.abs(rightFrontPower)),
+                Math.max(Math.abs(leftBackPower), Math.abs(rightBackPower))
+        );
 
         if (max > 1.0) {
             leftFrontPower /= max;
@@ -99,23 +153,11 @@ public class ParkTele extends OpMode {
             leftBackPower /= max;
             rightBackPower /= max;
         }
-        rightFront.setPower(rightFrontPower*drivePower);
-        rightBack.setPower(rightBackPower*drivePower);
-        leftFront.setPower(leftFrontPower*drivePower);
-        leftBack.setPower(leftBackPower*drivePower);
-        //if (gamepad1.x) {
-        // leftFront.setPower(1);
-        //}
-        //if (gamepad1.y) {
-        //    leftBack.setPower(1);
-        //}
-        //if (gamepad1.a) {
-        //  rightFront.setPower(1);
-        //}
-        //if (gamepad1.b) {
-        //   rightBack.setPower(1);
-        //}
 
+        leftFront.setPower(leftFrontPower * drivePower);
+        rightFront.setPower(rightFrontPower * drivePower);
+        leftBack.setPower(leftBackPower * drivePower);
+        rightBack.setPower(rightBackPower * drivePower);
     }
 
     private void Intake() {
@@ -130,23 +172,6 @@ public class ParkTele extends OpMode {
     }
 
     private void Outtake() {
-        /*
-        if (getBatteryVoltage() > 12.8) {
-            if (getBatteryVoltage()>12.8 && getBatteryVoltage()<12.85) {
-                outtakePower = 0.9902;
-            } else if (getBatteryVoltage()>=12.85 && getBatteryVoltage()<13) {
-                outtakePower = 0.9722;
-            } else if (getBatteryVoltage()>=13 && getBatteryVoltage()<13.15) {
-                outtakePower = 0.9479;
-            } else if (getBatteryVoltage()>=13.15 && getBatteryVoltage()<13.3) {
-                outtakePower = 0.923;
-            } else if (getBatteryVoltage()>=13.3) {
-                outtakePower = 0.85;
-            }
-        } else {
-            outtakePower = 1;
-        }
-         */
         if (gamepad1.left_bumper && !leftOuttake.isBusy()) {
             pivotMode = outtakeModes.Shoot;
             leftOuttake.setPower(outtakePower);
@@ -166,22 +191,6 @@ public class ParkTele extends OpMode {
             outtakeTime.reset();
         }
     }
-    private void park() {
-
-    }
-    private double getBatteryVoltage() {
-        double result = Double.POSITIVE_INFINITY;
-        for (VoltageSensor sensor : hardwareMap.voltageSensor) {
-            double voltage = sensor.getVoltage();
-            if (voltage > 0) {
-                result = Math.min(result, voltage);
-            }
-        }
-        return result;
-    }
-    Action parking = drive.actionBuilder()
-
-            .build();
 }
 
 
