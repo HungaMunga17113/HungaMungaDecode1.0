@@ -1,25 +1,33 @@
 package org.firstinspires.ftc.teamcode.hunga_munga_26.teleOp;
 
+import com.acmerobotics.roadrunner.Pose2d;
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
+
 import com.qualcomm.robotcore.hardware.IMU;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.hardware.VoltageSensor;
+import org.firstinspires.ftc.teamcode.Roadrunner.roadrunner_tutorial.base_subsystem_templates.MecanumDrive;
 
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.internal.system.Deadline;
 
 import java.util.concurrent.TimeUnit;
-
+import com.acmerobotics.roadrunner.Action;
+import com.acmerobotics.roadrunner.SequentialAction;
+import com.acmerobotics.roadrunner.TranslationalVelConstraint;
+import com.acmerobotics.roadrunner.Vector2d;
+import com.acmerobotics.roadrunner.ftc.Actions;
 @TeleOp
-public class NewTest3 extends OpMode {
+public class ParkTele extends OpMode {
     Deadline gamepadRateLimit = new Deadline(250, TimeUnit.MILLISECONDS);
-
+    Pose2d initialPose = new Pose2d(2.5,-45,Math.toRadians(90));
+    MecanumDrive drive = new MecanumDrive(hardwareMap, initialPose);
     DcMotor leftFront, leftBack, rightFront, rightBack;
     DcMotor intake;
     DcMotor leftOuttake, rightOuttake;
@@ -140,10 +148,10 @@ public class NewTest3 extends OpMode {
         }
          */
         if (gamepad1.left_bumper && !leftOuttake.isBusy()) {
-                pivotMode = outtakeModes.Shoot;
-                leftOuttake.setPower(outtakePower);
-                rightOuttake.setPower(outtakePower);
-                outtakeTime.reset();
+            pivotMode = outtakeModes.Shoot;
+            leftOuttake.setPower(outtakePower);
+            rightOuttake.setPower(outtakePower);
+            outtakeTime.reset();
         }
         if (pivotMode == outtakeModes.Shoot && outtakeTime.milliseconds() > 400) {
             pivotMode = outtakeModes.Return;
@@ -158,6 +166,9 @@ public class NewTest3 extends OpMode {
             outtakeTime.reset();
         }
     }
+    private void park() {
+
+    }
     private double getBatteryVoltage() {
         double result = Double.POSITIVE_INFINITY;
         for (VoltageSensor sensor : hardwareMap.voltageSensor) {
@@ -168,6 +179,9 @@ public class NewTest3 extends OpMode {
         }
         return result;
     }
+    Action parking = drive.actionBuilder()
+
+            .build();
 }
 
 

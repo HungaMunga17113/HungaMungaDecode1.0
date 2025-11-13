@@ -9,13 +9,12 @@ import com.acmerobotics.roadrunner.Vector2d;
 import com.acmerobotics.roadrunner.ftc.Actions;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-
 import org.firstinspires.ftc.teamcode.Roadrunner.roadrunner_tutorial.base_subsystem_templates.MecanumDrive;
 import org.firstinspires.ftc.teamcode.Roadrunner.subsystems.Intake;
 import org.firstinspires.ftc.teamcode.Roadrunner.subsystems.Outtake;
 
 @Config
-@Autonomous(name = "RR Red Auton")
+@Autonomous(name = "RR RedSpline Auton")
 public class ExpSplineAutonRed extends LinearOpMode {
 
 
