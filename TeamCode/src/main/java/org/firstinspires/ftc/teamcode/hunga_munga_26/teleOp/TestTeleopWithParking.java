@@ -42,12 +42,12 @@ public class TestTeleopWithParking extends OpMode {
     private Alliance alliance = Alliance.RED; // change to BLUE if needed
 
     // Parking pose
-    private static final double PARK_X_RED = 36;
-    private static final double PARK_Y_RED = -60;
+    private static final double PARK_X_RED = 38;
+    private static final double PARK_Y_RED = -33;
     private static final double PARK_HEADING_RED = Math.toRadians(90);
 
-    private static final double PARK_X_BLUE = 36;
-    private static final double PARK_Y_BLUE = 60; // mirrored Y for blue
+    private static final double PARK_X_BLUE = 38;
+    private static final double PARK_Y_BLUE = 33; // mirrored Y for blue
     private static final double PARK_HEADING_BLUE = Math.toRadians(90);
 
     private double getParkX() {
