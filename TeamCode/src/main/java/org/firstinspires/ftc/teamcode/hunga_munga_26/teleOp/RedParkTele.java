@@ -40,8 +40,10 @@ public class RedParkTele extends OpMode {
     // Alliance selection
 
     // Parking pose
-    private static final double PARK_X_RED = 38;
-    private static final double PARK_Y_RED = -33;
+    private static final double PARK_X_RED = 3;
+    private static final double PARK_Y_RED = 86;
+    //private static final double PARK_X_RED = 0;
+    //private static final double PARK_Y_RED = 0;
     private static final double PARK_HEADING_RED = Math.toRadians(90);
 
     private double getParkX() {
@@ -84,12 +86,12 @@ public class RedParkTele extends OpMode {
         outtakeTime.reset();
 
         // Initialize Road Runner drive
-        drive = new MecanumDrive(hardwareMap, new Pose2d(2.5, 45, 270));
+        //drive = new MecanumDrive(hardwareMap, new Pose2d(-7.75, 45, 270));
+        drive = new MecanumDrive(hardwareMap, new Pose2d(45, -7.75, 270));
     }
 
     @Override
     public void loop() {
-        drive.updatePoseEstimate();
         switch (mode) {
             case DRIVER_CONTROL:
                 Drive();
@@ -102,8 +104,7 @@ public class RedParkTele extends OpMode {
 
                     // Build action using supported methods
                     parkAction = drive.actionBuilder(currentPose)
-                            .strafeTo(new Vector2d(getParkX(), getParkY()))
-                            .turnTo(getParkHeading())
+                            .strafeToLinearHeading(new Vector2d(getParkX(), getParkY()),getParkHeading())
                             .build();
 
                     mode = Mode.AUTO_PARK;
@@ -137,7 +138,9 @@ public class RedParkTele extends OpMode {
     // ---------------- Existing subsystems ----------------
 
     public void Drive() {
-        double axial = gamepad1.left_stick_y;
+        double max;
+
+        double axial = -gamepad1.left_stick_y;
         double lateral = -gamepad1.left_stick_x;
         double yaw = -gamepad1.right_stick_x;
         double drivePower = 0.95 - (0.6 * gamepad1.left_trigger);
@@ -147,10 +150,9 @@ public class RedParkTele extends OpMode {
         double leftBackPower = axial - lateral + yaw;
         double rightBackPower = axial + lateral - yaw;
 
-        double max = Math.max(
-                Math.max(Math.abs(leftFrontPower), Math.abs(rightFrontPower)),
-                Math.max(Math.abs(leftBackPower), Math.abs(rightBackPower))
-        );
+        max = Math.max(Math.abs(leftFrontPower), Math.abs(rightFrontPower));
+        max = Math.max(max, Math.abs(leftBackPower));
+        max = Math.max(max, Math.abs(rightBackPower));
 
         if (max > 1.0) {
             leftFrontPower /= max;
@@ -158,11 +160,10 @@ public class RedParkTele extends OpMode {
             leftBackPower /= max;
             rightBackPower /= max;
         }
-
-        leftFront.setPower(leftFrontPower * drivePower);
-        rightFront.setPower(rightFrontPower * drivePower);
-        leftBack.setPower(leftBackPower * drivePower);
-        rightBack.setPower(rightBackPower * drivePower);
+        rightFront.setPower(rightFrontPower*drivePower);
+        rightBack.setPower(rightBackPower*drivePower);
+        leftFront.setPower(leftFrontPower*drivePower);
+        leftBack.setPower(leftBackPower*drivePower);
     }
 
     private void Intake() {

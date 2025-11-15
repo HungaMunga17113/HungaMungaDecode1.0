@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.hunga_munga_26.teleOp;
 
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -13,7 +14,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.internal.system.Deadline;
 
 import java.util.concurrent.TimeUnit;
-
+@Disabled
 @TeleOp
 public class NewTest extends OpMode {
     //game manuel 0 mecanum drive

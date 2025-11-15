@@ -1,10 +1,12 @@
 package org.firstinspires.ftc.teamcode.hunga_munga_26.new_code_here;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 //HUNGA
+@Disabled
 @Autonomous
 public class Auton1 extends LinearOpMode {
     //How to calculate ticks per inch

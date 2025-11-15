@@ -15,7 +15,7 @@ import org.firstinspires.ftc.robotcore.internal.system.Deadline;
 
 import java.util.concurrent.TimeUnit;
 
-
+@Disabled
 @TeleOp
 public class DrivetrainMain extends OpMode {
 

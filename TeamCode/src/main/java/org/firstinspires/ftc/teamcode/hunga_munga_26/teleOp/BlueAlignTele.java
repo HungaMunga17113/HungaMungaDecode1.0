@@ -1,6 +1,6 @@
 package org.firstinspires.ftc.teamcode.hunga_munga_26.teleOp;
 
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
+import com.acmerobotics.roadrunner.PoseVelocity2d;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -17,9 +17,9 @@ import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 
 import org.firstinspires.ftc.robotcore.internal.system.Deadline;
 import java.util.concurrent.TimeUnit;
-@Disabled
+
 @TeleOp
-public class TestTeleopWithParking extends OpMode {
+public class BlueAlignTele extends OpMode {
     Deadline gamepadRateLimit = new Deadline(250, TimeUnit.MILLISECONDS);
 
     DcMotor leftFront, leftBack, rightFront, rightBack;
@@ -31,36 +31,31 @@ public class TestTeleopWithParking extends OpMode {
     private enum outtakeModes {Shoot, Return, Rest}
     private outtakeModes pivotMode;
     double outtakePower = 0.99;
-
+    MecanumDrive drive;
     // --- Auto Park ---
-    private enum Mode { DRIVER_CONTROL, AUTO_PARK }
+    private enum Mode { DRIVER_CONTROL, AUTO_PARK, AUTO_PARK_CORNER }
     private Mode mode = Mode.DRIVER_CONTROL;
-    private MecanumDrive rrDrive;
     private Action parkAction;
 
     // Alliance selection
-    private enum Alliance { RED, BLUE }
-    private Alliance alliance = Alliance.RED; // change to BLUE if needed
 
     // Parking pose
-    private static final double PARK_X_RED = 38;
-    private static final double PARK_Y_RED = -33;
-    private static final double PARK_HEADING_RED = Math.toRadians(90);
-
-    private static final double PARK_X_BLUE = 38;
-    private static final double PARK_Y_BLUE = 33; // mirrored Y for blue
-    private static final double PARK_HEADING_BLUE = Math.toRadians(90);
+    private static final double PARK_X_RED = 3;
+    private static final double PARK_Y_RED = 86;
+    //private static final double PARK_X_RED = 0;
+    //private static final double PARK_Y_RED = 0;
+    private static final double PARK_HEADING_RED = Math.toRadians(270);
 
     private double getParkX() {
-        return (alliance == Alliance.RED) ? PARK_X_RED : PARK_X_BLUE;
+        return PARK_X_RED;
     }
 
     private double getParkY() {
-        return (alliance == Alliance.RED) ? PARK_Y_RED : PARK_Y_BLUE;
+        return PARK_Y_RED;
     }
 
     private double getParkHeading() {
-        return (alliance == Alliance.RED) ? PARK_HEADING_RED : PARK_HEADING_BLUE;
+        return PARK_HEADING_RED;
     }
 
     @Override
@@ -77,7 +72,6 @@ public class TestTeleopWithParking extends OpMode {
         leftBack.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         rightFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         rightBack.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        intake.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         leftOuttake.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         rightOuttake.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
@@ -92,8 +86,8 @@ public class TestTeleopWithParking extends OpMode {
         outtakeTime.reset();
 
         // Initialize Road Runner drive
-        rrDrive = new MecanumDrive(hardwareMap, new Pose2d(0, 0, 0));
-        telemetry.addLine("TeleOp + AutoPark Initialized");
+        //drive = new MecanumDrive(hardwareMap, new Pose2d(-7.75, 45, 270));
+        drive = new MecanumDrive(hardwareMap, new Pose2d(45, -7.75, 270));
     }
 
     @Override
@@ -106,11 +100,10 @@ public class TestTeleopWithParking extends OpMode {
 
                 // Press A to start auto park
                 if (gamepad1.a) {
-                    Pose2d currentPose = rrDrive.localizer.getPose();
+                    Pose2d currentPose = drive.localizer.getPose();
 
                     // Build action using supported methods
-                    parkAction = rrDrive.actionBuilder(currentPose)
-                            .strafeTo(new Vector2d(getParkX(), getParkY()))
+                    parkAction = drive.actionBuilder(currentPose)
                             .turnTo(getParkHeading())
                             .build();
 
@@ -125,10 +118,10 @@ public class TestTeleopWithParking extends OpMode {
                     boolean running = parkAction.run(packet);
 
                     telemetry.addData("AutoPark", running ? "Running..." : "Done");
-                    telemetry.addData("X", rrDrive.localizer.getPose().position.x);
-                    telemetry.addData("Y", rrDrive.localizer.getPose().position.y);
+                    telemetry.addData("X", drive.localizer.getPose().position.x);
+                    telemetry.addData("Y", drive.localizer.getPose().position.y);
                     telemetry.addData("Heading",
-                            Math.toDegrees(rrDrive.localizer.getPose().heading.toDouble()));
+                            Math.toDegrees(drive.localizer.getPose().heading.toDouble()));
 
                     if (!running) {
                         parkAction = null;
@@ -137,17 +130,17 @@ public class TestTeleopWithParking extends OpMode {
                     }
                 }
                 break;
+
         }
 
-        telemetry.addData("Mode", mode);
-        telemetry.addData("Alliance", alliance);
-        telemetry.update();
     }
 
     // ---------------- Existing subsystems ----------------
 
     public void Drive() {
-        double axial = gamepad1.left_stick_y;
+        double max;
+
+        double axial = -gamepad1.left_stick_y;
         double lateral = -gamepad1.left_stick_x;
         double yaw = -gamepad1.right_stick_x;
         double drivePower = 0.95 - (0.6 * gamepad1.left_trigger);
@@ -157,10 +150,9 @@ public class TestTeleopWithParking extends OpMode {
         double leftBackPower = axial - lateral + yaw;
         double rightBackPower = axial + lateral - yaw;
 
-        double max = Math.max(
-                Math.max(Math.abs(leftFrontPower), Math.abs(rightFrontPower)),
-                Math.max(Math.abs(leftBackPower), Math.abs(rightBackPower))
-        );
+        max = Math.max(Math.abs(leftFrontPower), Math.abs(rightFrontPower));
+        max = Math.max(max, Math.abs(leftBackPower));
+        max = Math.max(max, Math.abs(rightBackPower));
 
         if (max > 1.0) {
             leftFrontPower /= max;
@@ -168,11 +160,10 @@ public class TestTeleopWithParking extends OpMode {
             leftBackPower /= max;
             rightBackPower /= max;
         }
-
-        leftFront.setPower(leftFrontPower * drivePower);
-        rightFront.setPower(rightFrontPower * drivePower);
-        leftBack.setPower(leftBackPower * drivePower);
-        rightBack.setPower(rightBackPower * drivePower);
+        rightFront.setPower(rightFrontPower*drivePower);
+        rightBack.setPower(rightBackPower*drivePower);
+        leftFront.setPower(leftFrontPower*drivePower);
+        leftBack.setPower(leftBackPower*drivePower);
     }
 
     private void Intake() {
@@ -206,13 +197,5 @@ public class TestTeleopWithParking extends OpMode {
             outtakeTime.reset();
         }
     }
-
-    private double getBatteryVoltage() {
-        double result = Double.POSITIVE_INFINITY;
-        for (VoltageSensor sensor : hardwareMap.voltageSensor) {
-            double voltage = sensor.getVoltage();
-            if (voltage > 0) result = Math.min(result, voltage);
-        }
-        return result;
-    }
 }
+

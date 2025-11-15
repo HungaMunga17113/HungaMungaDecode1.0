@@ -1,11 +1,13 @@
 package org.firstinspires.ftc.teamcode.Encoder_Drive;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 //HUNGA
+@Disabled
 @Autonomous
 public class EncoderAutonTemplate extends LinearOpMode {
     //initialization - what happens before you press start
