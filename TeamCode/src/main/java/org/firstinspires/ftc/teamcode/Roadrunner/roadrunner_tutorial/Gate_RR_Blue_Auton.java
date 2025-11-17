@@ -83,10 +83,10 @@ public class Gate_RR_Blue_Auton extends LinearOpMode {
         Action intake3path = drive.actionBuilder(new Pose2d(-45, -44.5, Math.toRadians(235)))
                 .strafeToLinearHeading(new Vector2d(33,-15.5),Math.toRadians(270))
                 .stopAndAdd(intake.in())
-                .strafeToConstantHeading(new Vector2d(31.5,-62),new TranslationalVelConstraint(20))
+                .strafeToConstantHeading(new Vector2d(31.5,-61.5),new TranslationalVelConstraint(20))
                 .build();
 
-        Action shoot4path = drive.actionBuilder(new Pose2d(31.5, -62, Math.toRadians(270)))
+        Action shoot4path = drive.actionBuilder(new Pose2d(31.5, -61.5, Math.toRadians(270)))
                 //.strafeToConstantHeading(new Vector2d(31.5,50))
                 .lineToYLinearHeading(-50, Math.toRadians(305))
                 .lineToYSplineHeading(-37.5, Math.toRadians(235))

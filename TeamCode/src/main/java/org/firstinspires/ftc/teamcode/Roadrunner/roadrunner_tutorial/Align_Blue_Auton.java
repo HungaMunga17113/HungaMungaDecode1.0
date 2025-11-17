@@ -14,7 +14,7 @@ import org.firstinspires.ftc.teamcode.Roadrunner.subsystems.Intake;
 import org.firstinspires.ftc.teamcode.Roadrunner.subsystems.Outtake;
 
 @Config
-@Autonomous(name = "Gate RR Blue Auton")
+@Autonomous(name = "Align Blue Auton")
 public class Align_Blue_Auton extends LinearOpMode {
 
 

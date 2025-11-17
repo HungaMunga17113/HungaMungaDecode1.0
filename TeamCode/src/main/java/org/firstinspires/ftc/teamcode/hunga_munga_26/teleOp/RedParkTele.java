@@ -40,10 +40,12 @@ public class RedParkTele extends OpMode {
     // Alliance selection
 
     // Parking pose
-    private static final double PARK_X_RED = 3;
-    private static final double PARK_Y_RED = 86;
+    //private static final double PARK_X_RED = 3;
+    //private static final double PARK_Y_RED = 86;
     //private static final double PARK_X_RED = 0;
     //private static final double PARK_Y_RED = 0;
+    private static final double PARK_X_RED = 38;
+    private static final double PARK_Y_RED = -33.5;
     private static final double PARK_HEADING_RED = Math.toRadians(90);
 
     private double getParkX() {
@@ -87,7 +89,7 @@ public class RedParkTele extends OpMode {
 
         // Initialize Road Runner drive
         //drive = new MecanumDrive(hardwareMap, new Pose2d(-7.75, 45, 270));
-        drive = new MecanumDrive(hardwareMap, new Pose2d(45, -7.75, 270));
+        drive = new MecanumDrive(hardwareMap, new Pose2d(-20, 55, 90));
     }
 
     @Override
@@ -141,8 +143,8 @@ public class RedParkTele extends OpMode {
         double max;
 
         double axial = -gamepad1.left_stick_y;
-        double lateral = -gamepad1.left_stick_x;
-        double yaw = -gamepad1.right_stick_x;
+        double lateral = gamepad1.left_stick_x;
+        double yaw = gamepad1.right_stick_x;
         double drivePower = 0.95 - (0.6 * gamepad1.left_trigger);
 
         double leftFrontPower = axial + lateral + yaw;

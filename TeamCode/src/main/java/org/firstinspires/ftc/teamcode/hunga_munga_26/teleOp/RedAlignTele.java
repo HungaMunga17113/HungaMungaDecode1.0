@@ -87,7 +87,7 @@ public class RedAlignTele extends OpMode {
 
         // Initialize Road Runner drive
         //drive = new MecanumDrive(hardwareMap, new Pose2d(-7.75, 45, 270));
-        drive = new MecanumDrive(hardwareMap, new Pose2d(45, -7.75, 90));
+        drive = new MecanumDrive(hardwareMap, new Pose2d(45, -7.75, 135));
     }
 
     @Override
@@ -141,8 +141,8 @@ public class RedAlignTele extends OpMode {
         double max;
 
         double axial = -gamepad1.left_stick_y;
-        double lateral = -gamepad1.left_stick_x;
-        double yaw = -gamepad1.right_stick_x;
+        double lateral = gamepad1.left_stick_x;
+        double yaw = gamepad1.right_stick_x;
         double drivePower = 0.95 - (0.6 * gamepad1.left_trigger);
 
         double leftFrontPower = axial + lateral + yaw;
