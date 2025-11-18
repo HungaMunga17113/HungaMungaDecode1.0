@@ -35,17 +35,8 @@ public class V2ShooterTest extends OpMode {
         leftOuttake = hardwareMap.get(DcMotorEx.class, "leftOuttake");
         rightOuttake = hardwareMap.get(DcMotorEx.class, "rightOuttake");
 
-        // Motor power goes from -maxSpeed -> maxSpeed
-        // Sets motor direction. Says which direction the motor will turn when given full power of maxSpeed
-
         leftOuttake.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         rightOuttake.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-
-        // When no power (aka no joysticks moving (idle) ), robot should brake on stop
-        //leftFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        //leftBack.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        //rightFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        //rightBack.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         leftOuttake.setDirection(DcMotorSimple.Direction.REVERSE);
         rightOuttake.setDirection(DcMotorSimple.Direction.FORWARD);
