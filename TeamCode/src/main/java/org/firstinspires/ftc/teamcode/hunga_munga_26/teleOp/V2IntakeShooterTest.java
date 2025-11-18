@@ -53,7 +53,7 @@ public class V2IntakeShooterTest extends OpMode {
         double intakePower = 1;
         if (gamepad1.right_trigger > 0.15) {
             intake.setPower(intakePower);
-        } else if (gamepad1.y) {
+        } else if (gamepad1.x) {
             intake.setPower(-intakePower);
         } else {
             intake.setPower(0);
@@ -64,18 +64,21 @@ public class V2IntakeShooterTest extends OpMode {
         double transferPower = 1;
         if (gamepad1.right_bumper) {
             intake.setPower(transferPower);
-        } else if (gamepad1.x) {
+        } else if (gamepad1.y) {
             intake.setPower(-transferPower);
         } else {
             intake.setPower(0);
         }
     }
     public void shootTest() {
+        double outtakePower = 0.97;
         if (gamepad1.left_bumper) {
-            leftOuttake.setPower(0.97);
-            rightOuttake.setPower(0.97);
-        }
-        else {
+            leftOuttake.setPower(outtakePower);
+            rightOuttake.setPower(outtakePower);
+        } else if (gamepad1.a) {
+            leftOuttake.setPower(-outtakePower);
+            rightOuttake.setPower(-outtakePower);
+        } else {
             leftOuttake.setPower(0);
             rightOuttake.setPower(0);
         }
