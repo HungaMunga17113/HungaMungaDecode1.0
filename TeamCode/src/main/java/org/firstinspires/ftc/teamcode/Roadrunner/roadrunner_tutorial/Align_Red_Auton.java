@@ -107,6 +107,9 @@ public class Align_Red_Auton extends LinearOpMode {
         Action extra = drive.actionBuilder(new Pose2d(-47.25, 45, Math.toRadians(125)))
                 .strafeToLinearHeading(new Vector2d(-20,55),Math.toRadians(90))
                 .build();
+        Action extraTest = drive.actionBuilder(new Pose2d(-47.25, 45, Math.toRadians(125)))
+                .strafeToLinearHeading(new Vector2d(-20,55),Math.toRadians(90))
+                .build();
 
 
 
@@ -128,6 +131,7 @@ public class Align_Red_Auton extends LinearOpMode {
                         new SequentialAction(
                                 shoot1path
                         ),
+                        /*
                         new SequentialAction(
                                 intake1path
                         ),
@@ -146,8 +150,10 @@ public class Align_Red_Auton extends LinearOpMode {
                         new SequentialAction(
                                 shoot4path
                         ),
+
+                         */
                         new SequentialAction(
-                                extra
+                                extraTest
                         )
                 )
         );

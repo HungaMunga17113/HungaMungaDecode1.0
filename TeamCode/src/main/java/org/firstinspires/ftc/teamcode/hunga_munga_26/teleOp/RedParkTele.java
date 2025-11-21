@@ -32,21 +32,18 @@ public class RedParkTele extends OpMode {
     private outtakeModes pivotMode;
     double outtakePower = 0.99;
     MecanumDrive drive;
-    // --- Auto Park ---
     private enum Mode { DRIVER_CONTROL, AUTO_PARK, AUTO_PARK_CORNER }
     private Mode mode = Mode.DRIVER_CONTROL;
     private Action parkAction;
-
-    // Alliance selection
 
     // Parking pose
     //private static final double PARK_X_RED = 3;
     //private static final double PARK_Y_RED = 86;
     //private static final double PARK_X_RED = 0;
     //private static final double PARK_Y_RED = 0;
-    private static final double PARK_X_RED = 38;
-    private static final double PARK_Y_RED = -33.5;
-    private static final double PARK_HEADING_RED = Math.toRadians(90);
+    private static final double PARK_X_RED = 40;
+    private static final double PARK_Y_RED = 53;
+    private static final double PARK_HEADING_RED = Math.toRadians(120);
 
     private double getParkX() {
         return PARK_X_RED;
@@ -87,7 +84,6 @@ public class RedParkTele extends OpMode {
 
         outtakeTime.reset();
 
-        // Initialize Road Runner drive
         //drive = new MecanumDrive(hardwareMap, new Pose2d(-7.75, 45, 270));
         drive = new MecanumDrive(hardwareMap, new Pose2d(-20, 55, 90));
     }
@@ -100,17 +96,14 @@ public class RedParkTele extends OpMode {
                 Intake();
                 Outtake();
 
-                // Press A to start auto park
                 if (gamepad1.a) {
                     Pose2d currentPose = drive.localizer.getPose();
 
-                    // Build action using supported methods
                     parkAction = drive.actionBuilder(currentPose)
                             .strafeToLinearHeading(new Vector2d(getParkX(), getParkY()),getParkHeading())
                             .build();
 
                     mode = Mode.AUTO_PARK;
-                    telemetry.addLine("Auto Parking Started!");
                 }
                 break;
 
@@ -119,7 +112,6 @@ public class RedParkTele extends OpMode {
                     TelemetryPacket packet = new TelemetryPacket();
                     boolean running = parkAction.run(packet);
 
-                    telemetry.addData("AutoPark", running ? "Running..." : "Done");
                     telemetry.addData("X", drive.localizer.getPose().position.x);
                     telemetry.addData("Y", drive.localizer.getPose().position.y);
                     telemetry.addData("Heading",
@@ -128,7 +120,6 @@ public class RedParkTele extends OpMode {
                     if (!running) {
                         parkAction = null;
                         mode = Mode.DRIVER_CONTROL;
-                        telemetry.addLine("Parking complete! Back to manual control.");
                     }
                 }
                 break;
@@ -136,8 +127,6 @@ public class RedParkTele extends OpMode {
         }
 
     }
-
-    // ---------------- Existing subsystems ----------------
 
     public void Drive() {
         double max;
