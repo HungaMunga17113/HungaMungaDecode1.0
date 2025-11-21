@@ -8,12 +8,11 @@ import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.PoseVelocity2d;
 import com.acmerobotics.roadrunner.TranslationalVelConstraint;
 import com.acmerobotics.roadrunner.Vector2d;
-import com.acmerobotics.roadrunner.ftc.Actions;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
-import org.firstinspires.ftc.teamcode.Roadrunner.Drawing;
-import org.firstinspires.ftc.teamcode.MecanumDrive;
-import org.firstinspires.ftc.teamcode.Roadrunner.TankDrive;
+import org.firstinspires.ftc.teamcode.Roadrunner.roadrunner_other.Drawing;
+import org.firstinspires.ftc.teamcode.Roadrunner.roadrunner_tutorial.base_subsystem_templates.MecanumDrive;
+import org.firstinspires.ftc.teamcode.Roadrunner.roadrunner_other.TankDrive;
 
 public class LocalizationTest extends LinearOpMode {
     @Override
@@ -29,7 +28,6 @@ public class LocalizationTest extends LinearOpMode {
             waitForStart();
 
             while (opModeIsActive()) {
-                //Drive Code, sets wheel powers. Robo centric, regular movement with joysticks
                 drive.setDrivePowers(new PoseVelocity2d(
                         new Vector2d(
                                 -gamepad1.left_stick_y,
@@ -38,27 +36,15 @@ public class LocalizationTest extends LinearOpMode {
                         -gamepad1.right_stick_x
                 ));
 
-                //Updates robot position so the code constantly knows where it is at all times
                 drive.updatePoseEstimate();
-/*
-                The actual robot position is stored in this "pose" variable of data type Pose2d,
-                which basically gets the pose from the localizer.
-                /Because the poseEstimate was updated, the pose variable is constantly updating and retrieving
-                the current position of the robot
 
- */
                 Pose2d pose = drive.localizer.getPose();
-
-                //X, Y, and Heading positions are all displayed in telemetry FROM the pose variable made earlier (above)
                 telemetry.addData("x", pose.position.x);
                 telemetry.addData("y", pose.position.y);
                 telemetry.addData("heading (deg)", Math.toDegrees(pose.heading.toDouble()));
-                //updates telemetry
                 telemetry.update();
 
-                //TelemetryPacket type variable made called "packet"
                 TelemetryPacket packet = new TelemetryPacket();
-                //We use the packet and add a field overlay with stroke color blue to show and display robot position on the field on ftc dashboard
                 packet.fieldOverlay().setStroke("#3F51B5");
                 Drawing.drawRobot(packet.fieldOverlay(), pose);
                 FtcDashboard.getInstance().sendTelemetryPacket(packet);
