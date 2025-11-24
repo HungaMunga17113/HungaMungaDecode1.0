@@ -1,6 +1,8 @@
 package org.firstinspires.ftc.teamcode.hunga_munga_26.teleOp;
 
 import com.acmerobotics.roadrunner.PoseVelocity2d;
+import com.acmerobotics.roadrunner.TranslationalVelConstraint;
+import com.acmerobotics.roadrunner.ftc.Actions;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -32,30 +34,6 @@ public class RedParkTele extends OpMode {
     private outtakeModes pivotMode;
     double outtakePower = 0.99;
     MecanumDrive drive;
-    private enum Mode { DRIVER_CONTROL, AUTO_PARK, AUTO_PARK_CORNER }
-    private Mode mode = Mode.DRIVER_CONTROL;
-    private Action parkAction;
-
-    // Parking pose
-    //private static final double PARK_X_RED = 3;
-    //private static final double PARK_Y_RED = 86;
-    //private static final double PARK_X_RED = 0;
-    //private static final double PARK_Y_RED = 0;
-    private static final double PARK_X_RED = 40;
-    private static final double PARK_Y_RED = 53;
-    private static final double PARK_HEADING_RED = Math.toRadians(120);
-
-    private double getParkX() {
-        return PARK_X_RED;
-    }
-
-    private double getParkY() {
-        return PARK_Y_RED;
-    }
-
-    private double getParkHeading() {
-        return PARK_HEADING_RED;
-    }
 
     @Override
     public void init() {
@@ -90,45 +68,24 @@ public class RedParkTele extends OpMode {
 
     @Override
     public void loop() {
-        switch (mode) {
-            case DRIVER_CONTROL:
                 Drive();
+                Pose2d currentPose = drive.localizer.getPose();
                 Intake();
                 Outtake();
-
+//45,59.3
+                Action park = drive.actionBuilder(currentPose)
+                        .strafeToLinearHeading(new Vector2d(69.4, -0.5), Math.toRadians(-245),
+                                new TranslationalVelConstraint(80))
+                        .build();
                 if (gamepad1.a) {
-                    Pose2d currentPose = drive.localizer.getPose();
-
-                    parkAction = drive.actionBuilder(currentPose)
-                            .strafeToLinearHeading(new Vector2d(getParkX(), getParkY()),getParkHeading())
-                            .build();
-
-                    mode = Mode.AUTO_PARK;
+                    Actions.runBlocking(park);
                 }
-                break;
 
-            case AUTO_PARK:
-                if (parkAction != null) {
-                    TelemetryPacket packet = new TelemetryPacket();
-                    boolean running = parkAction.run(packet);
-
-                    telemetry.addData("X", drive.localizer.getPose().position.x);
-                    telemetry.addData("Y", drive.localizer.getPose().position.y);
-                    telemetry.addData("Heading",
-                            Math.toDegrees(drive.localizer.getPose().heading.toDouble()));
-
-                    if (!running) {
-                        parkAction = null;
-                        mode = Mode.DRIVER_CONTROL;
-                    }
-                }
-                break;
-
-        }
 
     }
 
     public void Drive() {
+        /*
         double max;
 
         double axial = -gamepad1.left_stick_y;
@@ -155,6 +112,16 @@ public class RedParkTele extends OpMode {
         rightBack.setPower(rightBackPower*drivePower);
         leftFront.setPower(leftFrontPower*drivePower);
         leftBack.setPower(leftBackPower*drivePower);
+         */
+        drive.setDrivePowers(new PoseVelocity2d(
+                new Vector2d(
+                        -gamepad1.left_stick_y,
+                        -gamepad1.left_stick_x
+                ),
+                -gamepad1.right_stick_x
+        ));
+
+        drive.updatePoseEstimate();
     }
 
     private void Intake() {
@@ -167,9 +134,8 @@ public class RedParkTele extends OpMode {
             intake.setPower(0);
         }
     }
-
     private void Outtake() {
-        if (gamepad1.left_bumper && !leftOuttake.isBusy()) {
+        if (gamepad1.right_bumper) {
             pivotMode = outtakeModes.Shoot;
             leftOuttake.setPower(outtakePower);
             rightOuttake.setPower(outtakePower);
@@ -183,8 +149,8 @@ public class RedParkTele extends OpMode {
         }
         if (pivotMode == outtakeModes.Return && outtakeTime.milliseconds() > 750) {
             pivotMode = outtakeModes.Rest;
-            leftOuttake.setPower(-0.167);
-            rightOuttake.setPower(-0.167);
+            leftOuttake.setPower(-0.267);
+            rightOuttake.setPower(-0.267);
             outtakeTime.reset();
         }
     }
