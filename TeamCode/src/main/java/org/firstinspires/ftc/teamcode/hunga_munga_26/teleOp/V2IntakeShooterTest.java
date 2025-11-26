@@ -1,5 +1,8 @@
 package org.firstinspires.ftc.teamcode.hunga_munga_26.teleOp;
 
+import com.acmerobotics.roadrunner.Pose2d;
+import com.acmerobotics.roadrunner.PoseVelocity2d;
+import com.acmerobotics.roadrunner.Vector2d;
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
@@ -13,6 +16,7 @@ import com.qualcomm.robotcore.hardware.VoltageSensor;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.internal.system.Deadline;
+import org.firstinspires.ftc.teamcode.Roadrunner.roadrunner_tutorial.base_subsystem_templates.MecanumDrive;
 
 import java.util.concurrent.TimeUnit;
 
@@ -23,12 +27,28 @@ public class V2IntakeShooterTest extends OpMode {
     DcMotor intake;
     DcMotor transfer;
     DcMotorEx leftOuttake, rightOuttake;
+    DcMotor leftFront, leftBack, rightFront, rightBack;
     //Initialize Variables
     /*
     (Button) Initialize Period, before you press start on your program.
      */
-    public void init() {
+    MecanumDrive drive;
 
+    public void init() {
+        leftFront  = hardwareMap.get(DcMotor.class, "leftFront");
+        leftBack   = hardwareMap.get(DcMotor.class, "leftBack");
+        rightFront = hardwareMap.get(DcMotor.class, "rightFront");
+        rightBack  = hardwareMap.get(DcMotor.class, "rightBack");
+
+        leftFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        leftBack.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        rightFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        rightBack.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
+        rightBack.setDirection(DcMotorSimple.Direction.FORWARD);
+        leftFront.setDirection(DcMotorSimple.Direction.REVERSE);
+        rightFront.setDirection(DcMotorSimple.Direction.FORWARD);
+        leftBack.setDirection(DcMotorSimple.Direction.REVERSE);
         //set hardware map names (aka what the controller understands)
         intake = hardwareMap.get(DcMotorEx.class, "intake");
         transfer = hardwareMap.get(DcMotorEx.class, "transfer");
@@ -41,14 +61,27 @@ public class V2IntakeShooterTest extends OpMode {
 
         leftOuttake.setDirection(DcMotorSimple.Direction.REVERSE);
         rightOuttake.setDirection(DcMotorSimple.Direction.FORWARD);
+        drive = new MecanumDrive(hardwareMap, new Pose2d(-20, 55, 90));
+
     }
 
     public void loop() {
+        Drive();
         Intake();
         Transfer();
         shootTest();
     }
+    private void Drive() {
+            drive.setDrivePowers(new PoseVelocity2d(
+                    new Vector2d(
+                            -gamepad1.left_stick_y,
+                            -gamepad1.left_stick_x
+                    ),
+                    -gamepad1.right_stick_x
+            ));
 
+            drive.updatePoseEstimate();
+    }
     private void Intake() {
         double intakePower = 1;
         if (gamepad1.right_trigger > 0.15) {
