@@ -11,8 +11,8 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.Roadrunner.roadrunner_tutorial.base_subsystem_templates.MecanumDrive;
-import org.firstinspires.ftc.teamcode.Roadrunner.subsystems.Intake;
 import org.firstinspires.ftc.teamcode.Roadrunner.subsystems.Outtake;
+import org.firstinspires.ftc.teamcode.Roadrunner.subsystems.Transfer;
 
 @Config
 @Autonomous(name = "RR Red 12 Auton")
@@ -24,7 +24,7 @@ public class RR_Red_12_Auton extends LinearOpMode {
         //Pose that the robot starts at
         Pose2d initialPose = new Pose2d(-55, 46, Math.toRadians(127));
         MecanumDrive drive = new MecanumDrive(hardwareMap, initialPose);
-        Intake intake = new Intake(hardwareMap);
+        Transfer transfer = new Transfer(hardwareMap);
         Outtake outtake = new Outtake(hardwareMap);
 
 
@@ -42,7 +42,6 @@ public class RR_Red_12_Auton extends LinearOpMode {
 
         Action intake1path = drive.actionBuilder(new Pose2d(-45, 45, Math.toRadians(127)))
                 .strafeToLinearHeading(new Vector2d(-13.5,20),Math.toRadians(90))
-                .stopAndAdd(intake.in())
                 .strafeToConstantHeading(new Vector2d(-14.5,55),new TranslationalVelConstraint(17.5))
                 //.lineToYLinearHeading(37.5, Math.toRadians(80))
                 //.lineToYSplineHeading(55, Math.toRadians(100))
@@ -53,7 +52,6 @@ public class RR_Red_12_Auton extends LinearOpMode {
 
         Action shoot2path = drive.actionBuilder(new Pose2d(-14.5, 42.67, Math.toRadians(55)))
                 .strafeToLinearHeading(new Vector2d(-45,45),Math.toRadians(125))
-                .stopAndAdd(intake.idle())
                 .waitSeconds(0.25)
                 .stopAndAdd(outtake.shoot())
                 .waitSeconds(0.35)
@@ -64,7 +62,6 @@ public class RR_Red_12_Auton extends LinearOpMode {
 
         Action intake2path = drive.actionBuilder(new Pose2d(-45, 45, Math.toRadians(125)))
                 .strafeToLinearHeading(new Vector2d(10.5,17),Math.toRadians(90))
-                .stopAndAdd(intake.in())
                 .strafeToConstantHeading(new Vector2d(9.5,62),new TranslationalVelConstraint(20))
                 //.strafeToConstantHeading(new Vector2d(9,50))
                 .lineToYLinearHeading(53.5, Math.toRadians(55))
@@ -73,7 +70,6 @@ public class RR_Red_12_Auton extends LinearOpMode {
 
         Action shoot3path = drive.actionBuilder(new Pose2d(9.5, 45, Math.toRadians(125)))
                 .strafeToLinearHeading(new Vector2d(-45,45),Math.toRadians(125))
-                .stopAndAdd(intake.idle())
                 .waitSeconds(0.25)
                 .stopAndAdd(outtake.shoot())
                 .waitSeconds(0.35)
@@ -84,7 +80,6 @@ public class RR_Red_12_Auton extends LinearOpMode {
 
         Action intake3path = drive.actionBuilder(new Pose2d(-45, 45, Math.toRadians(125)))
                 .strafeToLinearHeading(new Vector2d(33.5,17),Math.toRadians(90))
-                .stopAndAdd(intake.in())
                 .strafeToConstantHeading(new Vector2d(32,62),new TranslationalVelConstraint(20))
                 .build();
 
@@ -93,7 +88,6 @@ public class RR_Red_12_Auton extends LinearOpMode {
                 .lineToYLinearHeading(53.5, Math.toRadians(55))
                 .lineToYSplineHeading(45, Math.toRadians(125))
                 .strafeToLinearHeading(new Vector2d(-45,45),Math.toRadians(125))
-                .stopAndAdd(intake.idle())
                 .waitSeconds(0.25)
                 .stopAndAdd(outtake.shoot())
                 .waitSeconds(0.35)
