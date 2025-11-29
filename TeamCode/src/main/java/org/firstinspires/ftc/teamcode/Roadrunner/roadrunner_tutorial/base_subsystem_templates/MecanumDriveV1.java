@@ -61,12 +61,12 @@ public final class MecanumDriveV1 {
         // TODO: fill in these values based on
         //   see https://ftc-docs.firstinspires.org/en/latest/programming_resources/imu/imu.html?highlight=imu#physical-hub-mounting
         public RevHubOrientationOnRobot.LogoFacingDirection logoFacingDirection =
-                RevHubOrientationOnRobot.LogoFacingDirection.BACKWARD;
+                RevHubOrientationOnRobot.LogoFacingDirection.RIGHT;
         public RevHubOrientationOnRobot.UsbFacingDirection usbFacingDirection =
                 RevHubOrientationOnRobot.UsbFacingDirection.UP;
 
         // drive model parameters
-        public double inPerTick = 0.0019669551534225019669551534225;
+        public double inPerTick = 0.001966955153422502;
         public double lateralInPerTick = 0.0014408242727084943;
         public double trackWidthTicks = 7506.636768165535;
 
@@ -77,21 +77,21 @@ public final class MecanumDriveV1 {
 
         // path profile parameters (in inches)
         public double maxWheelVel = 85;
-        public double minProfileAccel = -65;
-        public double maxProfileAccel = 70;
+        public double minProfileAccel = -40;
+        public double maxProfileAccel = 40;
 
         // turn profile parameters (in radians)
         public double maxAngVel = Math.PI; // shared with path
         public double maxAngAccel = Math.PI;
 
         // path controller gains
-        public double axialGain = 9.7;
-        public double lateralGain = 4.5;
-        public double headingGain = 7.0; // shared with turn
+        public double axialGain = 9.8;
+        public double lateralGain = 4.45;
+        public double headingGain = 5.65; // shared with turn
 
-        public double axialVelGain = 1.85;
-        public double lateralVelGain = 0.0;
-        public double headingVelGain = 0.0; // shared with turn
+        public double axialVelGain = 1.75;
+        public double lateralVelGain = -0.067;
+        public double headingVelGain = -0.1; // shared with turn
     }
 
     public static Params PARAMS = new Params();
