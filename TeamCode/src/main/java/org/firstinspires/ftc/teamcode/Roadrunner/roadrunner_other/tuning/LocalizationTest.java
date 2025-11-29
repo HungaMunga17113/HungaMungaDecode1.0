@@ -12,7 +12,7 @@ import com.acmerobotics.roadrunner.ftc.Actions;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.Roadrunner.roadrunner_other.Drawing;
-import org.firstinspires.ftc.teamcode.Roadrunner.roadrunner_tutorial.base_subsystem_templates.MecanumDrive;
+import org.firstinspires.ftc.teamcode.Roadrunner.roadrunner_tutorial.base_subsystem_templates.MecanumDriveV1;
 import org.firstinspires.ftc.teamcode.Roadrunner.roadrunner_other.TankDrive;
 
 public class LocalizationTest extends LinearOpMode {
@@ -21,9 +21,9 @@ public class LocalizationTest extends LinearOpMode {
         //new telemetry instance
         telemetry = new MultipleTelemetry(telemetry, FtcDashboard.getInstance().getTelemetry());
 
-        if (TuningOpModes.DRIVE_CLASS.equals(MecanumDrive.class)) {
+        if (TuningOpModes.DRIVE_CLASS.equals(MecanumDriveV1.class)) {
             //Starting position of the robot in teleOp
-            MecanumDrive drive = new MecanumDrive(hardwareMap, new Pose2d(0, 0, Math.toRadians(90)));
+            MecanumDriveV1 drive = new MecanumDriveV1(hardwareMap, new Pose2d(0, 0, Math.toRadians(90)));
 
 
             waitForStart();

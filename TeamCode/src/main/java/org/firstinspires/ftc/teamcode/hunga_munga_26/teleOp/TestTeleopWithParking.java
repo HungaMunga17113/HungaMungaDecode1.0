@@ -9,7 +9,7 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.hardware.VoltageSensor;
 
-import org.firstinspires.ftc.teamcode.Roadrunner.roadrunner_tutorial.base_subsystem_templates.MecanumDrive;
+import org.firstinspires.ftc.teamcode.Roadrunner.roadrunner_tutorial.base_subsystem_templates.MecanumDriveV1;
 import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.Vector2d;
 import com.acmerobotics.roadrunner.Action;
@@ -35,7 +35,7 @@ public class TestTeleopWithParking extends OpMode {
     // --- Auto Park ---
     private enum Mode { DRIVER_CONTROL, AUTO_PARK }
     private Mode mode = Mode.DRIVER_CONTROL;
-    private MecanumDrive rrDrive;
+    private MecanumDriveV1 rrDrive;
     private Action parkAction;
 
     // Alliance selection
@@ -92,7 +92,7 @@ public class TestTeleopWithParking extends OpMode {
         outtakeTime.reset();
 
         // Initialize Road Runner drive
-        rrDrive = new MecanumDrive(hardwareMap, new Pose2d(0, 0, 0));
+        rrDrive = new MecanumDriveV1(hardwareMap, new Pose2d(0, 0, 0));
         telemetry.addLine("TeleOp + AutoPark Initialized");
     }
 

@@ -3,20 +3,15 @@ package org.firstinspires.ftc.teamcode.hunga_munga_26.teleOp;
 import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.PoseVelocity2d;
 import com.acmerobotics.roadrunner.Vector2d;
-import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
-import com.qualcomm.robotcore.hardware.IMU;
-import com.qualcomm.robotcore.util.ElapsedTime;
-import com.qualcomm.robotcore.hardware.VoltageSensor;
 
 
-import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.internal.system.Deadline;
-import org.firstinspires.ftc.teamcode.Roadrunner.roadrunner_tutorial.base_subsystem_templates.MecanumDrive;
+import org.firstinspires.ftc.teamcode.Roadrunner.roadrunner_tutorial.base_subsystem_templates.MecanumDriveV1;
 
 import java.util.concurrent.TimeUnit;
 
@@ -32,7 +27,7 @@ public class V2IntakeShooterTest extends OpMode {
     /*
     (Button) Initialize Period, before you press start on your program.
      */
-    MecanumDrive drive;
+    MecanumDriveV1 drive;
 
     public void init() {
         leftFront  = hardwareMap.get(DcMotor.class, "leftFront");
@@ -53,7 +48,7 @@ public class V2IntakeShooterTest extends OpMode {
         intake = hardwareMap.get(DcMotorEx.class, "intake");
         transfer = hardwareMap.get(DcMotorEx.class, "transfer");
 
-        intake.setDirection(DcMotorSimple.Direction.REVERSE);
+        intake.setDirection(DcMotorSimple.Direction.FORWARD);
         transfer.setDirection(DcMotorSimple.Direction.FORWARD);
 
         leftOuttake = hardwareMap.get(DcMotorEx.class, "leftOuttake");
@@ -61,7 +56,7 @@ public class V2IntakeShooterTest extends OpMode {
 
         leftOuttake.setDirection(DcMotorSimple.Direction.REVERSE);
         rightOuttake.setDirection(DcMotorSimple.Direction.FORWARD);
-        drive = new MecanumDrive(hardwareMap, new Pose2d(-20, 55, 90));
+        drive = new MecanumDriveV1(hardwareMap, new Pose2d(-20, 55, 90));
 
     }
 
@@ -96,15 +91,16 @@ public class V2IntakeShooterTest extends OpMode {
     private void Transfer() {
         double transferPower = 1;
         if (gamepad1.right_bumper) {
-            intake.setPower(transferPower);
+            transfer.setPower(transferPower);
         } else if (gamepad1.y) {
-            intake.setPower(-transferPower);
+            transfer.setPower(-transferPower);
         } else {
-            intake.setPower(0);
+            transfer.setPower(0);
         }
     }
     public void shootTest() {
         double outtakePower = 0.97;
+        /*
         if (gamepad1.left_bumper) {
             leftOuttake.setPower(outtakePower);
             rightOuttake.setPower(outtakePower);
@@ -115,5 +111,8 @@ public class V2IntakeShooterTest extends OpMode {
             leftOuttake.setPower(0);
             rightOuttake.setPower(0);
         }
+         */
+        leftOuttake.setPower(1);
+        rightOuttake.setPower(1);
     }
 }

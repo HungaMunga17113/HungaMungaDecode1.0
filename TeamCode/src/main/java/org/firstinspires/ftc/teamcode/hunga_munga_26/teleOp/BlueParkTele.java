@@ -9,13 +9,11 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.util.ElapsedTime;
-import com.qualcomm.robotcore.hardware.VoltageSensor;
 
-import org.firstinspires.ftc.teamcode.Roadrunner.roadrunner_tutorial.base_subsystem_templates.MecanumDrive;
+import org.firstinspires.ftc.teamcode.Roadrunner.roadrunner_tutorial.base_subsystem_templates.MecanumDriveV1;
 import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.Vector2d;
 import com.acmerobotics.roadrunner.Action;
-import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 
 import org.firstinspires.ftc.robotcore.internal.system.Deadline;
 import java.util.concurrent.TimeUnit;
@@ -33,7 +31,7 @@ public class BlueParkTele extends OpMode {
     private enum outtakeModes {Shoot, Return, Rest}
     private outtakeModes pivotMode;
     double outtakePower = 0.99;
-    MecanumDrive drive;
+    MecanumDriveV1 drive;
 
     @Override
     public void init() {
@@ -63,7 +61,7 @@ public class BlueParkTele extends OpMode {
         outtakeTime.reset();
 
         //drive = new MecanumDrive(hardwareMap, new Pose2d(-7.75, 45, 270));
-        drive = new MecanumDrive(hardwareMap, new Pose2d(-25, -55, 270));
+        drive = new MecanumDriveV1(hardwareMap, new Pose2d(-25, -55, 270));
     }
 
     @Override

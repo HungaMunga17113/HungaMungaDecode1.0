@@ -10,7 +10,7 @@ import com.acmerobotics.roadrunner.ftc.Actions;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
-import org.firstinspires.ftc.teamcode.Roadrunner.roadrunner_tutorial.base_subsystem_templates.MecanumDrive;
+import org.firstinspires.ftc.teamcode.Roadrunner.roadrunner_tutorial.base_subsystem_templates.MecanumDriveV1;
 import org.firstinspires.ftc.teamcode.Roadrunner.subsystems.Intake;
 import org.firstinspires.ftc.teamcode.Roadrunner.subsystems.Outtake;
 
@@ -23,7 +23,7 @@ public class Align_Red_Auton extends LinearOpMode {
     public void runOpMode() {
         //Pose that the robot starts at
         Pose2d initialPose = new Pose2d(-55, 46, Math.toRadians(127));
-        MecanumDrive drive = new MecanumDrive(hardwareMap, initialPose);
+        MecanumDriveV1 drive = new MecanumDriveV1(hardwareMap, initialPose);
         Intake intake = new Intake(hardwareMap);
         Outtake outtake = new Outtake(hardwareMap);
 

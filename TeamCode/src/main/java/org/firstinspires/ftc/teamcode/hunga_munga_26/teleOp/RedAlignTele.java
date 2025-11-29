@@ -1,6 +1,5 @@
 package org.firstinspires.ftc.teamcode.hunga_munga_26.teleOp;
 
-import com.acmerobotics.roadrunner.PoseVelocity2d;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
@@ -8,11 +7,9 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.util.ElapsedTime;
-import com.qualcomm.robotcore.hardware.VoltageSensor;
 
-import org.firstinspires.ftc.teamcode.Roadrunner.roadrunner_tutorial.base_subsystem_templates.MecanumDrive;
+import org.firstinspires.ftc.teamcode.Roadrunner.roadrunner_tutorial.base_subsystem_templates.MecanumDriveV1;
 import com.acmerobotics.roadrunner.Pose2d;
-import com.acmerobotics.roadrunner.Vector2d;
 import com.acmerobotics.roadrunner.Action;
 import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 
@@ -32,7 +29,7 @@ public class RedAlignTele extends OpMode {
     private enum outtakeModes {Shoot, Return, Rest}
     private outtakeModes pivotMode;
     double outtakePower = 0.99;
-    MecanumDrive drive;
+    MecanumDriveV1 drive;
     // --- Auto Park ---
     private enum Mode { DRIVER_CONTROL, AUTO_PARK, AUTO_PARK_CORNER }
     private Mode mode = Mode.DRIVER_CONTROL;
@@ -88,7 +85,7 @@ public class RedAlignTele extends OpMode {
 
         // Initialize Road Runner drive
         //drive = new MecanumDrive(hardwareMap, new Pose2d(-7.75, 45, 270));
-        drive = new MecanumDrive(hardwareMap, new Pose2d(45, -7.75, 135));
+        drive = new MecanumDriveV1(hardwareMap, new Pose2d(45, -7.75, 135));
     }
 
     @Override
