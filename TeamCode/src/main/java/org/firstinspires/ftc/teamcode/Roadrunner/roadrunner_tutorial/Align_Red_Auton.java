@@ -131,7 +131,7 @@ public class Align_Red_Auton extends LinearOpMode {
                         new SequentialAction(
                                 shoot1path
                         ),
-                        /*
+
                         new SequentialAction(
                                 intake1path
                         ),
@@ -150,7 +150,7 @@ public class Align_Red_Auton extends LinearOpMode {
                         new SequentialAction(
                                 shoot4path
                         ),
-                         */
+
                         new SequentialAction(
                                 extraTest
                         )
