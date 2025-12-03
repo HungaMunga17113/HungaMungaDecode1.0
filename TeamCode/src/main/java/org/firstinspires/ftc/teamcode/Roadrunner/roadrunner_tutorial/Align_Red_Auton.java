@@ -40,12 +40,12 @@ public class Align_Red_Auton extends LinearOpMode {
                 .build();
 
         Action intake1path = drive.actionBuilder(new Pose2d(-45, 45, Math.toRadians(127)))
-                .strafeToLinearHeading(new Vector2d(-13.5,20),Math.toRadians(90))
+                .strafeToLinearHeading(new Vector2d(-13.5,22),Math.toRadians(90))
                 .stopAndAdd(intake.in())
                 .strafeToConstantHeading(new Vector2d(-14.5,55),new TranslationalVelConstraint(17.5))
 
                 .strafeToConstantHeading(new Vector2d(-13,43))
-                .strafeToLinearHeading(new Vector2d(-3.15,60.25),Math.toRadians(180))
+                .strafeToLinearHeading(new Vector2d(-3.15,60),Math.toRadians(180))
                 .waitSeconds(0.3)
                 /*
                 .lineToYLinearHeading(50, Math.toRadians(60))
@@ -53,7 +53,7 @@ public class Align_Red_Auton extends LinearOpMode {
                 */
                 .build();
 
-        Action shoot2path = drive.actionBuilder(new Pose2d(-3.35, 60.25, Math.toRadians(180)))
+        Action shoot2path = drive.actionBuilder(new Pose2d(-3.15, 60, Math.toRadians(180)))
                 .strafeToLinearHeading(new Vector2d(-45,45),Math.toRadians(125))
                 .stopAndAdd(intake.idle())
                 .waitSeconds(0.22)
